@@ -10,8 +10,12 @@ public class Element_use : MonoBehaviour
         public Sprite earthSprite;
         public Sprite fireSprite;
         public Sprite windSprite;
+        
+        public Element currentElement;
+
     public void OnElementSelected(Element element)
         {
+        currentElement = element;
         Debug.Log("OnElementSelected метод викликано з елементом: " + element);
         switch (element)
         {
