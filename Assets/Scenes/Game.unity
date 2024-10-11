@@ -2407,8 +2407,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1349355908}
   - component: {fileID: 1349355909}
-  - component: {fileID: 1349355912}
   - component: {fileID: 1349355911}
+  - component: {fileID: 1349355916}
   - component: {fileID: 1349355910}
   - component: {fileID: 1349355914}
   - component: {fileID: 1349355913}
@@ -2510,24 +2510,12 @@ MonoBehaviour:
   earth_sound: {fileID: 8300000, guid: a598edb176dbb1e429aef5ce948d6145, type: 3}
   wind_sound: {fileID: 0}
   anim: {fileID: 1349355914}
-  weapon: {fileID: 1349355912}
+  weapon: {fileID: 1349355916}
   m2: {fileID: 1172230212}
   elementUseScript: {fileID: 338547633}
   elementM2: {fileID: 1752334550}
   myCollider: {fileID: 1349355909}
   targetTag: Enemy
---- !u!114 &1349355912
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1349355907}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea1a91aaaf949ea42b9241cc98f81966, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &1349355913
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2697,6 +2685,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1349355916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1349355907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44c959b6a39a81b41bb3e34828e2598a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1350857812
 GameObject:
   m_ObjectHideFlags: 0
