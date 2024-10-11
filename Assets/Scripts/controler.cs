@@ -29,7 +29,6 @@ public class controler : MonoBehaviour
     {
         if (Input.GetButtonDown("Shift"))
         {
-            StartAnim("dash");
             Dash();
         }
         if (Input.GetMouseButtonDown(1))
@@ -70,6 +69,7 @@ public class controler : MonoBehaviour
        {
         /* dash_cord = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
          dash_cord.Normalize(); */
+        StartAnim("dash");
         dash_cord = new Vector2(horizontal, vertical);
         dash_cord *= dash_force;        
        }
