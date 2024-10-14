@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Punch : MonoBehaviour
+public class Skill_System : MonoBehaviour
 {   
     [Header("Sound")]
     [SerializeReference] private AudioSource audioSource;
@@ -13,15 +13,18 @@ public class Punch : MonoBehaviour
     [Header("Animation")]
     [SerializeReference] private Animator anim;
     [Header("Skills")]
-    [SerializeReference] private Malee_atk weapon;  // Компонент, який обробляє нанесення шкоди
+    [SerializeReference] private Damage weapon;  // Компонент, який обробляє нанесення шкоди
     [SerializeReference] private M2Skill m2;
     public Element_use elementUseScript;
     public Element_use elementM2;
-
-    private HashSet<GameObject> _enemy = new HashSet<GameObject>();  // HashSet для уникнення дублікатів
     [Header("Atack")]
+    private HashSet<GameObject> _enemy = new HashSet<GameObject>();  // HashSet для уникнення дублікатів
     public Collider2D myCollider;  // Колайдер для визначення зони атаки
-    public string targetTag = "Enemy";  // Тег для визначення ворогів
+    [Header("Шар на який задівають атаки")]
+    public LayerMask targetLayer;
+    [Header("Utility")]
+    [SerializeReference] private Pause pause;
+    
 
     void Update()
     {   
@@ -79,7 +82,7 @@ public class Punch : MonoBehaviour
         foreach (Collider2D hitCollider in hitColliders)
         {
             // Якщо колайдер належить об'єкту з тегом "Enemy"
-            if (hitCollider.CompareTag(targetTag))
+            if (((1 << hitCollider.gameObject.layer) & targetLayer) != 0)
             {
                 // Додаємо об'єкт до HashSet (унікальність забезпечується автоматично)
                 _enemy.Add(hitCollider.gameObject);

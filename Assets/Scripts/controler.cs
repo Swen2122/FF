@@ -42,9 +42,9 @@ public class controler : MonoBehaviour
 
 
 
-        // Отримує напрямок руху
-        horizontal = Input.GetAxisRaw("Horizontal"); // 1/-1 право/ліво
-        vertical = Input.GetAxisRaw("Vertical"); // 1/-1 верх/вниз
+        // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
+        horizontal = Input.GetAxisRaw("Horizontal"); // 1/-1 пїЅпїЅпїЅпїЅпїЅ/пїЅпїЅпїЅ
+        vertical = Input.GetAxisRaw("Vertical"); // 1/-1 пїЅпїЅпїЅпїЅ/пїЅпїЅпїЅпїЅ
         float speed = Mathf.Abs(horizontal + vertical);
         anim.SetFloat("speed", speed);
     }
@@ -52,16 +52,16 @@ public class controler : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (horizontal != 0 && vertical != 0) // перевірка діагонального руху
+        if (horizontal != 0 && vertical != 0) // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
             {
-                // зменшення швидкості на 70% при діагональному русі
+                // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ 70% пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ
                 horizontal *= moveLimiter;
                 vertical *= moveLimiter;
             }
-        body.velocity = new Vector2(horizontal * runSpeed, vertical * runSpeed)+ dash_cord;
+        body.linearVelocity = new Vector2(horizontal * runSpeed, vertical * runSpeed)+ dash_cord;
         if (dash_cord.magnitude > 0)
         {
-            dash_cord *= 0.9f; // Наприклад, на 10% за кадр
+            dash_cord *= 0.9f; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ 10% пїЅпїЅ пїЅпїЅпїЅпїЅ
         }
     }
 

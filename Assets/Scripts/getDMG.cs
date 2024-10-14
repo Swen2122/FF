@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class getDMG : MonoBehaviour
 {
+    [SerializeReference] private AudioSource audioSource;
+    [SerializeReference] private AudioClip death_audio;
     public int maxHP = 100;
     public int currentHP;
 
@@ -17,11 +19,13 @@ public class getDMG : MonoBehaviour
         Debug.Log(currentHP);
         if(currentHP <= 0)
         {
+            
             Die();
         }
     }
     void Die()
     {
+        audioSource.PlayOneShot(death_audio);
         Destroy(gameObject);
     }
 }
