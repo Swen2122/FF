@@ -14,9 +14,11 @@ public class controler : MonoBehaviour
     [SerializeReference] private float moveLimiter = 0.7f;
     [SerializeReference] private float runSpeed = 5.0f;
     //dash
-    [SerializeReference] private float dash_force = 20f;
-    public float dash_duration = 0.2f;
+    [SerializeReference] private float dash_distance = 3f;
+    [SerializeReference] private float dash_duration = 0.2f;
     private Vector2 dash_cord;
+    private Vector3 lastDirection = Vector3.zero; //останній напрямок
+    public LayerMask obstacleLayer; // шар з яким стикаєшся при деші
 
     void Start()
     {
@@ -27,10 +29,6 @@ public class controler : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown("Shift"))
-        {
-            Dash();
-        }
         if (Input.GetMouseButtonDown(1))
         {
             StartAnim("fire2");
@@ -39,41 +37,43 @@ public class controler : MonoBehaviour
         {
             Flip();
         }
-
-
-
-        // ������ �������� ����
-        horizontal = Input.GetAxisRaw("Horizontal"); // 1/-1 �����/���
-        vertical = Input.GetAxisRaw("Vertical"); // 1/-1 ����/����
+        horizontal = Input.GetAxisRaw("Horizontal"); // 1/-1 right/left
+        vertical = Input.GetAxisRaw("Vertical"); // 1/-1 up/down
         float speed = Mathf.Abs(horizontal + vertical);
         anim.SetFloat("speed", speed);
-    }
-   
 
-    void FixedUpdate()
-    {
-        if (horizontal != 0 && vertical != 0) // �������� ������������ ����
-            {
-                // ��������� �������� �� 70% ��� ������������ ���
-                horizontal *= moveLimiter;
-                vertical *= moveLimiter;
-            }
-        body.linearVelocity = new Vector2(horizontal * runSpeed, vertical * runSpeed)+ dash_cord;
-        if (dash_cord.magnitude > 0)
+        // Виклик дашу через кнопку Shift
+        if (Input.GetButtonDown("Shift"))
         {
-            dash_cord *= 0.9f; // ���������, �� 10% �� ����
+            Dash();
         }
     }
 
-      void Dash()
-       {
-        /* dash_cord = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
-         dash_cord.Normalize(); */
-        StartAnim("dash");
-        dash_cord = new Vector2(horizontal, vertical);
-        dash_cord *= dash_force;        
-       }
-    
+    void FixedUpdate()
+    {
+        if (horizontal != 0 && vertical != 0) // перевірка на діагональний рух
+        {
+            // зменшення швидкості при діагональному русі
+            horizontal *= moveLimiter;
+            vertical *= moveLimiter;
+        }
+        body.linearVelocity = new Vector2(horizontal * runSpeed, vertical * runSpeed);
+    }
+
+    void Dash()
+    {
+        lastDirection = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+        lastDirection.Normalize();
+        // Викликаємо статичну функцію DashUtility для виконання дашу
+        DashUtility.PerformDash(
+            body,                  // Передаємо Rigidbody2D персонажа
+            lastDirection,         // Напрямок дашу
+            dash_distance,         // Дистанція дашу
+            dash_duration,         // Тривалість дашу
+            obstacleLayer          // Шари перешкод
+        );
+    }
+
     void StartAnim(string anim_name)
     {
         anim.SetTrigger(anim_name);
@@ -84,6 +84,4 @@ public class controler : MonoBehaviour
         SRenderer.flipX = !SRenderer.flipX;
         lastMoveDirection = horizontal;
     }
-
 }
-

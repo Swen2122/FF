@@ -11,7 +11,8 @@ public class Get_Element : MonoBehaviour
     public Element_use E;
     public Element_use M1;
     public Element_use M2;
-    
+    public Element_use dash;
+
     void Update()
     {
         // Перевіряємо, чи була натиснута ліва кнопка миші
@@ -47,6 +48,12 @@ public class Get_Element : MonoBehaviour
                 if ((elementSelect != null) && Input.GetButton("E"))
                 {
                     E.OnElementSelected(elementSelect.element);
+                    Debug.Log("Дані з Element_selector: " + elementSelect.element);
+                }
+
+                if ((elementSelect != null) && Input.GetButton("1"))
+                {
+                    dash.OnElementSelected(elementSelect.element);
                     Debug.Log("Дані з Element_selector: " + elementSelect.element);
                 }
             }

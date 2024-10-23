@@ -108,6 +108,7 @@ MonoBehaviour:
   death_audio: {fileID: 8300000, guid: 77d2f8e01564af14ca8ae83b64554143, type: 3}
   maxHP: 100
   currentHP: 100
+  HP_bar: {fileID: 0}
 --- !u!61 &1175932112388974636
 BoxCollider2D:
   m_ObjectHideFlags: 0

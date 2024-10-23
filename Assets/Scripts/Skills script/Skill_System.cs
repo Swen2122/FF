@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class Skill_System : MonoBehaviour
 {   
@@ -10,6 +11,8 @@ public class Skill_System : MonoBehaviour
     [SerializeReference] private AudioClip fire_sound;
     [SerializeReference] private AudioClip earth_sound;
     [SerializeReference] private AudioClip wind_sound;
+    [SerializeField] private AudioMixer audioMixer;
+    private float currentPitch = 0.75f;
     [Header("Animation")]
     [SerializeReference] private Animator anim;
     [Header("Skills")]
@@ -19,13 +22,11 @@ public class Skill_System : MonoBehaviour
     public Element_use elementM2;
     [Header("Atack")]
     private HashSet<GameObject> _enemy = new HashSet<GameObject>();  // HashSet для уникнення дублікатів
-    public Collider2D myCollider;  // Колайдер для визначення зони атаки
+    public Collider2D MeleeAttack;  // Колайдер для визначення зони атаки
     [Header("Шар на який задівають атаки")]
     public LayerMask targetLayer;
     [Header("Utility")]
     [SerializeReference] private Pause pause;
-    
-
     void Update()
     {   
         if (Input.GetMouseButtonDown(0))  // Ліва кнопка миші для атаки
@@ -46,6 +47,18 @@ public class Skill_System : MonoBehaviour
                     break;
                 case Element.Wind:
                     weapon.Wind(new List<GameObject>(_enemy).ToArray(), 10);
+                    foreach (GameObject enemy in _enemy)
+                    {
+                        // Отримуємо Rigidbody2D ворога для застосування фізики
+                        Rigidbody2D enemyRb = enemy.GetComponent<Rigidbody2D>();
+
+                        // Якщо ворог має Rigidbody2D
+                        if (enemyRb != null)
+                        {
+                            // Використовуємо метод Push для відштовхування ворога
+                            PushUtility.Push(enemyRb, transform.position, 5f);
+                        }
+                    }
                     break;
             }
         }
@@ -56,6 +69,7 @@ public class Skill_System : MonoBehaviour
             {
                 case Element.Water:
                     PlaySound(water_sound);
+                    PitchChanger.ChangePitch(audioMixer , ref currentPitch, 0.05f);
                     m2.WaterM2(10f, 10);
                     break;
                 case Element.Earth:
@@ -77,7 +91,7 @@ public class Skill_System : MonoBehaviour
         // Очищаємо HashSet перед новим пошуком
         _enemy.Clear();
         // Знаходимо всі колайдери в зоні колайдера об'єкта
-        Collider2D[] hitColliders = Physics2D.OverlapBoxAll(myCollider.bounds.center, myCollider.bounds.size, 0f);
+        Collider2D[] hitColliders = Physics2D.OverlapBoxAll(MeleeAttack.bounds.center, MeleeAttack.bounds.size, 0f);
 
         foreach (Collider2D hitCollider in hitColliders)
         {

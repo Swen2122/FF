@@ -6,7 +6,7 @@ AudioMixerController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: AudioSettings
+  m_Name: Skill audio
   m_OutputGroup: {fileID: 0}
   m_MasterGroup: {fileID: 24300002}
   m_Snapshots:
@@ -16,11 +16,11 @@ AudioMixerController:
   m_EnableSuspend: 1
   m_UpdateMode: 0
   m_ExposedParameters:
-  - guid: 947df60c96d0c91439cd8cb2ac4c5d0b
-    name: MainVolume
+  - guid: 1ad959c2629c893479785f6e5a66eae9
+    name: Pitch
   m_AudioMixerGroupViews:
   - guids:
-    - dba74a7284eaf7844b9bb42269d3c437
+    - 829639ba0ab11574ea11925738a82292
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500006}
@@ -32,10 +32,10 @@ AudioMixerGroupController:
   m_PrefabAsset: {fileID: 0}
   m_Name: Master
   m_AudioMixer: {fileID: 24100000}
-  m_GroupID: dba74a7284eaf7844b9bb42269d3c437
+  m_GroupID: 829639ba0ab11574ea11925738a82292
   m_Children: []
-  m_Volume: 947df60c96d0c91439cd8cb2ac4c5d0b
-  m_Pitch: 277cadd1aab80f24597f89c6430bf2f6
+  m_Volume: cff3307b23bb2844791e83e506efe21c
+  m_Pitch: 1ad959c2629c893479785f6e5a66eae9
   m_Send: 00000000000000000000000000000000
   m_Effects:
   - {fileID: 24400004}
@@ -50,9 +50,9 @@ AudioMixerEffectController:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_EffectID: 346357eb889ab2b4c849703640c333dd
+  m_EffectID: 88667935a0129fd4b9e7c4a95227a571
   m_EffectName: Attenuation
-  m_MixLevel: 63b76e7e8d037af4f86ddca99fb96af5
+  m_MixLevel: d8046524865019f4cb53f6cacb0a11ba
   m_Parameters: []
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
@@ -65,8 +65,8 @@ AudioMixerSnapshotController:
   m_PrefabAsset: {fileID: 0}
   m_Name: Snapshot
   m_AudioMixer: {fileID: 24100000}
-  m_SnapshotID: ac7831bccabb18444ab221e53c42623f
+  m_SnapshotID: bbe986500fec61143a81b00580191939
   m_FloatValues:
-    277cadd1aab80f24597f89c6430bf2f6: 1
-    947df60c96d0c91439cd8cb2ac4c5d0b: 0
+    1ad959c2629c893479785f6e5a66eae9: 0.75
+    cff3307b23bb2844791e83e506efe21c: -0.37096623
   m_TransitionOverrides: {}
