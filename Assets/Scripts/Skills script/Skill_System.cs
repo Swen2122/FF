@@ -31,7 +31,7 @@ public class Skill_System : MonoBehaviour
     {   
         if (Input.GetMouseButtonDown(0))  // Ліва кнопка миші для атаки
         {
-            FindEnemy();  // Знайти всіх ворогів у зоні
+            _enemy = FindUtility.FindEnemy(MeleeAttack, targetLayer);  // Знайти всіх ворогів у зоні
             Element element = elementUseScript.currentElement;
             switch (element)
             {
@@ -85,25 +85,6 @@ public class Skill_System : MonoBehaviour
             }
         }
     }
-
-    void FindEnemy()
-    {
-        // Очищаємо HashSet перед новим пошуком
-        _enemy.Clear();
-        // Знаходимо всі колайдери в зоні колайдера об'єкта
-        Collider2D[] hitColliders = Physics2D.OverlapBoxAll(MeleeAttack.bounds.center, MeleeAttack.bounds.size, 0f);
-
-        foreach (Collider2D hitCollider in hitColliders)
-        {
-            // Якщо колайдер належить об'єкту з тегом "Enemy"
-            if (((1 << hitCollider.gameObject.layer) & targetLayer) != 0)
-            {
-                // Додаємо об'єкт до HashSet (унікальність забезпечується автоматично)
-                _enemy.Add(hitCollider.gameObject);
-            }
-        }
-    }
-
     public void PlaySound(AudioClip clip)
     {
         if (audioSource != null && clip != null)

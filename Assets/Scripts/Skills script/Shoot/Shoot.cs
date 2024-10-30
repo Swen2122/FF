@@ -5,7 +5,6 @@ using DG.Tweening;
 
 public class Shoot : MonoBehaviour
 {
-    
     public Transform shootPoint;
     public Sequence moveBullet;
 

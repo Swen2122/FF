@@ -3,9 +3,7 @@ using DG.Tweening;
 
 public static class DashUtility
 {
-    /// <summary>
-    /// Виконує даш з вказаними параметрами через Rigidbody2D.
-    /// </summary>
+    // Виконує даш з вказаними параметрами через Rigidbody2D.  
     public static void PerformDash(Rigidbody2D target, Vector2 direction, float dashDistance, float dashDuration, LayerMask obstacleLayer, System.Action onComplete = null)
     {
         // Перевіряємо наявність перешкод через Raycast2D
