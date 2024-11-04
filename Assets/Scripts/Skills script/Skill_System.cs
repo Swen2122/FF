@@ -16,7 +16,6 @@ public class Skill_System : MonoBehaviour
     [Header("Animation")]
     [SerializeReference] private Animator anim;
     [Header("Skills")]
-    [SerializeReference] private Damage weapon;  // Компонент, який обробляє нанесення шкоди
     [SerializeReference] private M2Skill m2;
     public Element_use elementUseScript;
     public Element_use elementM2;
@@ -37,16 +36,16 @@ public class Skill_System : MonoBehaviour
             {
                 case Element.Water:
                     anim.SetTrigger("water_atk");
-                    weapon.Water(new List<GameObject>(_enemy).ToArray(), -5);  // Викликати метод атаки і передати ворогів
+                    Damage.Water(new List<GameObject>(_enemy).ToArray(), -5);  // Викликати метод атаки і передати ворогів
                     break;
                 case Element.Earth:
-                    weapon.Earth(new List<GameObject>(_enemy).ToArray(), 15);
+                    Damage.Earth(new List<GameObject>(_enemy).ToArray(), 15);
                     break;
                 case Element.Fire:
-                    weapon.Fire(new List<GameObject>(_enemy).ToArray(), 20);
+                    Damage.Fire(new List<GameObject>(_enemy).ToArray(), 20);
                     break;
                 case Element.Wind:
-                    weapon.Wind(new List<GameObject>(_enemy).ToArray(), 10);
+                    Damage.Wind(new List<GameObject>(_enemy).ToArray(), 10);
                     foreach (GameObject enemy in _enemy)
                     {
                         // Отримуємо Rigidbody2D ворога для застосування фізики

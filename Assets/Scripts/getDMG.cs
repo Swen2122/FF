@@ -20,7 +20,7 @@ public class getDMG : MonoBehaviour
         }
     }
     public void TakeDMG(int DMG)
-    {
+    {     
         currentHP -= DMG;
         currentHP = Mathf.Min(currentHP, maxHP);
         currentHP = Mathf.Max(currentHP, 0);

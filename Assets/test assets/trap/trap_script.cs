@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class trap_script : MonoBehaviour
 {
-    [SerializeReference] private Damage weapon;
     private HashSet<GameObject> _enemy = new HashSet<GameObject>(); // HashSet для унікальних ворогів
     public Collider2D myCollider; // Колайдер для визначення зони атаки
     [Header("Шар на який задівають атаки")]
@@ -65,7 +64,7 @@ public class trap_script : MonoBehaviour
     public void boom()
     {
         FindEnemy(); // Оновлюємо список ворогів
-        weapon.Earth(new List<GameObject>(_enemy).ToArray(), 40); // Атакуємо всіх у зоні
+        Damage.Earth(new List<GameObject>(_enemy).ToArray(), 40); // Атакуємо всіх у зоні
         explosion(); // Відтворюємо звук вибуху
     }
 

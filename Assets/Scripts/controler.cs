@@ -62,7 +62,7 @@ public class controler : MonoBehaviour
 
     void Dash()
     {
-        lastDirection = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+        Vector2 lastDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
         lastDirection.Normalize();
         // Викликаємо статичну функцію DashUtility для виконання дашу
         DashUtility.PerformDash(

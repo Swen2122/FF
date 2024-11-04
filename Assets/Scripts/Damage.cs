@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-    public class Damage : MonoBehaviour
+public static class Damage
 {
-    public void Earth(GameObject[] targets, int damage)
+    public static void Earth(GameObject[] targets, int damage)
     {
         foreach(GameObject target in targets) 
         { 
@@ -20,7 +20,7 @@ using UnityEngine;
         }
     }
 
-    public void Fire(GameObject[] targets, int damage)
+    public static void Fire(GameObject[] targets, int damage)
     {
         foreach (GameObject target in targets)
         {
@@ -36,7 +36,7 @@ using UnityEngine;
         }
     }
 
-    public void Water(GameObject[] targets, int damage)
+    public static void Water(GameObject[] targets, int damage)
     {
         foreach (GameObject target in targets)
         {
@@ -51,7 +51,7 @@ using UnityEngine;
             }
         }
     }
-    public void Wind(GameObject[] targets, int damage)
+    public static void Wind(GameObject[] targets, int damage)
     {
         foreach (GameObject target in targets)
         {
