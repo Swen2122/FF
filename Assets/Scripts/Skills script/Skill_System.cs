@@ -6,17 +6,18 @@ using UnityEngine.Audio;
 public class Skill_System : MonoBehaviour
 {   
     [Header("Sound")]
-    [SerializeReference] private AudioSource audioSource;
-    [SerializeReference] private AudioClip water_sound;
-    [SerializeReference] private AudioClip fire_sound;
-    [SerializeReference] private AudioClip earth_sound;
-    [SerializeReference] private AudioClip wind_sound;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip water_sound;
+    [SerializeField] private AudioClip fire_sound;
+    [SerializeField] private AudioClip earth_sound;
+    [SerializeField] private AudioClip wind_sound;
     [SerializeField] private AudioMixer audioMixer;
     private float currentPitch = 0.75f;
     [Header("Animation")]
-    [SerializeReference] private Animator anim;
+    [SerializeField] private Animator anim;
     [Header("Skills")]
-    [SerializeReference] private M2Skill m2;
+    [SerializeField] private M2Skill m2;
+    [SerializeField] private ObjectSpawn Q;
     public Element_use elementUseScript;
     public Element_use elementM2;
     [Header("Atack")]
@@ -25,7 +26,11 @@ public class Skill_System : MonoBehaviour
     [Header("Ўар на €кий зад≥вають атаки")]
     public LayerMask targetLayer;
     [Header("Utility")]
-    [SerializeReference] private Pause pause;
+    private Camera mainCamera;
+    void Start()
+    {
+        mainCamera = Camera.main;
+    }
     void Update()
     {   
         if (Input.GetMouseButtonDown(0))  // Ћ≥ва кнопка миш≥ дл€ атаки
@@ -37,14 +42,55 @@ public class Skill_System : MonoBehaviour
                 case Element.Water:
                     anim.SetTrigger("water_atk");
                     Damage.Water(new List<GameObject>(_enemy).ToArray(), -5);  // ¬икликати метод атаки ≥ передати ворог≥в
+                    HitStop.TriggerStop(0.05f, 0.0f);
+                    foreach (GameObject enemy in _enemy)
+                    {
+                        // ќтримуЇмо Rigidbody2D ворога дл€ застосуванн€ ф≥зики
+                        Rigidbody2D enemyRb = enemy.GetComponent<Rigidbody2D>();
+
+                        // якщо ворог маЇ Rigidbody2D
+                        if (enemyRb != null)
+                        {
+                            // ¬икористовуЇмо метод Push дл€ в≥дштовхуванн€ ворога
+                            PushUtility.Push(enemyRb, transform.position, -3f);
+                        }
+                    }
                     break;
                 case Element.Earth:
+                    HitStop.TriggerStop(0.05f, 0.0f);
                     Damage.Earth(new List<GameObject>(_enemy).ToArray(), 15);
+                    foreach (GameObject enemy in _enemy)
+                    {
+                        // ќтримуЇмо Rigidbody2D ворога дл€ застосуванн€ ф≥зики
+                        Rigidbody2D enemyRb = enemy.GetComponent<Rigidbody2D>();
+
+                        // якщо ворог маЇ Rigidbody2D
+                        if (enemyRb != null)
+                        {
+                            // ¬икористовуЇмо метод Push дл€ в≥дштовхуванн€ ворога
+                            PushUtility.Push(enemyRb, transform.position, 10f);
+                        }
+                    }
                     break;
                 case Element.Fire:
+                    anim.SetTrigger("fire_atk");
+                    HitStop.TriggerStop(0.05f, 0.0f);
                     Damage.Fire(new List<GameObject>(_enemy).ToArray(), 20);
+                    foreach (GameObject enemy in _enemy)
+                    {
+                        // ќтримуЇмо Rigidbody2D ворога дл€ застосуванн€ ф≥зики
+                        Rigidbody2D enemyRb = enemy.GetComponent<Rigidbody2D>();
+
+                        // якщо ворог маЇ Rigidbody2D
+                        if (enemyRb != null)
+                        {
+                            // ¬икористовуЇмо метод Push дл€ в≥дштовхуванн€ ворога
+                            PushUtility.Push(enemyRb, transform.position, 15f);
+                        }
+                    }
                     break;
                 case Element.Wind:
+                    HitStop.TriggerStop(0.05f, 0.0f);
                     Damage.Wind(new List<GameObject>(_enemy).ToArray(), 10);
                     foreach (GameObject enemy in _enemy)
                     {
@@ -68,8 +114,8 @@ public class Skill_System : MonoBehaviour
             {
                 case Element.Water:
                     PlaySound(water_sound);
-                    PitchChanger.ChangePitch(audioMixer , ref currentPitch, 0.05f);
-                    m2.WaterM2(10f, 10);
+                    PitchChanger.ChangePitch(audioMixer, ref currentPitch, 0.05f);
+                    m2.WaterM2();
                     break;
                 case Element.Earth:
                     PlaySound(earth_sound);
@@ -79,9 +125,14 @@ public class Skill_System : MonoBehaviour
                     
                     break;
                 case Element.Wind:
-                    
+
                     break;
             }
+        }
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            Vector2 spawnPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);// ќтримуЇмо позиц≥ю курсора в св≥тових координатах
+            Q.SpawnOrMoveObject(spawnPosition);
         }
     }
     public void PlaySound(AudioClip clip)

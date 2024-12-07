@@ -1,13 +1,13 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class EnemyAI : MonoBehaviour
+public class EnemyAI : MonoBehaviour, IEnemyAI
 {
     [SerializeField] private Animator anim;
-    [SerializeField] EnemyMovement enemyMove;
+    [SerializeField] private EnemyMovement enemyMove;
     public State currentState = State.Idle; // Початковий стан — Idle
 
-    public Transform player; // Ціль, якою є гравець
+    private Transform player; // Ціль, якою є гравець
     public float attackRange = 1.5f; // Діапазон атаки
     public float maxChaseDistance = 10f; // Максимальна відстань, на якій ворог переслідує гравця
     public float updatePathInterval = 0.2f; // Інтервал оновлення шляху
@@ -19,6 +19,19 @@ public class EnemyAI : MonoBehaviour
     private HashSet<GameObject> _player = new HashSet<GameObject>();  // HashSet для уникнення дублікатів
     public LayerMask targetLayer;
     public Collider2D MeleeAttack;
+    void Start()
+    {
+        player = PlayerUtility.PlayerTransform;
+
+        if (player != null)
+        {
+            Debug.Log("Transform гравця успішно присвоєно: " + player.position);
+        }
+        else
+        {
+            Debug.LogError("Не вдалося отримати Transform гравця!");
+        }
+    }
     void Update()
     {
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
@@ -56,7 +69,14 @@ public class EnemyAI : MonoBehaviour
     {
 
     }
-
+    public void EnableAI()
+    {
+        this.enabled = true;
+    }
+    public void DisableAI()
+    {
+        this.enabled = false;
+    }
     void Chase()
     {
         // Оновлюємо шлях до гравця із заданим інтервалом
@@ -78,9 +98,22 @@ public class EnemyAI : MonoBehaviour
     public void EnemyAttack()
     {
         _player = FindUtility.FindEnemy(MeleeAttack, targetLayer);
+        HitStop.TriggerStop(0.05f, 0.0f);
         Damage.Earth(new List<GameObject>(_player).ToArray(), damage);
+        foreach (GameObject enemy in _player)
+        {
+            // Отримуємо Rigidbody2D ворога для застосування фізики
+            Rigidbody2D enemyRb = enemy.GetComponent<Rigidbody2D>();
+
+            // Якщо ворог має Rigidbody2D
+            if (enemyRb != null)
+            {
+                // Використовуємо метод Push для відштовхування ворога
+                PushUtility.Push(enemyRb, transform.position, 10f);
+            }
+        }
     }
 }
 
 [System.Serializable]
-public enum State { Idle, Attack, Chase }
+public enum State { Idle, Attack, Chase}

@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class controler : MonoBehaviour
 {
-    [SerializeReference] private Rigidbody2D body;
-    [SerializeReference] private Animator anim;
-    [SerializeReference] private SpriteRenderer SRenderer;
+    [SerializeField] private Rigidbody2D body;
+    [SerializeField] private Animator anim;
+    [SerializeField] private SpriteRenderer SRenderer;
     //run
     float horizontal;
     float vertical;
     private float lastMoveDirection = 1f;
-    [SerializeReference] private float moveLimiter = 0.7f;
-    [SerializeReference] private float runSpeed = 5.0f;
+    [SerializeField] private float moveLimiter = 0.7f;
+    [SerializeField] private float runSpeed = 5.0f;
     //dash
-    [SerializeReference] private float dash_distance = 3f;
-    [SerializeReference] private float dash_duration = 0.2f;
+    [SerializeField] private float dash_distance = 3f;
+    [SerializeField] private float dash_duration = 0.2f;
     private Vector2 dash_cord;
     private Vector3 lastDirection = Vector3.zero; //останній напрямок
     public LayerMask obstacleLayer; // шар з яким стикаєшся при деші

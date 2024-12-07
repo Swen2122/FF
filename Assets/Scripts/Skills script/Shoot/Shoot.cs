@@ -1,38 +1,59 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
 public class Shoot : MonoBehaviour
 {
     public Transform shootPoint;
+    public Camera mainCamera;
     public Sequence moveBullet;
 
-    // Функція для стрільби з параметрами швидкості, шкоди та тривалості життя
-    public void bullet(GameObject bullet_obg, float speed, int damage, float lifetime)
+    private void Awake()
     {
-        if (bullet_obg == null)
+        // Кешуємо основну камеру для оптимізації
+        if (mainCamera == null)
+        {
+            mainCamera = Camera.main;
+        }
+    }
+
+    // Функція для стрільби з параметрами швидкості, шкоди та тривалості життя
+    public void Bullet(GameObject bulletPrefab, float speed, int damage, float lifetime)
+    {
+        if (bulletPrefab == null)
         {
             Debug.LogWarning("Bullet prefab is not assigned!");
             return;
         }
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        if (shootPoint == null)
+        {
+            Debug.LogWarning("Shoot point is not assigned!");
+            return;
+        }
+
+        Vector3 mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = 0;
-        // Визначаємо позицію стрільби (можете замінити shootPoint на mousePosition)
-        Vector3 shootPosition = transform.position; // позиція, з якої стріляєте
-        GameObject bullet = Instantiate(bullet_obg, shootPosition, Quaternion.identity);
-        // Встановлюємо напрямок
-        Vector3 direction = (mousePosition - shootPosition).normalized;
-        // Встановлюємо кут повороту кулі (для візуалізації напрямку)
+
+        // Створення кулі на позиції `shootPoint`
+        GameObject bullet = Instantiate(bulletPrefab, shootPoint.position, Quaternion.identity);
+        // Обчислення напрямку і повороту кулі
+        Vector3 direction = (mousePosition - shootPoint.position).normalized;
         bullet.transform.up = direction;
-        // Запускаємо переміщення кулі
-        Vector3 targetPos = shootPosition + direction * speed * lifetime;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        bullet.transform.rotation = Quaternion.Euler(0f, 0f, angle - 90);
+
+        // Запуск tween для переміщення кулі
+        Vector3 targetPos = shootPoint.position + direction * speed * lifetime;
         moveBullet = DOTween.Sequence();
-        moveBullet.Append(bullet.transform.DOMove(targetPos, lifetime).SetEase(Ease.Linear).OnComplete(() => {
-            Destroy(bullet);
-            Debug.Log("Bullet reached target");
-        }));
-        // Передача швидкості, шкоди та sequence в компонент Bullet
+        moveBullet.Append(bullet.transform.DOMove(targetPos, lifetime)
+            .SetEase(Ease.Linear)
+            .OnComplete(() =>
+            {
+                Destroy(bullet);
+                Debug.Log("Bullet reached target");
+            }));
+
+        // Налаштування параметрів кулі через IBulletBehavior
         IBulletBehavior bulletBehavior = bullet.GetComponent<IBulletBehavior>();
         if (bulletBehavior != null)
         {

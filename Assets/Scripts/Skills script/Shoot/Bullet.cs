@@ -8,7 +8,6 @@ public class Bullet : MonoBehaviour, IBulletBehavior
     [SerializeField] private LayerMask targets;
     private int bulletDamage;
     private Sequence moveSequence;
-
     public void SetBulletProperties(int damage)
     {
         bulletDamage = damage;

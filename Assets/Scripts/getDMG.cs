@@ -7,10 +7,10 @@ public class getDMG : MonoBehaviour
 {
     [SerializeReference] private AudioSource audioSource;
     [SerializeReference] private AudioClip death_audio;
+    [SerializeReference] private AudioClip hit_audio;
     public float maxHP = 100;
     public float currentHP;
     public Image HP_bar;
-
     private void Start()
     {
         currentHP = maxHP;
@@ -22,6 +22,7 @@ public class getDMG : MonoBehaviour
     public void TakeDMG(int DMG)
     {     
         currentHP -= DMG;
+        if (hit_audio != null) audioSource.PlayOneShot(hit_audio);  
         currentHP = Mathf.Min(currentHP, maxHP);
         currentHP = Mathf.Max(currentHP, 0);
         if (HP_bar != null)

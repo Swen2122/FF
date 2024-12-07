@@ -5,14 +5,17 @@ using UnityEngine;
 
 public class Get_Element : MonoBehaviour
 {
-    public Camera mainCamera; // Силка на камеру
+    private Camera mainCamera;
     [SerializeReference] private LayerMask selectableLayer;
     public Element_use Q;
     public Element_use E;
     public Element_use M1;
     public Element_use M2;
     public Element_use dash;
-
+    void Start()
+    {
+        Camera mainCamera = Camera.main;
+    }
     void Update()
     {
         // Перевіряємо, чи була натиснута ліва кнопка миші
