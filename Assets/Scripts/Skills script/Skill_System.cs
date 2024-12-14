@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 
 public class Skill_System : MonoBehaviour
-{   
+{
     [Header("Sound")]
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip water_sound;
@@ -16,10 +16,13 @@ public class Skill_System : MonoBehaviour
     [Header("Animation")]
     [SerializeField] private Animator anim;
     [Header("Skills")]
+    [SerializeField] private ParabolicSkill E;
     [SerializeField] private M2Skill m2;
     [SerializeField] private ObjectSpawn Q;
-    public Element_use elementUseScript;
-    public Element_use elementM2;
+    [SerializeField] private Element_use elementM1;
+    [SerializeField] private Element_use elementM2;
+    [SerializeField] private Element_use elementE;
+    [SerializeField] private Element_use elementQ;
     [Header("Atack")]
     private HashSet<GameObject> _enemy = new HashSet<GameObject>();  // HashSet для уникнення дублікатів
     public Collider2D MeleeAttack;  // Колайдер для визначення зони атаки
@@ -36,7 +39,7 @@ public class Skill_System : MonoBehaviour
         if (Input.GetMouseButtonDown(0))  // Ліва кнопка миші для атаки
         {
             _enemy = FindUtility.FindEnemy(MeleeAttack, targetLayer);  // Знайти всіх ворогів у зоні
-            Element element = elementUseScript.currentElement;
+            Element element = elementM1.currentElement;
             switch (element)
             {
                 case Element.Water:
@@ -125,14 +128,32 @@ public class Skill_System : MonoBehaviour
                     
                     break;
                 case Element.Wind:
-
+                    E.Activate(mainCamera.ScreenToWorldPoint(Input.mousePosition));
                     break;
             }
         }
         if (Input.GetKeyDown(KeyCode.Q))
         {
+            // Null checks
+            if (mainCamera == null)
+            {
+                Debug.LogError("Main camera is not assigned!");
+                return;
+            }
+
+            if (Q == null)
+            {
+                Debug.LogError("Q object is not assigned!");
+                return;
+            }
+
+            if (elementQ?.currentElement == null)
+            {
+                Debug.LogError("Current element is null!");
+                return;
+            }
             Vector2 spawnPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);// Отримуємо позицію курсора в світових координатах
-            Q.SpawnOrMoveObject(spawnPosition);
+            Q.SpawnOrMoveObject(elementQ.currentElement, spawnPosition);
         }
     }
     public void PlaySound(AudioClip clip)

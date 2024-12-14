@@ -1,2 +1,15 @@
 fileFormatVersion: 2
 guid: f69f0bf2e859a79459809012182ec444
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - waterPrefab: {fileID: 442421100517802469, guid: 10dd78ea5de6e014e89a8222e89deb5c, type: 3}
+  - earthPrefab: {fileID: 5365276988848064279, guid: 43a1c344d91f7504fa27b65aa80ec79a, type: 3}
+  - firePrefab: {fileID: 4427039587841908742, guid: efbcb961dca223f458ffb30ae1cf4f3c, type: 3}
+  - windPrefab: {fileID: 2085552755038304847, guid: adf7679b1d757994e96d66116d84b9df, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

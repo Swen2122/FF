@@ -9,7 +9,8 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: c80fab8c05d599e4baf6b854ef6085c8
   - enabled: 1
-    path: Assets/Scenes/Game.unity
-    guid: 776be0c51ef754d4797a86d07bfb88cc
+    path: "Assets/Scenes/Normal tileset(\u043F\u043E\u043A\u0430\u0437\u043E\u0432\u0438\u0439
+      \u0440\u0456\u0432\u0435\u043D\u044C).unity"
+    guid: 9a6790f05bf77e34d9dada1e519690cb
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

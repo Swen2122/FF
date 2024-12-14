@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 
-public class getDMG : MonoBehaviour
+public class getDMG : MonoBehaviour, ICanHit
 {
     [SerializeReference] private AudioSource audioSource;
     [SerializeReference] private AudioClip death_audio;
@@ -19,7 +19,7 @@ public class getDMG : MonoBehaviour
             HP_bar.fillAmount = currentHP / 100;
         }
     }
-    public void TakeDMG(int DMG)
+    public void TakeHit(int DMG)
     {     
         currentHP -= DMG;
         if (hit_audio != null) audioSource.PlayOneShot(hit_audio);  

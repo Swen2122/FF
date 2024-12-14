@@ -63,18 +63,23 @@ public class SpringGrab : MonoBehaviour, IBulletBehavior
             Destroy(gameObject); // Знищити об'єкт після застосування шкоди
         }
     }
-
     private void ApplyDamage()
     {
         // Завдати шкоди всім ворогам у зоні
         Collider2D[] enemiesHit = Physics2D.OverlapCircleAll(transform.position, damageRadius, targetLayerMask);
+
         foreach (var enemy in enemiesHit)
         {
-            getDMG enemyHealth = enemy.GetComponent<getDMG>();
-            if (enemyHealth != null)
+            // Перевіряємо, чи об'єкт відповідає шару
+            if (LaymaskUtility.InIsLMask(enemy.gameObject, targetLayerMask))
             {
-                enemyHealth.TakeDMG(bulletDamage);
+                // Отримуємо компонент, який реалізує ICanHit
+                if (enemy.TryGetComponent<ICanHit>(out var hitTarget))
+                {
+                    hitTarget.TakeHit(bulletDamage); // Завдаємо шкоди через інтерфейс
+                }
             }
         }
     }
+
 }

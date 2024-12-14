@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class ArcherAI : MonoBehaviour, IEnemyAI
 {
-    [SerializeField] EnemyMovement enemyMove;
-    public float updatePathInterval = 0.6f;
+    [SerializeField] private EnemyMovement enemyMove;
+    [SerializeField] private float updatePathInterval = 0.6f;
     private float lastPathUpdateTime;
 
     [SerializeField] private Transform player;

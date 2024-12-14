@@ -19,20 +19,21 @@ public class Bullet : MonoBehaviour, IBulletBehavior
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (((1 << other.gameObject.layer) & targets) != 0)
+        // Використовуємо LaymaskUtility для перевірки шару
+        if (LaymaskUtility.InIsLMask(other.gameObject, targets))
         {
-            getDMG target_hp = other.gameObject.GetComponent<getDMG>();
-
-            if (target_hp != null)
+            // Отримуємо об'єкт, який реалізує ICanHit
+            if (other.gameObject.TryGetComponent<ICanHit>(out var hitTarget))
             {
-                target_hp.TakeDMG(bulletDamage);
+                hitTarget.TakeHit(bulletDamage); // Викликаємо TakeDMG через інтерфейс
             }
+
+            // Зупиняємо рух кулі та знищуємо її
             if (moveSequence != null)
             {
                 moveSequence.Kill();
-                Destroy(gameObject);
             }
+            Destroy(gameObject);
         }
-
     }
 }

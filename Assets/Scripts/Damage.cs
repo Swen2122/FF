@@ -6,15 +6,14 @@ public static class Damage
 {
     public static void Earth(GameObject[] targets, int damage)
     {
-        foreach(GameObject target in targets) 
+        foreach (GameObject target in targets) 
         { 
             if (target != null)
             {
-                getDMG health;
-                if (target.TryGetComponent<getDMG>(out health))
+                if (target != null && target.TryGetComponent<ICanHit>(out var hitTarget))
                 {
                     Debug.Log("Eart");
-                    health.TakeDMG(damage);
+                    hitTarget.TakeHit(damage);
                 }
             }
         }
@@ -26,11 +25,10 @@ public static class Damage
         {
             if (target != null)
             {
-                getDMG health;
-                if (target.TryGetComponent<getDMG>(out health))
+                if (target != null && target.TryGetComponent<ICanHit>(out var hitTarget))
                 {
                     Debug.Log("Fire");
-                    health.TakeDMG(damage);
+                    hitTarget.TakeHit(damage);
                 }
             }
         }
@@ -42,11 +40,10 @@ public static class Damage
         {
             if (target != null)
             {
-                getDMG health;
-                if (target.TryGetComponent<getDMG>(out health))
+                if (target != null && target.TryGetComponent<ICanHit>(out var hitTarget))
                 {
                     Debug.Log("Water");
-                    health.TakeDMG(damage);
+                    hitTarget.TakeHit(damage);
                 }
             }
         }
@@ -57,11 +54,10 @@ public static class Damage
         {
             if (target != null)
             {
-                getDMG health;
-                if (target.TryGetComponent<getDMG>(out health))
+                if (target != null && target.TryGetComponent<ICanHit>(out var hitTarget))
                 {
                     Debug.Log("Wind");
-                    health.TakeDMG(damage);
+                    hitTarget.TakeHit(damage);
                 }
             }
         }

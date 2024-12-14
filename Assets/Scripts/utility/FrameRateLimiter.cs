@@ -1,9 +1,11 @@
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class FrameRateLimiter : MonoBehaviour
 {
     [SerializeField] private int targetFrameRate = 60; // Цільова частота кадрів
-    [SerializeField] private bool vSync = false; // Цільова частота кадрів
+    [SerializeField] private bool vSync = false; 
+    [SerializeField] private string menuSceneName = "Menu"; // Назва сцени головного меню
+
 
     void Start()
     {
@@ -20,5 +22,14 @@ public class FrameRateLimiter : MonoBehaviour
             QualitySettings.vSyncCount = 0;
         }
         
+    }
+    public void Exit()
+    {
+        // Перевіряємо, чи сцена існує
+        if (!string.IsNullOrEmpty(menuSceneName))
+        {
+            // Завантажуємо сцену головного меню
+            SceneManager.LoadScene(menuSceneName);
+        }
     }
 }

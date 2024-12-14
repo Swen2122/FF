@@ -22,17 +22,6 @@ public class M2Skill : MonoBehaviour
     }
     public void WindM2(GameObject[] targets, int damage)
     {
-        foreach (GameObject target in targets)
-        {
-            if (target != null)
-            {
-                getDMG health;
-                if (target.TryGetComponent<getDMG>(out health))
-                {
-                    Debug.Log("windM2");
-                    health.TakeDMG(damage);
-                }
-            }
-        }
+        
     }
 }
