@@ -1,114 +1,56 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class EnemyAI : MonoBehaviour, IEnemyAI
+public class EnemyAI : BaseEnemyAI
 {
     [SerializeField] private Animator anim;
-    [SerializeField] private EnemyMovement enemyMove;
-    public State currentState = State.Idle; // Початковий стан — Idle
+    [SerializeField] private int damage;
+    [SerializeField] private LayerMask targetLayer;
+    [SerializeField] private Collider2D MeleeAttack;
 
-    private Transform player; // Ціль, якою є гравець
-    public float attackRange = 1.5f; // Діапазон атаки
-    public float maxChaseDistance = 10f; // Максимальна відстань, на якій ворог переслідує гравця
-    public float updatePathInterval = 0.2f; // Інтервал оновлення шляху
+    private HashSet<GameObject> _player = new HashSet<GameObject>();
 
-    private float lastPathUpdateTime; // Час останнього оновлення шляху
-
-    [Header("Attack Settings")]
-    public int damage;
-    private HashSet<GameObject> _player = new HashSet<GameObject>();  // HashSet для уникнення дублікатів
-    public LayerMask targetLayer;
-    public Collider2D MeleeAttack;
-    void Start()
+    protected override void ExecuteStateAction()
     {
-        player = PlayerUtility.PlayerTransform;
-
-        if (player != null)
-        {
-            Debug.Log("Transform гравця успішно присвоєно: " + player.position);
-        }
-        else
-        {
-            Debug.LogError("Не вдалося отримати Transform гравця!");
-        }
-    }
-    void Update()
-    {
-        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
-
-        // Вибір стану відповідно до відстані до гравця
-        if (distanceToPlayer <= attackRange)
-        {
-            currentState = State.Attack; // Якщо ворог в зоні атаки, він атакує
-        }
-        else if (distanceToPlayer <= maxChaseDistance)
-        {
-            currentState = State.Chase; // Якщо гравець недалеко, ворог починає переслідувати
-        }
-        else
-        {
-            currentState = State.Idle; // Якщо гравець занадто далеко, ворог залишається на місці
-        }
-
-        // Виконання дій відповідно до поточного стану
         switch (currentState)
         {
             case State.Idle:
-                Idle();
+                // Ворог просто стоїть в Idle
                 break;
             case State.Chase:
-                Chase();
+                // Використовуємо базову логіку переслідування
+                base.OnChaseState();
                 break;
             case State.Attack:
-                Attack();
+                PerformAttack();
                 break;
         }
     }
 
-    void Idle()
-    {
-
-    }
-    public void EnableAI()
-    {
-        this.enabled = true;
-    }
-    public void DisableAI()
-    {
-        this.enabled = false;
-    }
-    void Chase()
-    {
-        // Оновлюємо шлях до гравця із заданим інтервалом
-        if (Time.time - lastPathUpdateTime > updatePathInterval)
-        {
-            Vector2 playes_position = new Vector2(player.position.x, player.position.y);
-            enemyMove.GetMoveCommand(playes_position);
-            // Оновлюємо ціль для руху
-            lastPathUpdateTime = Time.time;
-        }
-    }
-
-    void Attack()
+    protected override void OnAttackState()
     {
         anim.SetTrigger("Attack");
         Debug.Log("Ворог атакує гравця!");
     }
 
+    private void PerformAttack()
+    {
+        anim.SetTrigger("Attack");
+        Debug.Log("Ворог атакує гравця!");
+    }
+
+    // Цей метод викликається з анімації
     public void EnemyAttack()
     {
         _player = FindUtility.FindEnemy(MeleeAttack, targetLayer);
         HitStop.TriggerStop(0.05f, 0.0f);
         Damage.Earth(new List<GameObject>(_player).ToArray(), damage);
+
         foreach (GameObject enemy in _player)
         {
-            // Отримуємо Rigidbody2D ворога для застосування фізики
             Rigidbody2D enemyRb = enemy.GetComponent<Rigidbody2D>();
-
-            // Якщо ворог має Rigidbody2D
             if (enemyRb != null)
             {
-                // Використовуємо метод Push для відштовхування ворога
                 PushUtility.Push(enemyRb, transform.position, 10f);
             }
         }

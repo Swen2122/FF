@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 403833155319273262}
   - component: {fileID: 3099994475795955857}
   - component: {fileID: 3649449143621293979}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: pipe_destroy
   m_TagString: Untagged
   m_Icon: {fileID: 0}

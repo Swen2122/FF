@@ -3,21 +3,13 @@ using UnityEngine;
 public abstract class BaseEnemyAI : MonoBehaviour, IEnemyAI
 {
     [SerializeField] protected EnemyMovement enemyMove;
-    [SerializeField] protected Transform player;
+    [SerializeField] protected float updatePathInterval = 0.5f;
+    [SerializeField] protected float maxChaseDistance = 10f;
+    [SerializeField] protected float attackRange = 1.5f;
 
-    public State currentState = State.Idle;
-
-    [Header("Movement Settings")]
-    public float updatePathInterval = 0.5f;
-    public float minDistance = 2f;
-    public float maxChaseDistance = 10f;
-
-    [Header("Attack Settings")]
-    public float attackRange = 1.5f;
-    public float attackCooldown = 1f;
-
+    protected Transform player;
     protected float lastPathUpdateTime;
-    protected float lastAttackTime;
+    protected State currentState = State.Idle;
 
     protected virtual void Start()
     {
@@ -26,37 +18,67 @@ public abstract class BaseEnemyAI : MonoBehaviour, IEnemyAI
 
     protected virtual void Update()
     {
-        UpdateState();
-        HandleCurrentState();
-    }
-
-    protected virtual void UpdateState()
-    {
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
-
-        currentState = distanceToPlayer switch
-        {
-            var d when d <= attackRange => State.Attack,
-            var d when d <= maxChaseDistance => State.Chase,
-            _ => State.Idle
-        };
+        UpdateState(distanceToPlayer);
+        ExecuteStateAction();
     }
 
-    protected abstract void HandleCurrentState();
-    protected abstract void Chase();
-    protected abstract void Attack();
-
-    public virtual void EnableAI() => enabled = true;
-    public virtual void DisableAI() => enabled = false;
-
-    protected bool CanReachTarget(float maxDistance, LayerMask obstacleLayer)
+    protected virtual void UpdateState(float distanceToPlayer)
     {
-        RaycastHit2D hit = Physics2D.Raycast(
-            transform.position, 
-            player.position - transform.position, 
-            maxDistance, 
-            obstacleLayer
-        );
-        return hit.collider == null;
+        if (distanceToPlayer <= attackRange && CanAttackPlayer())
+        {
+            currentState = State.Attack;
+        }
+        else if (distanceToPlayer <= maxChaseDistance)
+        {
+            currentState = State.Chase;
+        }
+        else
+        {
+            currentState = State.Idle;
+            enemyMove.StopMoving();
+        }
+    }
+
+    protected virtual void ExecuteStateAction()
+    {
+        switch (currentState)
+        {
+            case State.Idle:
+                OnIdleState();
+                break;
+            case State.Chase:
+                OnChaseState();
+                break;
+            case State.Attack:
+                OnAttackState();
+                break;
+        }
+    }
+
+    protected virtual void OnIdleState() { }
+    protected virtual void OnChaseState()
+    {
+        if (Time.time - lastPathUpdateTime > updatePathInterval)
+        {
+            enemyMove.GetMoveCommand(player.position);
+            lastPathUpdateTime = Time.time;
+        }
+    }
+    protected abstract void OnAttackState();
+
+    protected virtual bool CanAttackPlayer()
+    {
+        return true;
+    }
+
+    public virtual void EnableAI()
+    {
+        this.enabled = true;
+    }
+
+    public virtual void DisableAI()
+    {
+        this.enabled = false;
     }
 }

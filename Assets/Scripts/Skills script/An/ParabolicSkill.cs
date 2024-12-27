@@ -17,26 +17,35 @@ public class ParabolicSkill : BaseSkill
         Vector3 startPosition = shootPoint.position;
         targetPosition = ClampTargetPosition(startPosition, targetPosition, skillData.maxRange);
 
-        // Визначаємо напрямок зміщення на основі орієнтації об'єкта
-        Vector3 right = shootPoint.right;
-        Vector3 up = shootPoint.up;
+        // Визначаємо вектор до цілі
+        Vector3 directionToTarget = (targetPosition - startPosition).normalized;
 
-        // Визначаємо домінантний напрямок
-        float rightMagnitude = Mathf.Abs(right.x) + Mathf.Abs(right.y);
-        float upMagnitude = Mathf.Abs(up.x) + Mathf.Abs(up.y);
+        // Визначаємо, чи рух більш горизонтальний чи вертикальний
+        bool isHorizontalDominant = Mathf.Abs(directionToTarget.x) > Mathf.Abs(directionToTarget.y);
 
-        if (rightMagnitude > upMagnitude)
+        // Створюємо два снаряди з дзеркальним зміщенням
+        SpawnMirroredProjectiles(startPosition, targetPosition, isHorizontalDominant);
+    }
+
+    private void SpawnMirroredProjectiles(Vector3 startPosition, Vector3 targetPosition, bool isHorizontalDominant)
+    {
+        float offset = 0.5f; // Відстань зміщення від центральної лінії
+
+        Vector3 offsetVector;
+        if (isHorizontalDominant)
         {
-            // Пріоритет горизонтального зміщення
-            SpawnProjectile(startPosition, targetPosition, -1, right);
-            SpawnProjectile(startPosition, targetPosition, 1, right);
+            // Для горизонтального руху, зміщуємо по Y
+            offsetVector = new Vector3(0, offset, 0);
         }
         else
         {
-            // Пріоритет вертикального зміщення
-            SpawnProjectile(startPosition, targetPosition, -1, up);
-            SpawnProjectile(startPosition, targetPosition, 1, up);
+            // Для вертикального руху, зміщуємо по X
+            offsetVector = new Vector3(offset, 0, 0);
         }
+
+        // Створюємо снаряди з протилежним зміщенням
+        SpawnProjectile(startPosition + offsetVector, targetPosition, 1, isHorizontalDominant);
+        SpawnProjectile(startPosition - offsetVector, targetPosition, -1, isHorizontalDominant);
     }
 
     private Vector3 ClampTargetPosition(Vector3 startPosition, Vector3 targetPosition, float maxRange)
@@ -49,15 +58,11 @@ public class ParabolicSkill : BaseSkill
             : targetPosition;
     }
 
-    private void SpawnProjectile(Vector3 startPosition, Vector3 targetPosition, int direction, Vector3 offsetDirection)
+    private void SpawnProjectile(Vector3 spawnPosition, Vector3 targetPosition, int mirrorDirection, bool isHorizontalDominant)
     {
-        // Зміщення залежить від напрямку руху та орієнтації об'єкта
-        Vector3 offset = offsetDirection * direction * 0.5f;
-        Vector3 spawnPosition = startPosition + offset;
-
         GameObject projectileObject = Instantiate(skillData.projectilePrefab, spawnPosition, shootPoint.rotation);
         Projectile2 projectile = projectileObject.GetComponent<Projectile2>();
 
-        projectile.Initialize(spawnPosition, targetPosition, skillData);
+        projectile.Initialize(spawnPosition, targetPosition, skillData, mirrorDirection, isHorizontalDominant);
     }
 }

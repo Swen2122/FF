@@ -103,7 +103,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7c0df0aef9ab6b49b0b2e82aa0444bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: {fileID: 0}
   myCollider: {fileID: 4287693150380496301}
   targetLayer:
     serializedVersion: 2

@@ -7,7 +7,7 @@ public class Bomba : MonoBehaviour, ICanHit
 {
     [Header("Durability Settings")]
     [SerializeField] private int maxHits = 3;
-    [SerializeField] private int currentHits = 0;
+    [SerializeField] private float currentHits = 0;
 
     [Header("Destruction Effects")]
     [SerializeField] private ParticleSystem explosionEffect;
@@ -23,7 +23,7 @@ public class Bomba : MonoBehaviour, ICanHit
 
     [Header("Destruction Events")]
     [SerializeField] private UnityEvent onDestroyed;
-    [SerializeField] private UnityEvent<int> onHit;
+    [SerializeField] private UnityEvent<float> onHit;
     private Color originalColor;
     [Header("Atack")]
     private HashSet<GameObject> _enemy = new HashSet<GameObject>();  // HashSet для уникнення дублікатів
@@ -40,7 +40,7 @@ public class Bomba : MonoBehaviour, ICanHit
         }
     }
 
-    public void TakeHit(int damage)
+    public void TakeHit(float damage)
     {
         damage = 1;
         // Збільшення лічильника пошкоджень
@@ -109,7 +109,7 @@ public class Bomba : MonoBehaviour, ICanHit
         currentHits = 0;
     }
 
-    public int GetCurrentHits()
+    public float GetCurrentHits()
     {
         return currentHits;
     }

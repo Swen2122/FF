@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class controler : MonoBehaviour
+public class Controler : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D body;
     [SerializeField] private Animator anim;

@@ -4,8 +4,8 @@ using UnityEngine.Events;
 public class Destroyeble_obj : MonoBehaviour, ICanHit
 {
     [Header("Durability Settings")]
-    [SerializeField] private int maxHits = 3;
-    [SerializeField] private int currentHits = 0;
+    [SerializeField] private float maxHits = 3;
+    [SerializeField] private float currentHits = 0;
 
     [Header("Destruction Effects")]
     [SerializeField] private AudioClip hitSound;
@@ -22,7 +22,7 @@ public class Destroyeble_obj : MonoBehaviour, ICanHit
     [SerializeField] private float amount;
     [SerializeField] private int maxstep;
     [SerializeField] private UnityEvent onDestroyed;
-    [SerializeField] private UnityEvent<int> onHit;
+    [SerializeField] private UnityEvent<float> onHit;
     private Color originalColor;
 
     private void Start()
@@ -34,7 +34,7 @@ public class Destroyeble_obj : MonoBehaviour, ICanHit
         }
     }
 
-    public void TakeHit(int damage)
+    public void TakeHit(float damage)
     {
         damage = 1;
         // «б≥льшенн€ л≥чильника пошкоджень
@@ -101,7 +101,7 @@ public class Destroyeble_obj : MonoBehaviour, ICanHit
         currentHits = 0;
     }
 
-    public int GetCurrentHits()
+    public float GetCurrentHits()
     {
         return currentHits;
     }

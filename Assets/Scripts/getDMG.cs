@@ -19,7 +19,7 @@ public class getDMG : MonoBehaviour, ICanHit
             HP_bar.fillAmount = currentHP / 100;
         }
     }
-    public void TakeHit(int DMG)
+    public void TakeHit(float DMG)
     {     
         currentHP -= DMG;
         if (hit_audio != null) audioSource.PlayOneShot(hit_audio);  

@@ -3,16 +3,42 @@ using UnityEngine.UI;
 
 public class RadialMenuHighlight : MonoBehaviour
 {
-    [SerializeField] private Image[] sectors;
-    [SerializeField] private Image backgroundImage;
-    [SerializeField] private GameObject high_light;
+    private Image hl_image;
+    [SerializeField] private Image[] sectors; // Масив секторів меню
+    [SerializeField] private GameObject high_light; // Об'єкт з Image
     [Header("Colors")]
     [SerializeField] private Color defaultColor = new Color(0.5f, 0.5f, 0.5f, 0.5f);
     [SerializeField] private Color highlightColor = new Color(1f, 1f, 1f, 0.8f);
 
     private int currentSectorIndex = -1;
+    private float segmentFillAmount; // Заповнення для одного сегмента
+    private float degreesPerSector; // Кут для одного сектора
 
-    void Update()
+    private void Start()
+    {
+        // Перевіряємо, чи high_light задано
+        if (high_light != null)
+        {
+            hl_image = high_light.GetComponent<Image>();
+            if (hl_image == null)
+            {
+                Debug.LogError("Компонент Image не знайдено на об'єкті high_light.");
+            }
+        }
+
+        // Обчислюємо заповнення та кут для одного сегмента один раз
+        if (sectors.Length > 0)
+        {
+            segmentFillAmount = 1.0f / sectors.Length; // Розмір одного сегмента
+            degreesPerSector = 360.0f / sectors.Length; // Кут для одного сектора
+        }
+        else
+        {
+            Debug.LogError("Масив sectors порожній.");
+        }
+    }
+
+    private void Update()
     {
         if (!gameObject.activeInHierarchy) return;
 
@@ -31,31 +57,34 @@ public class RadialMenuHighlight : MonoBehaviour
         }
     }
 
-    int DetermineSectorIndex(float angle)
+    private int DetermineSectorIndex(float angle)
     {
-        // Поділ на 4 сектори по 90 градусів
-        if (angle >= 0 && angle < 90) return 0;      // Q
-        if (angle >= 90 && angle < 180) return 1;    // E
-        if (angle >= 180 && angle < 270) return 2;   // M1
-        return 3;                                    // M2
+        // Поділ на кількість секторів
+        return Mathf.FloorToInt(angle / degreesPerSector);
     }
 
-    void UpdateSectorHighlight(int newSectorIndex)
+    private void UpdateSectorHighlight(int newSectorIndex)
     {
         ResetSectorColors();
 
         if (newSectorIndex >= 0 && newSectorIndex < sectors.Length)
         {
             sectors[newSectorIndex].color = highlightColor;
-            if (high_light != null)
+
+            if (hl_image != null)
             {
-                high_light.transform.rotation = Quaternion.Euler(0f, 0f, newSectorIndex*90);
+                hl_image.fillAmount = segmentFillAmount; // Постійне значення для одного сегмента
+
+                // Обертання по осі Z до відповідного сектора
+                float rotationAngle = newSectorIndex * degreesPerSector;
+                high_light.transform.rotation = Quaternion.Euler(0f, 0f, rotationAngle);
             }
+
             currentSectorIndex = newSectorIndex;
         }
     }
 
-    void ResetSectorColors()
+    private void ResetSectorColors()
     {
         foreach (var sector in sectors)
         {
