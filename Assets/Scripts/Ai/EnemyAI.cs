@@ -56,6 +56,3 @@ public class EnemyAI : BaseEnemyAI
         }
     }
 }
-
-[System.Serializable]
-public enum State { Idle, Attack, Chase}

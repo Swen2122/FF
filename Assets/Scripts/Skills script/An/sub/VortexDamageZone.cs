@@ -1,139 +1,127 @@
 using UnityEngine;
-using System.Collections.Generic;
 
-public class VortexDamageZone : MonoBehaviour
+public class VortexDamageZone : AbstractReactionEffect
 {
-    private ConvergenceSkillData settings;
+    [SerializeField] private VortexSettings vortexSettings;
     private LayerMask targetLayerMask;
-    private Element currentElement;
-    private float nextDamageTime;
     private AudioSource audioSource;
-    private float lifetime;
-    public void Initialize(ConvergenceSkillData data, LayerMask targetLayer, Element element)
-    {
-        settings = data;
-        targetLayerMask = targetLayer;
-        currentElement = element;
-        lifetime = settings.vortexLifetime;
-        SetupAudioAndEffects();
-    }
-    private void Update()
-    {
-        if (settings == null) return;
+    private ParticleSystem pullVFX;
 
-        lifetime -= Time.deltaTime;
-        if (lifetime <= 0)
+    private float pullTimer; // Таймер для контролю частоти затягування
+
+    public void Initialize(ElementalReaction.ReactionEffect settings, LayerMask targetLayer)
+    {
+        base.Initialize(settings);
+
+        if (settings == null || vortexSettings == null)
         {
-            Destroy(gameObject);
+            Debug.LogError("Invalid settings or vortexSettings in VortexDamageZone.");
             return;
         }
 
-        ApplyPullForce();
-        if (Time.time >= nextDamageTime)
-        {
-            ApplyDamageInZone();
-            nextDamageTime = Time.time + settings.damageInterval;
-        }
-    }
-    private void SetupAudioAndEffects()
-    {
-        audioSource = gameObject.AddComponent<AudioSource>();
+        targetLayerMask = targetLayer;
 
-        if (settings.pullEffect != null)
+        // Ініціалізація аудіо і візуальних ефектів
+        SetupAudioAndEffects();
+    }
+
+    protected override void Update()
+    {
+        base.Update(); // Виконуємо загальні оновлення (енергія, тік тощо)
+
+        if (currentEnergy <= 0)
         {
-            var pullVFX = Instantiate(settings.pullEffect, transform);
-            pullVFX.Play();
+            return; // Вортекс завершено, нічого не робимо
         }
 
-        if (settings.pullSound != null)
+        // Оновлення таймера затягування
+        pullTimer -= Time.deltaTime;
+        if (pullTimer <= 0f)
         {
-            audioSource.clip = settings.pullSound;
-            audioSource.loop = true;
-            audioSource.Play();
+            float energyRatio = currentEnergy / maxEnergy;
+            ApplyPullForce(energyRatio);
+            pullTimer = vortexSettings.pullInterval; // Скидаємо таймер
         }
     }
-    private void ApplyPullForce()
+
+    private void ApplyPullForce(float energyRatio)
     {
-        Collider2D[] objectsToPull = Physics2D.OverlapCircleAll(transform.position,
-            settings.pullRadius, targetLayerMask);
+        float currentPullRadius = vortexSettings.pullRadius * energyRatio;
+        float currentPullForce = vortexSettings.pullForce;
+
+        Collider2D[] objectsToPull = Physics2D.OverlapCircleAll(transform.position, currentPullRadius, targetLayerMask);
 
         foreach (var obj in objectsToPull)
         {
             if (obj.TryGetComponent<Rigidbody2D>(out var rb))
             {
                 Vector2 pullDirection = (transform.position - obj.transform.position).normalized;
-                rb.AddForce(pullDirection * settings.pullForce * Time.fixedDeltaTime,
-                    ForceMode2D.Force);
+                rb.AddForce(pullDirection * currentPullForce * Time.fixedDeltaTime, ForceMode2D.Force);
+            }
+
+            CheckElementalInteraction(obj);
+        }
+    }
+    private void SetupAudioAndEffects()
+    {
+        audioSource = gameObject.AddComponent<AudioSource>();
+
+        if (settings.particles != null)
+        {
+            pullVFX = Instantiate(settings.particles, transform);
+            pullVFX.Play();
+        }
+
+        if (settings.sound != null)
+        {
+            audioSource.clip = settings.sound;
+            audioSource.loop = true;
+            audioSource.Play();
+        }
+    }
+
+    protected override void OnEnergyTick()
+    {
+        // Застосування шкоди лише в момент тіку енергії
+        float energyRatio = currentEnergy / maxEnergy;
+        ApplyDamageInZone(energyRatio);
+    }
+
+    private void ApplyDamageInZone(float energyRatio)
+    {
+        float currentRadius = settings.radius * energyRatio;
+        float currentDamage = settings.damage * energyRatio;
+
+        Collider2D[] targets = Physics2D.OverlapCircleAll(transform.position, currentRadius, targetLayerMask);
+
+        foreach (var target in targets)
+        {
+            if (target.TryGetComponent<ICanHit>(out var canHit))
+            {
+                canHit.TakeHit(currentDamage);
             }
         }
     }
 
-    private void ApplyDamageInZone()
+    protected override void OnReactionEnd()
     {
-        Collider2D[] enemiesInZone = Physics2D.OverlapCircleAll(transform.position,
-            settings.damageRadius, targetLayerMask);
-
-        List<GameObject> enemyObjects = new List<GameObject>();
-
-        foreach (var enemy in enemiesInZone)
+        // Завершення вортекса
+        if (pullVFX != null)
         {
-            enemyObjects.Add(enemy.gameObject);
+            pullVFX.Stop(true, ParticleSystemStopBehavior.StopEmitting);
         }
 
-        if (enemyObjects.Count > 0)
-        {
-            HitStop.TriggerStop(0.05f, 0.0f);
-            ApplyElementalDamage(enemyObjects.ToArray(), settings.damageAmount);
-        }
+        Destroy(gameObject);
     }
 
-    private void ApplyElementalDamage(GameObject[] targets, int damage)
+    protected override void OnReactionDisrupted()
     {
-        switch (currentElement)
+        // Зупинка і видалення, якщо вортекс зупинено
+        if (pullVFX != null)
         {
-            case Element.Water:
-                Damage.Water(targets, damage);
-                break;
-            case Element.Fire:
-                Damage.Fire(targets, damage);
-                break;
-            case Element.Earth:
-                Damage.Earth(targets, damage);
-                break;
-            case Element.Wind:
-                Damage.Wind(targets, damage);
-                break;
-            case Element.Electro:
-                Damage.Wind(targets, damage);
-                break;
-            case Element.Ice:
-                Damage.Wind(targets, damage);
-                break;
-        }
-    }
-    private void OnDestroy()
-    {
-        if (settings.pullEffect != null)
-        {
-            var pullVFX = GetComponentInChildren<ParticleSystem>();
-            if (pullVFX != null) pullVFX.Stop();
+            pullVFX.Stop(true, ParticleSystemStopBehavior.StopEmitting);
         }
 
-        if (settings.destroySound != null && audioSource != null)
-        {
-            audioSource.loop = false;
-            audioSource.PlayOneShot(settings.destroySound);
-        }
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        if (settings == null) return;
-
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, settings.damageRadius);
-
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, settings.pullRadius);
+        Destroy(gameObject);
     }
 }

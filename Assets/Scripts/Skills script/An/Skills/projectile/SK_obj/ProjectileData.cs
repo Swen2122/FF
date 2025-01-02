@@ -6,14 +6,10 @@ using DG.Tweening;
 public class ProjectileData : ScriptableObject
 {
     [Header("Basic Settings")]
-    public GameObject defaultProjectilePrefab; // Базовий префаб для випадку None елементу
+    public GameObject defaultProjectilePrefab; // Префаб для None елементу
     public float damage = 10f;
 
-    [Header("Elemental Settings")]
-    // Словник для зберігання префабів елементальних снарядів
-    private Dictionary<Element, GameObject> elementalProjectiles = new Dictionary<Element, GameObject>();
-
-    // Серіалізовані поля для інспектора
+    [Header("Elemental Prefabs")]
     [SerializeField] private GameObject fireProjectilePrefab;
     [SerializeField] private GameObject waterProjectilePrefab;
     [SerializeField] private GameObject earthProjectilePrefab;
@@ -21,49 +17,46 @@ public class ProjectileData : ScriptableObject
     [SerializeField] private GameObject iceProjectilePrefab;
     [SerializeField] private GameObject electroProjectilePrefab;
 
+    private Dictionary<Element, GameObject> elementalProjectiles;
+
     [Header("Movement Settings")]
     public float speed = 20f;
-    public float range = 10f;
     public Ease moveEase = Ease.OutExpo;
+    public float range = 10f;
+    public float parabolaHeight = 1f;
+    public enum ProjectileType
+    {
+        Basic,
+        Chain,
+        Explosive,
+        Pulling
+    }
 
-    [Header("Parabolic Movement")]
-    public bool useParabolicPath = false;
-    public float parabolaHeight = 2f;
-    public bool useConvergence = false;
-    public float convergenceOffset = 0.5f;
-
+    [Header("Projectile Type")]
+    public ProjectileType projectileType;
     [Header("Visual Effects")]
     public GameObject spawnEffect;
     public GameObject hitEffect;
     public GameObject trailEffect;
 
-    [Header("Screen Shake")]
-    public bool useScreenShake = false;
-    public float shakeStrength = 0.5f;
-    public float shakeDuration = 0.1f;
-
-    [Header("Sound")]
+    [Header("Sound Effects")]
     public AudioClip launchSound;
     public AudioClip hitSound;
-
-    // Ініціалізація словника при завантаженні ScriptableObject
     private void OnEnable()
     {
-        elementalProjectiles.Clear();
-        elementalProjectiles[Element.Fire] = fireProjectilePrefab;
-        elementalProjectiles[Element.Water] = waterProjectilePrefab;
-        elementalProjectiles[Element.Earth] = earthProjectilePrefab;
-        elementalProjectiles[Element.Wind] = airProjectilePrefab;
-        elementalProjectiles[Element.Ice] = iceProjectilePrefab;
-        elementalProjectiles[Element.Electro] = electroProjectilePrefab;
+        elementalProjectiles = new Dictionary<Element, GameObject>
+        {
+            { Element.Fire, fireProjectilePrefab },
+            { Element.Water, waterProjectilePrefab },
+            { Element.Earth, earthProjectilePrefab },
+            { Element.Wind, airProjectilePrefab },
+            { Element.Ice, iceProjectilePrefab },
+            { Element.Electro, electroProjectilePrefab }
+        };
     }
 
-    // Метод для отримання префабу снаряду на основі елементу
     public GameObject GetProjectilePrefab(Element element)
     {
-        if (element == Element.None || !elementalProjectiles.ContainsKey(element))
-            return defaultProjectilePrefab;
-
-        return elementalProjectiles[element] ?? defaultProjectilePrefab;
+        return elementalProjectiles.TryGetValue(element, out var prefab) && prefab != null ? prefab : defaultProjectilePrefab;
     }
 }

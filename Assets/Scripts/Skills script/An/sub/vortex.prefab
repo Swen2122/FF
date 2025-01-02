@@ -46,18 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c46f5c7aced7eef458cbc437ccbff2c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullForce: 1000
-  pullRadius: 5
-  damageRadius: 3
-  damageInterval: 0.5
-  damage: 10
-  targetLayerMask:
-    serializedVersion: 2
-    m_Bits: 384
-  lifetimeBeforeDestroy: 3
-  pullEffect: {fileID: 4253198047590638744, guid: e40bc902f0dd98a4085cdb62d186c320, type: 3}
-  pullingSoundClip: {fileID: 8300000, guid: f317e337e287e01459d084b593dc7aab, type: 3}
-  destroySoundClip: {fileID: 8300000, guid: 77d2f8e01564af14ca8ae83b64554143, type: 3}
+  energyData: {fileID: 11400000, guid: 35cfe88799eedb94ea6339a9b40b5ec7, type: 2}
+  vortexSettings: {fileID: 11400000, guid: a6204cd9f0569854bb74f35a77641b13, type: 2}
 --- !u!212 &7279050012195581976
 SpriteRenderer:
   m_ObjectHideFlags: 0

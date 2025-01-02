@@ -290,6 +290,7 @@ MonoBehaviour:
   skillSound: {fileID: 8300000, guid: 8bc718e656adf3d46b9e0f7bc7702c12, type: 3}
   animationTrigger: 
   skillData: {fileID: 11400000, guid: 519ba773af3d45b4483591a5531c66bf, type: 2}
+  convergenceData: {fileID: 11400000, guid: 99cc1e8518fb3ee4d9ca25e6d42b88f8, type: 2}
   targetLayer:
     serializedVersion: 2
     m_Bits: 128
@@ -2984,9 +2985,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6047397388021105552}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ---An---
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

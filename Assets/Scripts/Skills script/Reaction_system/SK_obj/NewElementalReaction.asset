@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cb787cf182618147abc4e5f077eb706, type: 3}
+  m_Name: NewElementalReaction
+  m_EditorClassIdentifier: 
+  firstElement: 4
+  secondElement: 4
+  reactionEffect:
+    reactionName: vortex
+    targetLeyer:
+      serializedVersion: 2
+      m_Bits: 128
+    effectPrefab: {fileID: 3134775336186155938, guid: 954c357451ca6c542b7acafd4c3dbfcd, type: 3}
+    damage: 5
+    radius: 5
+    energy: 50
+    energyPerTick: 10
+    tickInterval: 0.5
+    particles: {fileID: 0}
+    sound: {fileID: 8300000, guid: 8bc718e656adf3d46b9e0f7bc7702c12, type: 3}
+    behavior: 0
+    allowMultipleReactions: 1

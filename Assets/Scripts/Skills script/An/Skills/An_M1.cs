@@ -5,7 +5,8 @@ public class An_M1 : TargetedSkill
     [SerializeField] private ProjectileSkillData skillData;
     [SerializeField] private LayerMask targetLayer;
     [SerializeField] private Transform shootPoint;
-    [SerializeField] private Element_use elementController; // Посилання на контролер елементів
+    [SerializeField] private Element_use elementController;
+    [SerializeField] private ElementalReactionDatabase reactionDatabase;
 
     protected override void UseSkillAtPosition(Vector2 targetPosition)
     {
@@ -14,6 +15,10 @@ public class An_M1 : TargetedSkill
         if (skillData.pattern.isBurst)
         {
             StartCoroutine(ShootBurst(targetPosition));
+        }
+        else if (skillData.pattern.useConvergence)
+        {
+            ShootConvergingProjectiles(targetPosition);
         }
         else
         {
@@ -24,9 +29,7 @@ public class An_M1 : TargetedSkill
     private void ShootProjectiles(Vector2 targetPosition)
     {
         Vector2 direction = ((Vector3)targetPosition - transform.position).normalized;
-        float startAngle = skillData.pattern.projectilesCount > 1
-            ? -skillData.pattern.angleBetweenProjectiles * (skillData.pattern.projectilesCount - 1) / 2
-            : 0;
+        float startAngle = CalculateStartAngle();
 
         for (int i = 0; i < skillData.pattern.projectilesCount; i++)
         {
@@ -39,42 +42,61 @@ public class An_M1 : TargetedSkill
                 projectileDirection = RotateVector(projectileDirection, spread);
             }
 
-            SpawnProjectile(projectileDirection);
+            Vector2 finalPosition = (Vector2)transform.position + projectileDirection * skillData.projectileData.range;
+            SpawnProjectile(finalPosition);
         }
     }
 
-    private void SpawnProjectile(Vector2 direction)
+    private void ShootConvergingProjectiles(Vector2 targetPosition)
     {
-        Vector3 spawnPosition = shootPoint != null ? shootPoint.position : transform.position;
-        Vector2 targetPosition = (Vector2)spawnPosition + direction * skillData.projectileData.range;
+        Vector2 direction = ((Vector3)targetPosition - transform.position).normalized;
+        Vector2 perpendicular = new Vector2(-direction.y, direction.x);
+        float offset = skillData.pattern.convergenceOffset;
 
-        // Отримуємо поточний елемент
-        Element currentElement = elementController != null ? elementController.currentElement : Element.None;
+        // Ліва точка спавну
+        Vector2 leftSpawnPoint = (Vector2)shootPoint.position + perpendicular * offset;
+        SpawnProjectile(targetPosition, true, -1, leftSpawnPoint);
 
-        // Отримуємо відповідний префаб на основі елементу
-        GameObject projectilePrefab = skillData.projectileData.GetProjectilePrefab(currentElement);
+        // Права точка спавну
+        Vector2 rightSpawnPoint = (Vector2)shootPoint.position - perpendicular * offset;
+        SpawnProjectile(targetPosition, true, 1, rightSpawnPoint);
+    }
 
-        GameObject projectileObj = Instantiate(projectilePrefab, spawnPosition, Quaternion.identity);
+    private void SpawnProjectile(Vector2 targetPosition, bool isConverging = false, int direction = 1, Vector2? spawnPosition = null)
+    {
+        Vector3 actualSpawnPosition = spawnPosition ?? shootPoint.position;
+        Element currentElement = elementController?.currentElement ?? Element.None;
+        GameObject prefab = skillData.projectileData.GetProjectilePrefab(currentElement);
 
-        if (projectileObj.TryGetComponent<EnhancedProjectile>(out var projectile))
+        GameObject projectileObj = Instantiate(prefab, actualSpawnPosition, Quaternion.identity);
+
+        // Обираємо потрібний компонент на основі типу
+        BaseProjectile projectile = projectileObj.GetComponent<BaseProjectile>();
+        if (projectile != null)
         {
-            projectile.Initialize(skillData.projectileData, targetLayer, shootPoint, targetPosition);
-            // Додатково можна передати поточний елемент в projectile
-            if (projectile is IElemental elementalProjectile)
-            {
-                elementalProjectile.SetElement(currentElement);
-            }
+            projectile.Initialize(
+                skillData.projectileData,
+                targetPosition,
+                currentElement
+            );
         }
     }
 
-    private Vector2 RotateVector(Vector2 direction, float angleInDegrees)
+    private float CalculateStartAngle()
     {
-        float angleInRadians = angleInDegrees * Mathf.Deg2Rad;
-        float cosAngle = Mathf.Cos(angleInRadians);
-        float sinAngle = Mathf.Sin(angleInRadians);
+        return skillData.pattern.projectilesCount > 1
+            ? -skillData.pattern.angleBetweenProjectiles * (skillData.pattern.projectilesCount - 1) / 2
+            : 0;
+    }
+
+    private Vector2 RotateVector(Vector2 vector, float angle)
+    {
+        float rad = angle * Mathf.Deg2Rad;
+        float cos = Mathf.Cos(rad);
+        float sin = Mathf.Sin(rad);
         return new Vector2(
-            direction.x * cosAngle - direction.y * sinAngle,
-            direction.x * sinAngle + direction.y * cosAngle
+            vector.x * cos - vector.y * sin,
+            vector.x * sin + vector.y * cos
         );
     }
 
@@ -86,11 +108,4 @@ public class An_M1 : TargetedSkill
             yield return new WaitForSeconds(skillData.pattern.burstDelay);
         }
     }
-}
-
-// Інтерфейс для елементальних об'єктів
-public interface IElemental
-{
-    void SetElement(Element element);
-    Element GetElement();
 }

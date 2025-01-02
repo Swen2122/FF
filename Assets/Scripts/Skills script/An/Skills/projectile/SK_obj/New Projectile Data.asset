@@ -17,21 +17,16 @@ MonoBehaviour:
   fireProjectilePrefab: {fileID: 2145239436772320173, guid: 6b0cd961e01acbf4fab5544837f9be55, type: 3}
   waterProjectilePrefab: {fileID: 2145239436772320173, guid: 251613856f60441459e5026343b450c7, type: 3}
   earthProjectilePrefab: {fileID: 2145239436772320173, guid: 6b0cd961e01acbf4fab5544837f9be55, type: 3}
-  airProjectilePrefab: {fileID: 2145239436772320173, guid: a997cac8f72bacb4ca2b4630939df7a8, type: 3}
-  iceProjectilePrefab: {fileID: 2145239436772320173, guid: a5d0e73324c2a014ba9fb6183f047b42, type: 3}
+  airProjectilePrefab: {fileID: 2145239436772320173, guid: a5d0e73324c2a014ba9fb6183f047b42, type: 3}
+  iceProjectilePrefab: {fileID: 2145239436772320173, guid: 6b0cd961e01acbf4fab5544837f9be55, type: 3}
   electroProjectilePrefab: {fileID: 2145239436772320173, guid: b68d1cc7edcc9bd4e93eb952b564be6f, type: 3}
   speed: 20
-  range: 10
   moveEase: 1
-  useParabolicPath: 1
-  parabolaHeight: 1
-  useConvergence: 1
-  convergenceOffset: 0.5
+  range: 10
+  parabolaHeight: 2
+  projectileType: 1
   spawnEffect: {fileID: 0}
   hitEffect: {fileID: 0}
   trailEffect: {fileID: 0}
-  useScreenShake: 0
-  shakeStrength: 0.5
-  shakeDuration: 0.1
   launchSound: {fileID: 8300000, guid: 2bba9925d13423640ae0c26ce308b3b1, type: 3}
   hitSound: {fileID: 8300000, guid: f317e337e287e01459d084b593dc7aab, type: 3}

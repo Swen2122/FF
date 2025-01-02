@@ -1,2 +1,13 @@
 fileFormatVersion: 2
 guid: c46f5c7aced7eef458cbc437ccbff2c1
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - energyData: {fileID: 11400000, guid: 35cfe88799eedb94ea6339a9b40b5ec7, type: 2}
+  - vortexSettings: {fileID: 11400000, guid: a6204cd9f0569854bb74f35a77641b13, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
