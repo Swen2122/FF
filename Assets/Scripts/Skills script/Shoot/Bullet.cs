@@ -24,7 +24,7 @@ public class Bullet : MonoBehaviour, IBulletBehavior
             // Отримуємо об'єкт, який реалізує ICanHit
             if (other.gameObject.TryGetComponent<ICanHit>(out var hitTarget))
             {
-                hitTarget.TakeHit(bulletDamage); // Викликаємо TakeDMG через інтерфейс
+                hitTarget.TakeHit(bulletDamage, Element.None); // Викликаємо TakeDMG через інтерфейс
             }
 
             // Зупиняємо рух кулі та знищуємо її

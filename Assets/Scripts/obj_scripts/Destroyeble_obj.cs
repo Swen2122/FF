@@ -34,7 +34,7 @@ public class Destroyeble_obj : MonoBehaviour, ICanHit
         }
     }
 
-    public void TakeHit(float damage)
+    public void TakeHit(float damage, Element element)
     {
         damage = 1;
         // «б≥льшенн€ л≥чильника пошкоджень

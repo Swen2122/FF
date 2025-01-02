@@ -6,5 +6,5 @@ public interface ICanHit
     /// Метод для отримання пошкоджень.
     /// </summary>
     /// <param name="DMG">Кількість пошкоджень, які отримує об'єкт.</param>
-    void TakeHit(float damage);
+    void TakeHit(float damage, Element element);
 }

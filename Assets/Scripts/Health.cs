@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
-
 public class Health : MonoBehaviour, ICanHit
 {
     [SerializeField] private AudioSource audioSource;
@@ -12,6 +9,7 @@ public class Health : MonoBehaviour, ICanHit
     public float maxHP = 100;
     public float currentHP;
     public Image HP_bar;
+
     private void Start()
     {
         if (healthStat != null)
@@ -19,30 +17,57 @@ public class Health : MonoBehaviour, ICanHit
             maxHP = healthStat.maxHealth;
         }
         currentHP = maxHP;
-        if (HP_bar != null)
-        {
-            HP_bar.fillAmount = currentHP / 100;
-        }
+        UpdateHPBar();
     }
-    public void TakeHit(float DMG)
-    {     
-        currentHP -= DMG;
-        if (hit_audio != null) audioSource.PlayOneShot(hit_audio);  
-        currentHP = Mathf.Min(currentHP, maxHP);
-        currentHP = Mathf.Max(currentHP, 0);
-        if (HP_bar != null)
-        {
-            HP_bar.fillAmount = currentHP / 100;
-        }
-        Debug.Log(currentHP);
+
+    public void TakeHit(float damage, Element elementType)
+    {
+        // ќбчисленн€ шкоди з урахуванн€м резист≥в
+        float finalDamage = CalculateDamage(damage, elementType);
+        currentHP -= finalDamage;
+
+        if (hit_audio != null)
+            audioSource.PlayOneShot(hit_audio);
+
+        currentHP = Mathf.Clamp(currentHP, 0, maxHP);
+        UpdateHPBar();
+
+        Debug.Log($"Current HP: {currentHP}");
+
         if (currentHP <= 0)
         {
             Die();
         }
     }
-    void Die()
+
+    private float CalculateDamage(float baseDamage, Element elementType)
     {
-        audioSource.PlayOneShot(death_audio);
+        if (healthStat == null)
+            return baseDamage;
+
+        var resist = healthStat.resistStat.Find(r => r.elementType == elementType);
+        float resistance = resist != null ? resist.resistance : 1f; // якщо нема резисту, то звичайний урон
+
+        // ‘ормула: Ўкода * (1 - –езист)
+        float finalDamage = baseDamage * (resistance);
+
+        Debug.Log($"Base Damage: {baseDamage}, Resistance: {resistance}, Final Damage: {finalDamage}");
+        return finalDamage; // Ўкода не може бути меншою за 0
+    }
+
+    private void UpdateHPBar()
+    {
+        if (HP_bar != null)
+        {
+            HP_bar.fillAmount = currentHP / maxHP;
+        }
+    }
+
+    private void Die()
+    {
+        if (death_audio != null)
+            audioSource.PlayOneShot(death_audio);
+
         Destroy(gameObject);
     }
 }

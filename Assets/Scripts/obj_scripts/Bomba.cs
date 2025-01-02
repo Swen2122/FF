@@ -40,7 +40,7 @@ public class Bomba : MonoBehaviour, ICanHit
         }
     }
 
-    public void TakeHit(float damage)
+    public void TakeHit(float damage, Element element)
     {
         damage = 1;
         // Збільшення лічильника пошкоджень
@@ -98,7 +98,7 @@ public class Bomba : MonoBehaviour, ICanHit
         onDestroyed?.Invoke();
         anim.SetTrigger("boom");
         _enemy = FindUtility.FindEnemy(MeleeAttack, targetLayer);  // Знайти всіх ворогів у зоні
-        Damage.Water(new List<GameObject>(_enemy).ToArray(), 80);
+        Damage.ApplyDamage(new List<GameObject>(_enemy).ToArray(), 80, Element.Fire);
         // Фізичне знищення об'єкта
         Destroy(gameObject);
     }

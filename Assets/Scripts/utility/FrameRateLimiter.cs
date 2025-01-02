@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-public class FrameRateLimiter : MonoBehaviour
+public class FrameRateLimiter
 {
     [SerializeField] private int targetFrameRate = 60; // Цільова частота кадрів
     [SerializeField] private bool vSync = false; 

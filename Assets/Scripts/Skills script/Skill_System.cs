@@ -44,7 +44,7 @@ public class Skill_System : MonoBehaviour
             {
                 case Element.Water:
                     anim.SetTrigger("water_atk");
-                    Damage.Water(new List<GameObject>(_enemy).ToArray(), -5);  // Викликати метод атаки і передати ворогів
+                    Damage.ApplyDamage(new List<GameObject>(_enemy).ToArray(), -5, element);  // Викликати метод атаки і передати ворогів
                     HitStop.TriggerStop(0.05f, 0.0f);
                     foreach (GameObject enemy in _enemy)
                     {
@@ -61,7 +61,7 @@ public class Skill_System : MonoBehaviour
                     break;
                 case Element.Earth:
                     HitStop.TriggerStop(0.05f, 0.0f);
-                    Damage.Earth(new List<GameObject>(_enemy).ToArray(), 15);
+                    Damage.ApplyDamage(new List<GameObject>(_enemy).ToArray(), 15, element);
                     foreach (GameObject enemy in _enemy)
                     {
                         // Отримуємо Rigidbody2D ворога для застосування фізики
@@ -78,7 +78,7 @@ public class Skill_System : MonoBehaviour
                 case Element.Fire:
                     anim.SetTrigger("fire_atk");
                     HitStop.TriggerStop(0.05f, 0.0f);
-                    Damage.Fire(new List<GameObject>(_enemy).ToArray(), 20);
+                    Damage.ApplyDamage(new List<GameObject>(_enemy).ToArray(), 20, element);
                     foreach (GameObject enemy in _enemy)
                     {
                         // Отримуємо Rigidbody2D ворога для застосування фізики
@@ -94,7 +94,7 @@ public class Skill_System : MonoBehaviour
                     break;
                 case Element.Wind:
                     HitStop.TriggerStop(0.05f, 0.0f);
-                    Damage.Wind(new List<GameObject>(_enemy).ToArray(), 10);
+                    Damage.ApplyDamage(new List<GameObject>(_enemy).ToArray(), 10, element);
                     foreach (GameObject enemy in _enemy)
                     {
                         // Отримуємо Rigidbody2D ворога для застосування фізики

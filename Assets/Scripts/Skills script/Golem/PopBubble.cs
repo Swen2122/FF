@@ -27,7 +27,7 @@ public class PopBubble : MonoBehaviour
     private void OnLayerContact()
     {
         _enemy = FindUtility.FindEnemy(bubbleCollider, damage_layer);  // «найти вс≥х ворог≥в у зон≥
-        Damage.Water(new List<GameObject>(_enemy).ToArray(), 15);
+        Damage.ApplyDamage(new List<GameObject>(_enemy).ToArray(), 15, Element.Water);
         Destroy(gameObject);
     }
 }

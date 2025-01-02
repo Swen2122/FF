@@ -76,7 +76,7 @@ public class SpringGrab : MonoBehaviour, IBulletBehavior
                 // Отримуємо компонент, який реалізує ICanHit
                 if (enemy.TryGetComponent<ICanHit>(out var hitTarget))
                 {
-                    hitTarget.TakeHit(bulletDamage); // Завдаємо шкоди через інтерфейс
+                    hitTarget.TakeHit(bulletDamage, Element.None); // Завдаємо шкоди через інтерфейс
                 }
             }
         }

@@ -7,7 +7,7 @@ public class EnemyAI : BaseEnemyAI
     [SerializeField] private int damage;
     [SerializeField] private LayerMask targetLayer;
     [SerializeField] private Collider2D MeleeAttack;
-
+    [SerializeField] private Element enemyElemet;
     private HashSet<GameObject> _player = new HashSet<GameObject>();
 
     protected override void ExecuteStateAction()
@@ -44,7 +44,7 @@ public class EnemyAI : BaseEnemyAI
     {
         _player = FindUtility.FindEnemy(MeleeAttack, targetLayer);
         HitStop.TriggerStop(0.05f, 0.0f);
-        Damage.Earth(new List<GameObject>(_player).ToArray(), damage);
+        Damage.ApplyDamage(new List<GameObject>(_player).ToArray(), damage, enemyElemet);
 
         foreach (GameObject enemy in _player)
         {

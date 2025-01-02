@@ -98,7 +98,7 @@ public class VortexDamageZone : AbstractReactionEffect
         {
             if (target.TryGetComponent<ICanHit>(out var canHit))
             {
-                canHit.TakeHit(currentDamage);
+                canHit.TakeHit(currentDamage, Element.Wind);
             }
         }
     }

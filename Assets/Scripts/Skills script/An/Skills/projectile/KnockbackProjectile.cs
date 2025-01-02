@@ -15,7 +15,7 @@ public class KnockbackProjectile : BaseProjectile
             }
             if (other.TryGetComponent<ICanHit>(out var target))
             {
-                target.TakeHit(damage);
+                target.TakeHit(damage, Element.None);
             }
         }
     }

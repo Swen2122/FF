@@ -21,7 +21,7 @@ public class ExplosiveProjectile : BaseProjectile
         {
             if (hit.TryGetComponent<ICanHit>(out var target))
             {
-                target.TakeHit(damage);
+                target.TakeHit(damage, Element.Fire);
             }
         }
 

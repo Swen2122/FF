@@ -24,7 +24,7 @@ public class DotEffect : BaseStatusEffect
             var health = target.GetComponent<ICanHit>(); // Припустимо, що є компонент Health
             if (health != null)
             {
-                health.TakeHit(damagePerTick);
+                health.TakeHit(damagePerTick, Element.None);
             }
         }
     }

@@ -106,7 +106,7 @@ public class ElementalReactionHandler : MonoBehaviour
         {
             if (collider.TryGetComponent<ICanHit>(out var damageable))
             {
-                damageable.TakeHit(effect.damage);
+                damageable.TakeHit(effect.damage, Element.None);
             }
         }
     }
@@ -117,7 +117,7 @@ public class ElementalReactionHandler : MonoBehaviour
         // Застосовуємо пошкодження
         if (target.TryGetComponent<ICanHit>(out var damageable))
         {
-            damageable.TakeHit(effect.damage);
+            damageable.TakeHit(effect.damage, Element.Fire);
         }
 
         // Застосовуємо статус-ефект, якщо він є

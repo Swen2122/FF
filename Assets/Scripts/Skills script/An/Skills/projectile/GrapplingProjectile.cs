@@ -18,7 +18,7 @@ public class GrapplingProjectile : BaseProjectile
                 pulledTargets.Add(rb);
                 if (other.TryGetComponent<ICanHit>(out var target))
                 {
-                    target.TakeHit(damage);
+                    target.TakeHit(damage, Element.None);
                 }
             }
         }

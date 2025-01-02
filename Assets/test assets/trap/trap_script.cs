@@ -64,7 +64,7 @@ public class trap_script : MonoBehaviour
     public void boom()
     {
         FindEnemy(); // Оновлюємо список ворогів
-        Damage.Earth(new List<GameObject>(_enemy).ToArray(), 40); // Атакуємо всіх у зоні
+        Damage.ApplyDamage(new List<GameObject>(_enemy).ToArray(), 40, Element.None); // Атакуємо всіх у зоні
         explosion(); // Відтворюємо звук вибуху
     }
 
