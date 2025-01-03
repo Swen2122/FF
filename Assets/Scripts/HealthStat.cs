@@ -3,7 +3,10 @@ using System.Collections.Generic;
 [CreateAssetMenu(fileName = "NewHealthStat", menuName = "Healt/HealthStat")]
 public class HealthStat : ScriptableObject
 {
+    [Header("Base")]
     public float maxHealth;
+    public AudioClip deathAudio;
+    public AudioClip hit_audio;
     [System.Serializable]
     public class ResistStat
     {

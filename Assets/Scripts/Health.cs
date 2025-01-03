@@ -1,10 +1,8 @@
 using UnityEngine.UI;
 using UnityEngine;
-public class Health : MonoBehaviour, ICanHit
+public class Health : ICanHit
 {
     [SerializeField] private AudioSource audioSource;
-    [SerializeField] private AudioClip death_audio;
-    [SerializeField] private AudioClip hit_audio;
     [SerializeField] private HealthStat healthStat;
     public float maxHP = 100;
     public float currentHP;
@@ -20,27 +18,28 @@ public class Health : MonoBehaviour, ICanHit
         UpdateHPBar();
     }
 
-    public void TakeHit(float damage, Element elementType)
+    public override void TakeHit(float damage, Element elementType)
     {
-        // Обчислення шкоди з урахуванням резистів
+        //обчислення шкоди з урахуванням резистів
         float finalDamage = CalculateDamage(damage, elementType);
         currentHP -= finalDamage;
 
-        if (hit_audio != null)
-            audioSource.PlayOneShot(hit_audio);
+        if (healthStat != null && healthStat.hit_audio != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(healthStat.hit_audio);
+        }
 
         currentHP = Mathf.Clamp(currentHP, 0, maxHP);
         UpdateHPBar();
 
-        Debug.Log($"Current HP: {currentHP}");
-
         if (currentHP <= 0)
         {
-            Die();
+            DestroyObject();
         }
     }
 
-    private float CalculateDamage(float baseDamage, Element elementType)
+
+    public float CalculateDamage(float baseDamage, Element elementType)
     {
         if (healthStat == null)
             return baseDamage;
@@ -54,20 +53,23 @@ public class Health : MonoBehaviour, ICanHit
         Debug.Log($"Base Damage: {baseDamage}, Resistance: {resistance}, Final Damage: {finalDamage}");
         return finalDamage; // Шкода не може бути меншою за 0
     }
-
+    public override bool IsDestroyed()
+    {
+        return currentHP <= 0;
+    }
+    protected override void DestroyObject()
+    {
+        if (healthStat != null && healthStat.deathAudio != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(healthStat.deathAudio);
+        }
+        Destroy(gameObject);
+    }
     private void UpdateHPBar()
     {
         if (HP_bar != null)
         {
             HP_bar.fillAmount = currentHP / maxHP;
         }
-    }
-
-    private void Die()
-    {
-        if (death_audio != null)
-            audioSource.PlayOneShot(death_audio);
-
-        Destroy(gameObject);
     }
 }

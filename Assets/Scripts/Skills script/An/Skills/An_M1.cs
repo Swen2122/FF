@@ -61,13 +61,11 @@ public class An_M1 : TargetedSkill
         Vector2 rightSpawnPoint = (Vector2)shootPoint.position - perpendicular * offset;
         SpawnProjectile(targetPosition, true, 1, rightSpawnPoint);
     }
-
     private void SpawnProjectile(Vector2 targetPosition, bool isConverging = false, int direction = 1, Vector2? spawnPosition = null)
     {
         Vector3 actualSpawnPosition = spawnPosition ?? shootPoint.position;
         Element currentElement = elementController?.currentElement ?? Element.None;
         GameObject prefab = skillData.projectileData.GetProjectilePrefab(currentElement);
-
         GameObject projectileObj = Instantiate(prefab, actualSpawnPosition, Quaternion.identity);
 
         // Обираємо потрібний компонент на основі типу
@@ -80,8 +78,11 @@ public class An_M1 : TargetedSkill
                 currentElement
             );
         }
+        else if (projectileObj.TryGetComponent<EnhancedProjectile>(out var enhancedProjectile))
+        {
+            enhancedProjectile.Initialize(skillData.projectileData, targetPosition, currentElement);
+        }
     }
-
     private float CalculateStartAngle()
     {
         return skillData.pattern.projectilesCount > 1

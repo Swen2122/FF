@@ -17,8 +17,8 @@ MonoBehaviour:
   useConvergence: 0
   useConvergencePoints: 0
   useSymmetricalPaths: 0
-  projectilesCount: 1
-  angleBetweenProjectiles: 15
+  projectilesCount: 4
+  angleBetweenProjectiles: 90
   spreadAngle: 15
   burstCount: 3
   burstDelay: 0.1

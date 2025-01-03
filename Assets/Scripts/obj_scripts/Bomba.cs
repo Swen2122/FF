@@ -3,7 +3,7 @@ using UnityEngine.Events;
 using System.Collections.Generic;
 using System.Linq;
 
-public class Bomba : MonoBehaviour, ICanHit
+public class Bomba : ICanHit
 {
     [Header("Durability Settings")]
     [SerializeField] private int maxHits = 3;
@@ -40,7 +40,7 @@ public class Bomba : MonoBehaviour, ICanHit
         }
     }
 
-    public void TakeHit(float damage, Element element)
+    public override void TakeHit(float damage, Element element)
     {
         damage = 1;
         // Збільшення лічильника пошкоджень
@@ -58,7 +58,7 @@ public class Bomba : MonoBehaviour, ICanHit
         // Перевірка руйнування
         if (currentHits >= maxHits)
         {
-            Destroy();
+            DestroyObject();
         }
     }
 
@@ -85,8 +85,7 @@ public class Bomba : MonoBehaviour, ICanHit
         yield return new WaitForSeconds(colorFadeTime);
         spriteRenderer.color = originalColor;
     }
-
-    private void Destroy()
+    protected override void DestroyObject()
     {
         // Звук руйнування
         if (audioSource != null && destroySound != null)
@@ -114,7 +113,7 @@ public class Bomba : MonoBehaviour, ICanHit
         return currentHits;
     }
 
-    public bool IsDestroyed()
+    public override bool IsDestroyed()
     {
         return currentHits >= maxHits;
     }

@@ -105,10 +105,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 6291084547220003272}
-  death_audio: {fileID: 8300000, guid: 77d2f8e01564af14ca8ae83b64554143, type: 3}
-  hit_audio: {fileID: 8300000, guid: 2bba9925d13423640ae0c26ce308b3b1, type: 3}
-  maxHP: 100
-  currentHP: 100
+  healthStat: {fileID: 11400000, guid: f08c7365aa9aea644b24ac2a2a6058d2, type: 2}
+  maxHP: 1000
+  currentHP: 1000
   HP_bar: {fileID: 0}
 --- !u!61 &1175932112388974636
 BoxCollider2D:

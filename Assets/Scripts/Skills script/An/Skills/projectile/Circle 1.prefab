@@ -47,10 +47,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce6ea01e6b534ce439ff2994b303aba3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chainRange: 5
+  chainRange: 3
   targetLayer:
     serializedVersion: 2
     m_Bits: 128
+  damageType: 6
 --- !u!212 &7300832327827403555
 SpriteRenderer:
   m_ObjectHideFlags: 0
