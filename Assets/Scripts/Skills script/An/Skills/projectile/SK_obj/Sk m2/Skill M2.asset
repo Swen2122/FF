@@ -16,6 +16,19 @@ MonoBehaviour:
   cooldown: 1
   damageMultiplier: 1
   animationTrigger: 
+  projectiles:
+  - projectileData: {fileID: 11400000, guid: 1ee8e56eb9f87b84b9d90081cd831e2c, type: 2}
+    pattern: {fileID: 11400000, guid: f0eaa73576a813f45b5626cdc83e1123, type: 2}
+    elementType: 4
+  - projectileData: {fileID: 11400000, guid: 518001271b528e74780cd8e742539f5c, type: 2}
+    pattern: {fileID: 11400000, guid: be8c4c177da1f694f9dee086fcfef25a, type: 2}
+    elementType: 1
+  - projectileData: {fileID: 11400000, guid: 1ee8e56eb9f87b84b9d90081cd831e2c, type: 2}
+    pattern: {fileID: 11400000, guid: f0eaa73576a813f45b5626cdc83e1123, type: 2}
+    elementType: 5
+  - projectileData: {fileID: 11400000, guid: 1ee8e56eb9f87b84b9d90081cd831e2c, type: 2}
+    pattern: {fileID: 11400000, guid: f0eaa73576a813f45b5626cdc83e1123, type: 2}
+    elementType: 6
   projectileData: {fileID: 11400000, guid: 1ee8e56eb9f87b84b9d90081cd831e2c, type: 2}
   pattern: {fileID: 11400000, guid: f0eaa73576a813f45b5626cdc83e1123, type: 2}
   elementData: {fileID: 11400000, guid: 6355bfa51859fa44faa410bc3f408706, type: 2}

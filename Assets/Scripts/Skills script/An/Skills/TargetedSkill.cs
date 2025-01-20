@@ -2,14 +2,6 @@ using UnityEngine;
 
 public abstract class TargetedSkill : BaseSkills
 {
-    protected Camera mainCamera;
-
-    protected override void Awake()
-    {
-        base.Awake();
-        mainCamera = Camera.main;
-    }
-
     public void TryUseSkillAtPosition()
     {
         if (!CanUseSkill()) return;

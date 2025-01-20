@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7248242667249588443}
-  - component: {fileID: -1785137180298029817}
+  - component: {fileID: 6512046922600635802}
   - component: {fileID: 7300832327827403555}
   - component: {fileID: 3833682842191397072}
   - component: {fileID: 6758831141335293869}
@@ -35,7 +35,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-1785137180298029817
+--- !u!114 &6512046922600635802
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -44,9 +44,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 2145239436772320173}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84a4451458cff0849a0dec24e4d3971d, type: 3}
+  m_Script: {fileID: 11500000, guid: 66833cb99fd8c424092aabc2c082b46f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosionRadius: 3
+  damageLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  explosionLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  explosionEffectPrefab: {fileID: 0}
 --- !u!212 &7300832327827403555
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -146,7 +154,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2145239436772320173}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -163,5 +171,5 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8160107875534199552}
   - component: {fileID: 7670712103936140230}
-  - component: {fileID: 8425006252999715402}
+  - component: {fileID: 3349678075300275650}
   - component: {fileID: 3235298757222240792}
   - component: {fileID: 1047489058374953298}
   m_Layer: 7
@@ -91,7 +91,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8425006252999715402
+--- !u!114 &3349678075300275650
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -100,26 +100,30 @@ MonoBehaviour:
   m_GameObject: {fileID: 442421100517802469}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e272300b62e7fb949aba33015d7defb6, type: 3}
+  m_Script: {fileID: 11500000, guid: 71e17629cacedee4399ffeade0f93179, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHits: 1
+  maxHits: 3
   currentHits: 0
-  hitSound: {fileID: 8300000, guid: 0433735bdfc44194e830ef71c8faa872, type: 3}
-  destroySound: {fileID: 8300000, guid: 2bba9925d13423640ae0c26ce308b3b1, type: 3}
+  hitSound: {fileID: 0}
+  destroySound: {fileID: 0}
   audioSource: {fileID: 0}
   spriteRenderer: {fileID: 7670712103936140230}
   hitColor: {r: 1, g: 0, b: 0, a: 1}
   colorFadeTime: 0.2
-  pressure: 5
-  amount: 1
-  maxstep: 4
   onDestroyed:
     m_PersistentCalls:
       m_Calls: []
   onHit:
     m_PersistentCalls:
       m_Calls: []
+  waterAmount: 5
+  explosionRadius: 2
+  waterPressure: 3
+  waterPoints: 12
+  createStream: 1
+  streamDuration: 3
+  streamRate: 20
 --- !u!58 &3235298757222240792
 CircleCollider2D:
   m_ObjectHideFlags: 0

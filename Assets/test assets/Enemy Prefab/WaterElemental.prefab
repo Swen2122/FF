@@ -64,7 +64,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -110,17 +110,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyMove: {fileID: 6887101429274282653}
   statusEffectManager: {fileID: 0}
-  updatePathInterval: 0.2
   maxChaseDistance: 10
   attackRange: 1
-  targetPositionUpdateInterval: 0.1
+  updatePathInterval: 0.2
   anim: {fileID: 489842314101573061}
   damage: 5
   targetLayer:
     serializedVersion: 2
     m_Bits: 1024
-  MeleeAttack: {fileID: 5854615506779872373}
-  enemyElemet: 0
+  meleeAttack: {fileID: 2582484162770570028}
+  enemyElement: 1
+  attackCooldown: 1
 --- !u!114 &6887101429274282653
 MonoBehaviour:
   m_ObjectHideFlags: 0

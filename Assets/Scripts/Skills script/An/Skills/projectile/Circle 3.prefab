@@ -9,11 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7248242667249588443}
-  - component: {fileID: 2706956953009434709}
+  - component: {fileID: 6843438448104804293}
   - component: {fileID: 7300832327827403555}
   - component: {fileID: 3833682842191397072}
   - component: {fileID: 6758831141335293869}
-  - component: {fileID: -7921290749665391828}
   m_Layer: 0
   m_Name: Circle 3
   m_TagString: Untagged
@@ -36,7 +35,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2706956953009434709
+--- !u!114 &6843438448104804293
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -45,9 +44,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 2145239436772320173}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84a4451458cff0849a0dec24e4d3971d, type: 3}
+  m_Script: {fileID: 11500000, guid: ce6ea01e6b534ce439ff2994b303aba3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  chainRange: 5
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  damageType: 5
+  maxJumps: 6
+  randomTargetSelection: 1
+  jumpDuration: 0.2
+  jumpDelay: 0.02
+  jumpHeight: 1
+  jumpEase: 1
+  jumpEffect: {fileID: 4253198047590638744, guid: e40bc902f0dd98a4085cdb62d186c320, type: 3}
+  jumpSound: {fileID: 8300000, guid: b41cbd023f9e17346ac371912224d326, type: 3}
+  rotateTowardsTarget: 1
+  rotationSpeed: 720
+  usePredictiveTargeting: 1
+  maxPredictionTime: 0.5
+  predictionIterations: 3
 --- !u!212 &7300832327827403555
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -164,18 +181,5 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
---- !u!114 &-7921290749665391828
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2145239436772320173}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34737c85e759578409f5f45504599ea0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  element: 4

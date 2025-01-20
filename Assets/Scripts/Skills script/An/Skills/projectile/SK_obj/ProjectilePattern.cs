@@ -24,6 +24,7 @@ public class ProjectilePattern : ScriptableObject
     public float burstDelay = 0.1f;
 
     [Header("Convergence Settings")]
+    public float curveHeight = 2f;
     public float convergenceOffset = 2f;
     public bool isHorizontalDominant = true;
 }

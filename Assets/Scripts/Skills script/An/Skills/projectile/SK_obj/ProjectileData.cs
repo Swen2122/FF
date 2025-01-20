@@ -6,18 +6,8 @@ using DG.Tweening;
 public class ProjectileData : ScriptableObject
 {
     [Header("Basic Settings")]
-    public GameObject defaultProjectilePrefab; // Префаб для None елементу
+    public GameObject projectilePrefab;
     public float damage = 10f;
-
-    [Header("Elemental Prefabs")]
-    [SerializeField] private GameObject fireProjectilePrefab;
-    [SerializeField] private GameObject waterProjectilePrefab;
-    [SerializeField] private GameObject earthProjectilePrefab;
-    [SerializeField] private GameObject airProjectilePrefab;
-    [SerializeField] private GameObject iceProjectilePrefab;
-    [SerializeField] private GameObject electroProjectilePrefab;
-
-    private Dictionary<Element, GameObject> elementalProjectiles;
 
     [Header("Movement Settings")]
     public float speed = 20f;
@@ -29,10 +19,12 @@ public class ProjectileData : ScriptableObject
         Basic,
         Chain,
         Explosive,
-        Pulling
+        Grappling,
+        Knockback
     }
 
     [Header("Projectile Type")]
+    public bool canTriggerReaction = true;
     public ProjectileType projectileType;
     [Header("Visual Effects")]
     public GameObject spawnEffect;
@@ -42,21 +34,4 @@ public class ProjectileData : ScriptableObject
     [Header("Sound Effects")]
     public AudioClip launchSound;
     public AudioClip hitSound;
-    private void OnEnable()
-    {
-        elementalProjectiles = new Dictionary<Element, GameObject>
-        {
-            { Element.Fire, fireProjectilePrefab },
-            { Element.Water, waterProjectilePrefab },
-            { Element.Earth, earthProjectilePrefab },
-            { Element.Wind, airProjectilePrefab },
-            { Element.Ice, iceProjectilePrefab },
-            { Element.Electro, electroProjectilePrefab }
-        };
-    }
-
-    public GameObject GetProjectilePrefab(Element element)
-    {
-        return elementalProjectiles.TryGetValue(element, out var prefab) && prefab != null ? prefab : defaultProjectilePrefab;
-    }
 }

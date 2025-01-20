@@ -1,24 +1,29 @@
 using UnityEngine;
+// Базовий клас для всіх ворогів
 public abstract class BaseEnemyAI : MonoBehaviour, IEnemyAI
 {
-    [SerializeField] protected EnemyMovement enemyMove;
+    [Header("Components")]
+    [SerializeField] public EnemyMovement enemyMove;
     [SerializeField] protected StatusEffectManager statusEffectManager;
-    [SerializeField] public float updatePathInterval = 0.5f;
+
+    [Header("Base Settings")]
     [SerializeField] protected float maxChaseDistance = 10f;
     [SerializeField] protected float attackRange = 1.5f;
-    [SerializeField] protected float targetPositionUpdateInterval = 0.1f;
+    [SerializeField] public float updatePathInterval = 0.5f;
 
     protected Transform player;
-    protected float lastPathUpdateTime;
-    protected float lastTargetUpdateTime;
-    protected State currentState = State.Idle;
-    protected Vector2 lastKnownPlayerPosition;
+    public Node rootNode;
 
     protected virtual void Start()
     {
+        InitializeComponents();
+        SetupBehaviorTree();
+    }
+
+    protected virtual void InitializeComponents()
+    {
         statusEffectManager = gameObject.AddComponent<StatusEffectManager>();
         player = PlayerUtility.PlayerTransform;
-        lastKnownPlayerPosition = player.position;
 
         if (enemyMove != null)
         {
@@ -32,96 +37,20 @@ public abstract class BaseEnemyAI : MonoBehaviour, IEnemyAI
     protected virtual void Update()
     {
         if (player == null) return;
-
-        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
-        UpdateTargetPosition();
-        UpdateState(distanceToPlayer);
-        ExecuteStateAction();
+        rootNode?.Evaluate();
     }
 
-    protected virtual void UpdateState(float distanceToPlayer)
-    {
-        if (distanceToPlayer <= attackRange && CanAttackPlayer())
-        {
-            currentState = State.Attack;
-        }
-        else if (distanceToPlayer <= maxChaseDistance)
-        {
-            currentState = State.Chase;
-        }
-        else
-        {
-            currentState = State.Idle;
-            enemyMove.StopMoving();
-        }
-    }
-
-    protected virtual void UpdateTargetPosition()
-    {
-        if (Time.time - lastTargetUpdateTime >= targetPositionUpdateInterval)
-        {
-            Vector2 currentPlayerPosition = player.position;
-            float positionChange = Vector2.Distance(lastKnownPlayerPosition, currentPlayerPosition);
-
-            if (positionChange > 0.1f)
-            {
-                lastKnownPlayerPosition = currentPlayerPosition;
-                if (currentState == State.Chase)
-                {
-                    enemyMove.SetTarget(currentPlayerPosition);
-                }
-            }
-
-            lastTargetUpdateTime = Time.time;
-        }
-    }
+    // Метод для налаштування дерева поведінки - перевизначається в нащадках
+    protected abstract void SetupBehaviorTree();
 
     protected virtual void HandlePathCompleted()
     {
-        if (currentState == State.Chase)
+        // Базова обробка завершення шляху
+        float distanceToTarget = Vector2.Distance(transform.position, player.position);
+        if (distanceToTarget > attackRange)
         {
-            float distanceToTarget = Vector2.Distance(transform.position, lastKnownPlayerPosition);
-            if (distanceToTarget > attackRange)
-            {
-                enemyMove.GetMoveCommand(player.position);
-            }
+            enemyMove.GetMoveCommand(player.position);
         }
-    }
-
-    protected virtual void ExecuteStateAction()
-    {
-        switch (currentState)
-        {
-            case State.Idle:
-                OnIdleState();
-                break;
-            case State.Chase:
-                OnChaseState();
-                break;
-            case State.Attack:
-                OnAttackState();
-                break;
-        }
-    }
-
-    protected virtual void OnIdleState() { }
-
-    protected virtual void OnChaseState()
-    {
-        if (Time.time - lastPathUpdateTime > updatePathInterval)
-        {
-            Vector2 targetPosition = player.position;
-            enemyMove.GetMoveCommand(targetPosition);
-            lastPathUpdateTime = Time.time;
-            lastKnownPlayerPosition = targetPosition;
-        }
-    }
-
-    protected abstract void OnAttackState();
-
-    protected virtual bool CanAttackPlayer()
-    {
-        return true;
     }
 
     protected virtual void HandleEffectAdded(string effectId)
@@ -147,6 +76,7 @@ public abstract class BaseEnemyAI : MonoBehaviour, IEnemyAI
     public virtual void DisableAI()
     {
         this.enabled = false;
+        enemyMove?.StopMoving();
     }
 
     protected virtual void OnDestroy()
@@ -162,10 +92,4 @@ public abstract class BaseEnemyAI : MonoBehaviour, IEnemyAI
             statusEffectManager.OnEffectRemoved -= HandleEffectRemoved;
         }
     }
-}
-public enum State
-{
-    Idle,
-    Attack,
-    Chase
 }

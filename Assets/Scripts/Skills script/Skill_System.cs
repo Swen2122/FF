@@ -110,7 +110,7 @@ public class Skill_System : MonoBehaviour
                     break;
             }
         }
-        if (Input.GetMouseButtonDown(1))  // Ліва кнопка миші для атаки
+        if (Input.GetMouseButtonDown(1))  // Права кнопка миші для атаки
         {          
             Element element = elementM2.currentElement;
             switch (element)

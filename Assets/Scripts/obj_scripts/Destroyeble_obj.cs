@@ -23,7 +23,7 @@ public class DestroyebleObject : ICanHit
 
     private Color originalColor;
 
-    private void Start()
+    protected virtual void Start()
     {
         if (spriteRenderer != null)
         {

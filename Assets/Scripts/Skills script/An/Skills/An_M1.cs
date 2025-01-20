@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+
 public class An_M1 : TargetedSkill
 {
     [SerializeField] private ProjectileSkillData skillData;
@@ -46,43 +47,51 @@ public class An_M1 : TargetedSkill
             SpawnProjectile(finalPosition);
         }
     }
-
     private void ShootConvergingProjectiles(Vector2 targetPosition)
     {
         Vector2 direction = ((Vector3)targetPosition - transform.position).normalized;
         Vector2 perpendicular = new Vector2(-direction.y, direction.x);
         float offset = skillData.pattern.convergenceOffset;
+        float curveHeight = skillData.pattern.curveHeight;
 
-        // Ліва точка спавну
-        Vector2 leftSpawnPoint = (Vector2)shootPoint.position + perpendicular * offset;
-        SpawnProjectile(targetPosition, true, -1, leftSpawnPoint);
+        // Спавн снарядів з обох боків
+        for (int i = -1; i <= 1; i += 2)
+        {
+            Vector2 spawnPoint = (Vector2)shootPoint.position + perpendicular * offset * i;
 
-        // Права точка спавну
-        Vector2 rightSpawnPoint = (Vector2)shootPoint.position - perpendicular * offset;
-        SpawnProjectile(targetPosition, true, 1, rightSpawnPoint);
+            GameObject prefab = skillData.GetProjectileData(elementController?.currentElement ?? Element.None);
+            GameObject projectileObj = Instantiate(prefab, spawnPoint, shootPoint.rotation);
+
+            if (projectileObj.TryGetComponent(out BaseProjectile baseProjectile))
+            {
+                baseProjectile.Initialize(skillData.projectileData, targetPosition, elementController?.currentElement ?? Element.None);
+
+                if (baseProjectile.trajectoryHandler != null)
+                {
+                    // Висота кривої залежить від сторони запуску
+                    float adjustedHeight = curveHeight * i;
+                    baseProjectile.trajectoryHandler.MoveCurve(targetPosition, adjustedHeight, null);
+                }
+            }
+        }
     }
     private void SpawnProjectile(Vector2 targetPosition, bool isConverging = false, int direction = 1, Vector2? spawnPosition = null)
     {
         Vector3 actualSpawnPosition = spawnPosition ?? shootPoint.position;
         Element currentElement = elementController?.currentElement ?? Element.None;
-        GameObject prefab = skillData.projectileData.GetProjectilePrefab(currentElement);
-        GameObject projectileObj = Instantiate(prefab, actualSpawnPosition, Quaternion.identity);
+        GameObject prefab = skillData.GetProjectileData(currentElement);
+        GameObject projectileObj = Instantiate(prefab, actualSpawnPosition, shootPoint.rotation);
 
-        // Обираємо потрібний компонент на основі типу
-        BaseProjectile projectile = projectileObj.GetComponent<BaseProjectile>();
-        if (projectile != null)
+        if (projectileObj.TryGetComponent(out BaseProjectile baseProjectile))
         {
-            projectile.Initialize(
-                skillData.projectileData,
-                targetPosition,
-                currentElement
-            );
+            baseProjectile.Initialize(skillData.projectileData, targetPosition, currentElement);
         }
-        else if (projectileObj.TryGetComponent<EnhancedProjectile>(out var enhancedProjectile))
+        else if (projectileObj.TryGetComponent(out EnhancedProjectile enhancedProjectile))
         {
             enhancedProjectile.Initialize(skillData.projectileData, targetPosition, currentElement);
         }
     }
+
     private float CalculateStartAngle()
     {
         return skillData.pattern.projectilesCount > 1

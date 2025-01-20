@@ -52,6 +52,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   damageType: 6
+  maxJumps: 3
+  jumpDuration: 0.3
+  jumpEase: 6
 --- !u!212 &7300832327827403555
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -168,5 +171,5 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0

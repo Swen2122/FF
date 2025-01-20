@@ -1,14 +1,15 @@
 using UnityEngine;
-public abstract class BaseProjectile : MonoBehaviour, IElementalObject
+public abstract class BaseProjectile : MonoBehaviour, IElementalObject, IReactionTrigger
 {
     protected ProjectileData data;
-    protected TrajectoryHandler trajectoryHandler;
+    public TrajectoryHandler trajectoryHandler;
     protected Element currentElement;
     protected bool hasReacted = false;
     protected float damage;
 
     public Element CurrentElement => currentElement;
     public GameObject GameObject => gameObject;
+    public bool CanTriggerReaction => data.canTriggerReaction && !hasReacted;
 
     public virtual void Initialize(ProjectileData projectileData, Vector2 target, Element element)
     {
@@ -19,7 +20,6 @@ public abstract class BaseProjectile : MonoBehaviour, IElementalObject
         HandleInitialEffects();
         trajectoryHandler.MoveLinear(target, OnProjectileReachedTarget);
     }
-
     protected void HandleInitialEffects()
     {
         if (data.spawnEffect != null)
@@ -29,30 +29,27 @@ public abstract class BaseProjectile : MonoBehaviour, IElementalObject
         if (data.launchSound != null)
             AudioSource.PlayClipAtPoint(data.launchSound, transform.position);
     }
-
     protected virtual void OnTriggerEnter2D(Collider2D other)
     {
         OnHit(other);
-        HandleElementalReaction(other);
+
+        if (data.canTriggerReaction && !hasReacted)
+        {
+            if (other.TryGetComponent<IElementalObject>(out var otherElemental))
+            {
+                var handler = Object.FindAnyObjectByType<ElementalReactionHandler>();
+                if (handler != null)
+                {
+                    handler.TriggerReaction(currentElement, otherElemental.CurrentElement,
+                        otherElemental.GameObject, transform.position);
+                    hasReacted = true;
+                }
+            }
+        }
     }
 
     protected abstract void OnHit(Collider2D other);
     protected abstract void OnProjectileReachedTarget();
-
-    private void HandleElementalReaction(Collider2D other)
-    {
-        if (hasReacted) return;
-        if (other.TryGetComponent<IElementalObject>(out var otherElemental))
-        {
-            if (other.GetComponent<BaseProjectile>()?.hasReacted == true) return;
-            var handler = FindObjectOfType<ElementalReactionHandler>();
-            if (handler != null)
-            {
-                handler.TriggerReaction(currentElement, otherElemental.CurrentElement, otherElemental.GameObject, transform.position);
-            }
-            hasReacted = true;
-        }
-    }
 
     public virtual void OnReact(ElementalReaction reaction, Vector3 position)
     {
