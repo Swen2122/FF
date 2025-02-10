@@ -300,10 +300,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 7667507735997966639}
-  waterSprite: {fileID: 21300000, guid: c4db9b8688d3e4540b8f837cb8a84eb4, type: 3}
-  earthSprite: {fileID: 21300000, guid: 788dbd873a6be5541ae955e2ddce4774, type: 3}
-  fireSprite: {fileID: 21300000, guid: 79876cabf61269f499fa07726582adef, type: 3}
-  windSprite: {fileID: 21300000, guid: 1e453186801b426468bdcb31f3c5696e, type: 3}
+  elementData: {fileID: 0}
   currentElement: 4
 --- !u!1 &2508941657373992640
 GameObject:
@@ -692,10 +689,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 5119709603085807664}
-  waterSprite: {fileID: 21300000, guid: c4db9b8688d3e4540b8f837cb8a84eb4, type: 3}
-  earthSprite: {fileID: 21300000, guid: 788dbd873a6be5541ae955e2ddce4774, type: 3}
-  fireSprite: {fileID: 21300000, guid: 79876cabf61269f499fa07726582adef, type: 3}
-  windSprite: {fileID: 21300000, guid: 1e453186801b426468bdcb31f3c5696e, type: 3}
+  elementData: {fileID: 0}
   currentElement: 4
 --- !u!114 &5119709603085807664
 MonoBehaviour:
@@ -967,10 +961,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 2214877983660271532}
-  waterSprite: {fileID: 21300000, guid: c4db9b8688d3e4540b8f837cb8a84eb4, type: 3}
-  earthSprite: {fileID: 21300000, guid: 788dbd873a6be5541ae955e2ddce4774, type: 3}
-  fireSprite: {fileID: 21300000, guid: 79876cabf61269f499fa07726582adef, type: 3}
-  windSprite: {fileID: 21300000, guid: 1e453186801b426468bdcb31f3c5696e, type: 3}
+  elementData: {fileID: 0}
   currentElement: 4
 --- !u!1 &6481114693268249765
 GameObject:
@@ -1032,10 +1023,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 811758249777285942}
-  waterSprite: {fileID: 21300000, guid: c4db9b8688d3e4540b8f837cb8a84eb4, type: 3}
-  earthSprite: {fileID: 21300000, guid: 788dbd873a6be5541ae955e2ddce4774, type: 3}
-  fireSprite: {fileID: 21300000, guid: 79876cabf61269f499fa07726582adef, type: 3}
-  windSprite: {fileID: 21300000, guid: 1e453186801b426468bdcb31f3c5696e, type: 3}
+  elementData: {fileID: 0}
   currentElement: 4
 --- !u!114 &811758249777285942
 MonoBehaviour:
@@ -1157,10 +1145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 3305745524239995867}
-  waterSprite: {fileID: 21300000, guid: c4db9b8688d3e4540b8f837cb8a84eb4, type: 3}
-  earthSprite: {fileID: 21300000, guid: 788dbd873a6be5541ae955e2ddce4774, type: 3}
-  fireSprite: {fileID: 21300000, guid: 79876cabf61269f499fa07726582adef, type: 3}
-  windSprite: {fileID: 21300000, guid: 1e453186801b426468bdcb31f3c5696e, type: 3}
+  elementData: {fileID: 0}
   currentElement: 4
 --- !u!1 &8898235159094252470
 GameObject:

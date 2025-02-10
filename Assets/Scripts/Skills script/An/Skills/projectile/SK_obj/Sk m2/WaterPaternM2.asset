@@ -12,16 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3aa5bcb55c4935845b8fdbe1d9388657, type: 3}
   m_Name: WaterPaternM2
   m_EditorClassIdentifier: 
-  isBurst: 0
-  hasSpread: 0
-  useConvergence: 1
-  useConvergencePoints: 1
-  useSymmetricalPaths: 1
+  isBurst: 1
+  hasSpread: 1
   projectilesCount: 1
   angleBetweenProjectiles: 15
   spreadAngle: 15
   burstCount: 3
   burstDelay: 0.1
   curveHeight: 1
-  convergenceOffset: 1
-  isHorizontalDominant: 1

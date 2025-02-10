@@ -26,7 +26,7 @@ MonoBehaviour:
   - projectileData: {fileID: 11400000, guid: 1ee8e56eb9f87b84b9d90081cd831e2c, type: 2}
     pattern: {fileID: 11400000, guid: f0eaa73576a813f45b5626cdc83e1123, type: 2}
     elementType: 5
-  - projectileData: {fileID: 11400000, guid: 1ee8e56eb9f87b84b9d90081cd831e2c, type: 2}
+  - projectileData: {fileID: 11400000, guid: b55dea2e81cc2a342965e0357f40e00d, type: 2}
     pattern: {fileID: 11400000, guid: f0eaa73576a813f45b5626cdc83e1123, type: 2}
     elementType: 6
   projectileData: {fileID: 11400000, guid: 1ee8e56eb9f87b84b9d90081cd831e2c, type: 2}

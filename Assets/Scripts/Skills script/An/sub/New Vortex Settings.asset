@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: New Vortex Settings
   m_EditorClassIdentifier: 
   pullForce: 1000
-  pullRadius: 10
+  pullRadius: 3
   pullInterval: 0.05

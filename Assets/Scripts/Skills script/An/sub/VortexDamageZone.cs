@@ -1,13 +1,14 @@
 using UnityEngine;
-
+using UnityEngine.VFX;
 public class VortexDamageZone : AbstractReactionEffect
 {
     [SerializeField] private VortexSettings vortexSettings;
     private LayerMask targetLayerMask;
     private AudioSource audioSource;
     private ParticleSystem pullVFX;
+    public VisualEffect vfx;
 
-    private float pullTimer; // Таймер для контролю частоти затягування
+    private float pullTimer; // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
     public void Initialize(ElementalReaction.ReactionEffect settings, LayerMask targetLayer)
     {
@@ -18,35 +19,35 @@ public class VortexDamageZone : AbstractReactionEffect
             Debug.LogError("Invalid settings or vortexSettings in VortexDamageZone.");
             return;
         }
-
+        vfx.SetFloat("Radius", settings.radius);
         targetLayerMask = targetLayer;
 
-        // Ініціалізація аудіо і візуальних ефектів
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
         SetupAudioAndEffects();
     }
 
     protected override void Update()
     {
-        base.Update(); // Виконуємо загальні оновлення (енергія, тік тощо)
+        base.Update(); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ пїЅпїЅпїЅпїЅ)
 
         if (currentEnergy <= 0)
         {
-            return; // Вортекс завершено, нічого не робимо
+            return; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
         }
 
-        // Оновлення таймера затягування
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         pullTimer -= Time.deltaTime;
         if (pullTimer <= 0f)
         {
             float energyRatio = currentEnergy / maxEnergy;
             ApplyPullForce(energyRatio);
-            pullTimer = vortexSettings.pullInterval; // Скидаємо таймер
+            pullTimer = vortexSettings.pullInterval; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
         }
     }
 
     private void ApplyPullForce(float energyRatio)
     {
-        float currentPullRadius = vortexSettings.pullRadius * energyRatio;
+        float currentPullRadius = settings.radius;
         float currentPullForce = vortexSettings.pullForce;
 
         Collider2D[] objectsToPull = Physics2D.OverlapCircleAll(transform.position, currentPullRadius, targetLayerMask);
@@ -82,14 +83,14 @@ public class VortexDamageZone : AbstractReactionEffect
 
     protected override void OnEnergyTick()
     {
-        // Застосування шкоди лише в момент тіку енергії
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅгії
         float energyRatio = currentEnergy / maxEnergy;
         ApplyDamageInZone(energyRatio);
     }
 
     private void ApplyDamageInZone(float energyRatio)
     {
-        float currentRadius = settings.radius * energyRatio;
+        float currentRadius = settings.radius/2;
         float currentDamage = settings.damage * energyRatio;
 
         Collider2D[] targets = Physics2D.OverlapCircleAll(transform.position, currentRadius, targetLayerMask);
@@ -105,7 +106,7 @@ public class VortexDamageZone : AbstractReactionEffect
 
     protected override void OnReactionEnd()
     {
-        // Завершення вортекса
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         if (pullVFX != null)
         {
             pullVFX.Stop(true, ParticleSystemStopBehavior.StopEmitting);
@@ -116,7 +117,7 @@ public class VortexDamageZone : AbstractReactionEffect
 
     protected override void OnReactionDisrupted()
     {
-        // Зупинка і видалення, якщо вортекс зупинено
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         if (pullVFX != null)
         {
             pullVFX.Stop(true, ParticleSystemStopBehavior.StopEmitting);

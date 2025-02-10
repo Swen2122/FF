@@ -1,24 +1,36 @@
 using UnityEngine;
-public abstract class BaseProjectile : MonoBehaviour, IElementalObject, IReactionTrigger
+public abstract class BaseProjectile : MonoBehaviour, IElementalObject
 {
+    public bool usePhisics = false;
     protected ProjectileData data;
-    public TrajectoryHandler trajectoryHandler;
+    [SerializeField] protected ProjectileEffectBase effect;
     protected Element currentElement;
     protected bool hasReacted = false;
     protected float damage;
+    protected float speed = 10f;
+    [SerializeField]protected Rigidbody2D rb;
+    protected Transform target;
+    protected Vector2 targetPosition;
 
     public Element CurrentElement => currentElement;
     public GameObject GameObject => gameObject;
     public bool CanTriggerReaction => data.canTriggerReaction && !hasReacted;
 
+    protected virtual void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
     public virtual void Initialize(ProjectileData projectileData, Vector2 target, Element element)
     {
+        targetPosition = target;
         data = projectileData;
+        speed = data.speed;
         currentElement = element;
         damage = data.damage;
-        trajectoryHandler = new TrajectoryHandler(transform, data);
+        if(usePhisics)Move();
+  
         HandleInitialEffects();
-        trajectoryHandler.MoveLinear(target, OnProjectileReachedTarget);
+        Destroy(gameObject, data.range);
     }
     protected void HandleInitialEffects()
     {
@@ -31,27 +43,26 @@ public abstract class BaseProjectile : MonoBehaviour, IElementalObject, IReactio
     }
     protected virtual void OnTriggerEnter2D(Collider2D other)
     {
-        OnHit(other);
-
-        if (data.canTriggerReaction && !hasReacted)
+        if (CanTriggerReaction)
         {
             if (other.TryGetComponent<IElementalObject>(out var otherElemental))
             {
                 var handler = Object.FindAnyObjectByType<ElementalReactionHandler>();
                 if (handler != null)
                 {
-                    handler.TriggerReaction(currentElement, otherElemental.CurrentElement,
-                        otherElemental.GameObject, transform.position);
-                    hasReacted = true;
+                    handler.TriggerReaction(currentElement, otherElemental.CurrentElement, gameObject,
+                     otherElemental.GameObject, transform.position);
+                    otherElemental.OnReact();
                 }
             }
         }
+        OnHit(other);
     }
-
+    protected abstract void Move();
     protected abstract void OnHit(Collider2D other);
     protected abstract void OnProjectileReachedTarget();
 
-    public virtual void OnReact(ElementalReaction reaction, Vector3 position)
+    public virtual void OnReact(ElementalReaction reaction = null, Vector3 position = default)
     {
         Destroy(gameObject);
     }

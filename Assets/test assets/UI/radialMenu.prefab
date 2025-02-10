@@ -242,7 +242,6 @@ MonoBehaviour:
   - {fileID: 7028067156955938137}
   - {fileID: 5402443893853533357}
   - {fileID: 693243459210269323}
-  backgroundImage: {fileID: 1193828997315476839}
   high_light: {fileID: 5607505877534597773}
   defaultColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
   highlightColor: {r: 1, g: 1, b: 1, a: 1}

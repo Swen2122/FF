@@ -2,7 +2,7 @@ using UnityEngine;
 using DG.Tweening;
 using System.Linq;
 
-public class ChainProjectile : BaseProjectile
+public class ChainProjectile : DefaultProjectile
 {
     [Header("Chain Settings")]
     [SerializeField] private float chainRange = 5f;
@@ -23,14 +23,14 @@ public class ChainProjectile : BaseProjectile
 
     [Header("Prediction Settings")]
     [SerializeField] private bool usePredictiveTargeting = true;
-    [SerializeField] private float maxPredictionTime = 0.5f; // Максимальний час передбачення
-    [SerializeField] private int predictionIterations = 3; // Кількість ітерацій для уточнення передбачення
+    [SerializeField] private float maxPredictionTime = 0.5f; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    [SerializeField] private int predictionIterations = 3; // КіпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     
     private GameObject lastTarget;
     private int currentJumps = 0;
     private Sequence currentJumpSequence;
     private Vector3 lastValidPosition;
-    // Кешування компонентів для оптимізації
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     private struct TargetInfo
     {
         public Collider2D Collider;
@@ -45,12 +45,12 @@ public class ChainProjectile : BaseProjectile
 
         if (other.TryGetComponent<ICanHit>(out var target))
         {
-            // Зупиняємо поточну анімацію плавно
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
             if (currentJumpSequence != null && currentJumpSequence.IsPlaying())
             {
                 Vector3 hitPoint = other.ClosestPoint(transform.position);
 
-                // Створюємо коротку анімацію завершення поточного руху
+                // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
                 currentJumpSequence.Kill();
                 transform.DOMove(hitPoint, 0.1f)
                     .SetEase(Ease.OutQuad)
@@ -70,7 +70,7 @@ public class ChainProjectile : BaseProjectile
             }
             else
             {
-                // Якщо анімації немає, обробляємо попадання одразу
+                // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
                 target.TakeHit(damage, damageType);
                 lastTarget = other.gameObject;
 
@@ -85,7 +85,7 @@ public class ChainProjectile : BaseProjectile
             }
         }
     }
-
+    
 
     private Vector2 PredictTargetPosition(TargetInfo target)
     {
@@ -95,17 +95,17 @@ public class ChainProjectile : BaseProjectile
         float timeToTarget = jumpDuration;
         Vector2 predictedPos = target.Position;
 
-        // Ітеративне уточнення часу перехоплення
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         for (int i = 0; i < predictionIterations; i++)
         {
-            // Розраховуємо де буде ціль через timeToTarget секунд
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ timeToTarget пїЅпїЅпїЅпїЅпїЅпїЅ
             Vector2 futurePos = target.Position + target.Velocity * timeToTarget;
 
-            // Розраховуємо новий час, який потрібен щоб дістатися до цієї позиції
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             float distance = Vector2.Distance(transform.position, futurePos);
             float newTimeToTarget = distance / (chainRange / jumpDuration);
 
-            // Обмежуємо час передбачення
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             timeToTarget = Mathf.Min(newTimeToTarget, maxPredictionTime);
             predictedPos = futurePos;
         }
@@ -137,15 +137,15 @@ public class ChainProjectile : BaseProjectile
             return;
         }
 
-        // Вибір цілі (рандомна чи найближча)
+        // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
         var target = randomTargetSelection
             ? nearbyTargets[Random.Range(0, nearbyTargets.Length)]
             : nearbyTargets[0];
 
-        // Передбачена позиція
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         Vector3 predictedPosition = PredictTargetPosition(target);
 
-        // Логіка затримки (якщо потрібна)
+        // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
         if (jumpDelay > 0)
         {
             DOTween.Sequence()
@@ -164,14 +164,14 @@ public class ChainProjectile : BaseProjectile
     {
         currentJumpSequence?.Kill();
 
-        // Створюємо послідовність для стрибка
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         currentJumpSequence = DOTween.Sequence();
 
         currentJumpSequence.Append(DOTween.To(
             () => 0f,
             (float progress) =>
             {
-            // Динамічне оновлення цільової позиції (за бажанням)
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
             if (usePredictiveTargeting && progress < 0.8f)
                 {
                     var updatedTarget = new TargetInfo
@@ -182,14 +182,14 @@ public class ChainProjectile : BaseProjectile
                     targetPos = PredictTargetPosition(updatedTarget);
                 }
 
-            // Логіка руху по параболі
+            // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             float x = Mathf.Lerp(startPos.x, targetPos.x, progress);
                 float y = Mathf.Lerp(startPos.y, targetPos.y, progress) +
                          jumpHeight * Mathf.Sin(progress * Mathf.PI);
 
                 transform.position = new Vector3(x, y, transform.position.z);
 
-            // Обертання до цілі
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅ
             if (rotateTowardsTarget)
                 {
                     Vector3 direction = (targetPos - transform.position).normalized;
@@ -206,7 +206,7 @@ public class ChainProjectile : BaseProjectile
         )).SetEase(jumpEase);
 
         currentJumpSequence
-            .OnStart(() => PlayJumpEffects(targetPos)) // Додаткові ефекти
+            .OnStart(() => PlayJumpEffects(targetPos)) // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
             .OnComplete(() => OnProjectileReachedTarget());
 
         lastTarget = target.Collider.gameObject;

@@ -118,12 +118,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   waterAmount: 5
-  explosionRadius: 2
-  waterPressure: 3
-  waterPoints: 12
-  createStream: 1
-  streamDuration: 3
-  streamRate: 20
 --- !u!58 &3235298757222240792
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -242,7 +236,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

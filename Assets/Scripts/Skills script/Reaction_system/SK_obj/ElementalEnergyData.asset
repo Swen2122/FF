@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reactionElement: 4
   baseEnergyPerTick: 5
-  maxEnergy: 100
+  maxEnergy: 50
   elementInteractions:
   - interactingElement: 4
     energyModifier: 1

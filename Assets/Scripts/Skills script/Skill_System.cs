@@ -16,7 +16,7 @@ public class Skill_System : MonoBehaviour
     [Header("Animation")]
     [SerializeField] private Animator anim;
     [Header("Skills")]
-    [SerializeField] private ParabolicSkill E;
+
     [SerializeField] private M2Skill m2;
     [SerializeField] private ObjectSpawn Q;
     [SerializeField] private Element_use elementM1;
@@ -24,9 +24,9 @@ public class Skill_System : MonoBehaviour
     [SerializeField] private Element_use elementE;
     [SerializeField] private Element_use elementQ;
     [Header("Atack")]
-    private HashSet<GameObject> _enemy = new HashSet<GameObject>();  // HashSet для уникнення дублікатів
-    public Collider2D MeleeAttack;  // Колайдер для визначення зони атаки
-    [Header("Шар на який задівають атаки")]
+    private HashSet<GameObject> _enemy = new HashSet<GameObject>();  // HashSet пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    public Collider2D MeleeAttack;  // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+    [Header("пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ")]
     public LayerMask targetLayer;
     [Header("Utility")]
     private Camera mainCamera;
@@ -36,25 +36,25 @@ public class Skill_System : MonoBehaviour
     }
     void Update()
     {   
-        if (Input.GetMouseButtonDown(0))  // Ліва кнопка миші для атаки
+        if (Input.GetMouseButtonDown(0))  // ЛіпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
         {
-            _enemy = FindUtility.FindEnemy(MeleeAttack, targetLayer);  // Знайти всіх ворогів у зоні
+            _enemy = FindUtility.FindEnemy(MeleeAttack, targetLayer);  // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ
             Element element = elementM1.currentElement;
             switch (element)
             {
                 case Element.Water:
                     anim.SetTrigger("water_atk");
-                    Damage.ApplyDamage(new List<GameObject>(_enemy).ToArray(), -5, element);  // Викликати метод атаки і передати ворогів
+                    Damage.ApplyDamage(new List<GameObject>(_enemy).ToArray(), -5, element);  // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
                     HitStop.TriggerStop(0.05f, 0.0f);
                     foreach (GameObject enemy in _enemy)
                     {
-                        // Отримуємо Rigidbody2D ворога для застосування фізики
+                        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ Rigidbody2D пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
                         Rigidbody2D enemyRb = enemy.GetComponent<Rigidbody2D>();
 
-                        // Якщо ворог має Rigidbody2D
+                        // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ Rigidbody2D
                         if (enemyRb != null)
                         {
-                            // Використовуємо метод Push для відштовхування ворога
+                            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ Push пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
                             PushUtility.Push(enemyRb, transform.position, -3f);
                         }
                     }
@@ -64,13 +64,13 @@ public class Skill_System : MonoBehaviour
                     Damage.ApplyDamage(new List<GameObject>(_enemy).ToArray(), 15, element);
                     foreach (GameObject enemy in _enemy)
                     {
-                        // Отримуємо Rigidbody2D ворога для застосування фізики
+                        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ Rigidbody2D пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
                         Rigidbody2D enemyRb = enemy.GetComponent<Rigidbody2D>();
 
-                        // Якщо ворог має Rigidbody2D
+                        // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ Rigidbody2D
                         if (enemyRb != null)
                         {
-                            // Використовуємо метод Push для відштовхування ворога
+                            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ Push пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
                             PushUtility.Push(enemyRb, transform.position, 10f);
                         }
                     }
@@ -81,13 +81,13 @@ public class Skill_System : MonoBehaviour
                     Damage.ApplyDamage(new List<GameObject>(_enemy).ToArray(), 20, element);
                     foreach (GameObject enemy in _enemy)
                     {
-                        // Отримуємо Rigidbody2D ворога для застосування фізики
+                        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ Rigidbody2D пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
                         Rigidbody2D enemyRb = enemy.GetComponent<Rigidbody2D>();
 
-                        // Якщо ворог має Rigidbody2D
+                        // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ Rigidbody2D
                         if (enemyRb != null)
                         {
-                            // Використовуємо метод Push для відштовхування ворога
+                            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ Push пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
                             PushUtility.Push(enemyRb, transform.position, 15f);
                         }
                     }
@@ -97,20 +97,20 @@ public class Skill_System : MonoBehaviour
                     Damage.ApplyDamage(new List<GameObject>(_enemy).ToArray(), 10, element);
                     foreach (GameObject enemy in _enemy)
                     {
-                        // Отримуємо Rigidbody2D ворога для застосування фізики
+                        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ Rigidbody2D пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
                         Rigidbody2D enemyRb = enemy.GetComponent<Rigidbody2D>();
 
-                        // Якщо ворог має Rigidbody2D
+                        // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ Rigidbody2D
                         if (enemyRb != null)
                         {
-                            // Використовуємо метод Push для відштовхування ворога
+                            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ Push пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
                             PushUtility.Push(enemyRb, transform.position, 5f);
                         }
                     }
                     break;
             }
         }
-        if (Input.GetMouseButtonDown(1))  // Права кнопка миші для атаки
+        if (Input.GetMouseButtonDown(1))  // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
         {          
             Element element = elementM2.currentElement;
             switch (element)
@@ -128,7 +128,6 @@ public class Skill_System : MonoBehaviour
                     
                     break;
                 case Element.Wind:
-                    E.Activate(mainCamera.ScreenToWorldPoint(Input.mousePosition));
                     break;
             }
         }
@@ -152,7 +151,7 @@ public class Skill_System : MonoBehaviour
                 Debug.LogError("Current element is null!");
                 return;
             }
-            Vector2 spawnPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);// Отримуємо позицію курсора в світових координатах
+            Vector2 spawnPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             Q.SpawnOrMoveObject(elementQ.currentElement, spawnPosition);
         }
     }

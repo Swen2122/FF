@@ -1,20 +1,22 @@
 using UnityEngine;
-
+using UnityEngine.VFX;
 public class Get_Element : MonoBehaviour
 {
     private Camera mainCamera;
     [SerializeField] private LayerMask selectableLayer;
-    [SerializeField] private GameObject radialMenu; // Радіальне меню
-    public Element_use Q, E, M1, M2; // Клавіші для елементів
+    [SerializeField] private GameObject radialMenu; 
+    public Element_use Q, E, M1, M2; 
     private bool isRadialMenuActive = false;
     private Element_select selectedElement;
-    private int selectedSector = -1; // Активний сектор
+    private Transform selectedElementTransform;
+    private int selectedSector = -1; 
+    public VisualEffect vfx;
 
     void Start()
     {
         mainCamera = Camera.main;
 
-        // Вимикаємо меню на старті
+       
         if (radialMenu != null)
         {
             radialMenu.SetActive(false);
@@ -23,7 +25,6 @@ public class Get_Element : MonoBehaviour
 
     void Update()
     {
-        // Відкриття меню при натисканні середньої кнопки
         if (Input.GetMouseButtonDown(2))
         {
             Vector2 rayPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
@@ -34,28 +35,42 @@ public class Get_Element : MonoBehaviour
                 selectedElement = hit.transform.GetComponent<Element_select>();
                 if (selectedElement != null)
                 {
+                    selectedElementTransform = selectedElement.transform;
                     ShowRadialMenu(Input.mousePosition);
                 }
             }
         }
+        if(vfx != null && selectedElementTransform != null)AbsorbEffect(selectedElementTransform.transform.position, Controler.Instance.transform.position);
 
-        // Утримування кнопки для вибору сектора
         if (Input.GetMouseButton(2) && isRadialMenuActive)
         {
             Time.timeScale = 0.3f;
             RadialMenuHighlight radialMenuHighlight = radialMenu.GetComponent<RadialMenuHighlight>();
-            selectedSector = radialMenuHighlight.GetCurrentSectorIndex(); // Вибір сектора
+            selectedSector = radialMenuHighlight.GetCurrentSectorIndex(); 
         }
 
-        // Призначення елемента при відпусканні кнопки
         if (Input.GetMouseButtonUp(2) && isRadialMenuActive)
         {
             Time.timeScale = 1f;
             AssignElementToSector();
+            //AbsorbEffect(selectedElement.transform.position, Controler.Instance.transform.position);
+            vfx.Play();
             HideRadialMenu();
         }
     }
+    private void AbsorbEffect(Vector3 start, Vector3 end)
+    {
+        if (vfx == null) return;
+        vfx.SetVector3("Start", start);
+        vfx.SetVector3("End", end);
+        Vector3 direction = (end - start).normalized;
+        vfx.SetVector3("Velocity", direction);
 
+    }
+        void StopEffect()
+    {
+        vfx.Stop(); // Р—СѓРїРёРЅСЏС” РµС„РµРєС‚
+    }
     private void ShowRadialMenu(Vector2 screenPosition)
     {
         if (!radialMenu.activeSelf)
@@ -63,14 +78,11 @@ public class Get_Element : MonoBehaviour
             radialMenu.SetActive(true);
         }
 
-        // Перетворення екранної позиції в світову
         Vector3 worldPosition = mainCamera.ScreenToWorldPoint(screenPosition);
         worldPosition.z = 0;
 
-        // Затискаємо позицію в межах екрану
         Vector3 clampedPosition = ClampToScreen(worldPosition);
 
-        // Рухаємо меню
         radialMenu.transform.position = clampedPosition;
         isRadialMenuActive = true;
     }
@@ -115,7 +127,7 @@ public class Get_Element : MonoBehaviour
                 M2.OnElementSelected(selectedElement.element);
                 break;
             default:
-                Debug.Log("Сектор не вибрано");
+                Debug.Log("пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
                 break;
         }
     }

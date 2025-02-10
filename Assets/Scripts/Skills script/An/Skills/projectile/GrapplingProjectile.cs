@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class GrapplingProjectile : BaseProjectile
+public class GrapplingProjectile : DefaultProjectile
 {
     [SerializeField] private float pullForce = 10f;
     [SerializeField] private LayerMask pullableLayer;

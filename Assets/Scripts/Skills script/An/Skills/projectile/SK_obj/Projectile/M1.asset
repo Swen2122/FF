@@ -18,7 +18,7 @@ MonoBehaviour:
   animationTrigger: 
   projectiles:
   - projectileData: {fileID: 11400000, guid: 7b31ec775713fdc469933c391bb6d236, type: 2}
-    pattern: {fileID: 11400000, guid: e06be922f69bce749ac150c1f5c91871, type: 2}
+    pattern: {fileID: 11400000, guid: be8c4c177da1f694f9dee086fcfef25a, type: 2}
     elementType: 1
   - projectileData: {fileID: 11400000, guid: aee4848ca55622c418aabea62b209576, type: 2}
     pattern: {fileID: 11400000, guid: e06be922f69bce749ac150c1f5c91871, type: 2}

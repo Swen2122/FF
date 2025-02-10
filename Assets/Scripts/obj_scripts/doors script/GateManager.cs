@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GateManager : MonoBehaviour
+public class GateManager : MonoBehaviour, IActivate
 {
     [SerializeField] private GateManipulator gate;
     private void Update()
@@ -21,5 +21,13 @@ public class GateManager : MonoBehaviour
     public void Close()
     {
         gate.CloseGate();
+    }
+    public void On()
+    {
+        Open();
+    }
+    public void Off()
+    {
+        Close();
     }
 }

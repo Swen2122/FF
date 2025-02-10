@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using DG.Tweening;
-// Налаштування окремого снаряда
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 [CreateAssetMenu(fileName = "New Projectile Data", menuName = "Skills/Projectile Data")]
 public class ProjectileData : ScriptableObject
 {
@@ -11,21 +11,11 @@ public class ProjectileData : ScriptableObject
 
     [Header("Movement Settings")]
     public float speed = 20f;
-    public Ease moveEase = Ease.OutExpo;
     public float range = 10f;
-    public float parabolaHeight = 1f;
-    public enum ProjectileType
-    {
-        Basic,
-        Chain,
-        Explosive,
-        Grappling,
-        Knockback
-    }
-
+    
     [Header("Projectile Type")]
     public bool canTriggerReaction = true;
-    public ProjectileType projectileType;
+    
     [Header("Visual Effects")]
     public GameObject spawnEffect;
     public GameObject hitEffect;

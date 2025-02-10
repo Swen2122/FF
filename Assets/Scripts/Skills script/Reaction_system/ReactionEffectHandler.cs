@@ -6,33 +6,37 @@ public class ElementalReactionHandler : MonoBehaviour
 {
     [SerializeField] private ElementalReactionDatabase reactionDatabase;
 
-    // Словник для відстеження активних реакцій для кожного об'єкта
+    // РЎР»РѕРІРЅРёРє РґР»СЏ Р·Р±РµСЂС–РіР°РЅРЅСЏ Р°РєС‚РёРІРЅРёС… СЂРµР°РєС†С–Р№ РґР»СЏ РєРѕР¶РЅРѕРіРѕ РѕР±'С”РєС‚Р°
     private Dictionary<GameObject, HashSet<(Element, Element)>> activeReactionsPerObject
         = new Dictionary<GameObject, HashSet<(Element, Element)>>();
 
-    // Тригер елементальної реакції
-    public void TriggerReaction(Element first, Element second, GameObject target, Vector3 position)
+    // РњРµС‚РѕРґ РґР»СЏ Р·Р°РїСѓСЃРєСѓ СЂРµР°РєС†С–С—
+    public void TriggerReaction(Element first, Element second, GameObject check,GameObject target, Vector3 position)
     {
+        if(IsObjectInDictionary(check)) return;
         var reaction = reactionDatabase.GetReaction(first, second);
         if (reaction == null || target == null) return;
 
         var reactionKey = (first, second);
 
-        // Перевіряємо чи можна створити нову реакцію
+        // РџРµСЂРµРІС–СЂРєР°, С‡Рё РјРѕР¶РЅР° Р·Р°РїСѓСЃС‚РёС‚Рё СЂРµР°РєС†С–СЋ
         if (!CanTriggerReaction(target, reactionKey, reaction.Effect.allowMultipleReactions))
             return;
 
-        // Додаємо реакцію до активних
+        // Р”РѕРґР°РІР°РЅРЅСЏ СЂРµР°РєС†С–С— РґРѕ Р°РєС‚РёРІРЅРёС…
         AddActiveReaction(target, reactionKey);
 
-        // Обробляємо реакцію залежно від її типу
+        // РћР±СЂРѕР±РєР° РµС„РµРєС‚Сѓ СЂРµР°РєС†С–С— РЅР° С†С–Р»СЊРѕРІРѕРјСѓ РѕР±'С”РєС‚С–
         ProcessReaction(reaction.Effect, target, position);
 
-        // Запускаємо корутину для очищення реакції
+        // РћС‡РёС‰РµРЅРЅСЏ СЂРµР°РєС†С–С— РїС–СЃР»СЏ Р·Р°РІРµСЂС€РµРЅРЅСЏ
         StartCoroutine(ClearActiveReaction(target, reactionKey, reaction.Effect.energy));
     }
-
-    // Перевірка можливості створення нової реакції
+    private bool IsObjectInDictionary(GameObject check)
+    {
+        return activeReactionsPerObject.ContainsKey(check);
+    }
+    // РџРµСЂРµРІС–СЂРєР° РјРѕР¶Р»РёРІРѕСЃС‚С– Р·Р°РїСѓСЃРєСѓ СЂРµР°РєС†С–С—
     private bool CanTriggerReaction(GameObject target, (Element, Element) reactionKey, bool allowMultiple)
     {
         if (!activeReactionsPerObject.ContainsKey(target))
@@ -41,7 +45,7 @@ public class ElementalReactionHandler : MonoBehaviour
         return allowMultiple || !activeReactionsPerObject[target].Contains(reactionKey);
     }
 
-    // Додавання реакції до активних
+    // Р”РѕРґР°РІР°РЅРЅСЏ СЂРµР°РєС†С–С— РґРѕ Р°РєС‚РёРІРЅРёС…
     private void AddActiveReaction(GameObject target, (Element, Element) reactionKey)
     {
         if (!activeReactionsPerObject.ContainsKey(target))
@@ -50,7 +54,7 @@ public class ElementalReactionHandler : MonoBehaviour
         activeReactionsPerObject[target].Add(reactionKey);
     }
 
-    // Обробка різних типів реакцій
+    // РћР±СЂРѕР±РєР° РµС„РµРєС‚Сѓ СЂРµР°РєС†С–С—
     private void ProcessReaction(ElementalReaction.ReactionEffect effect, GameObject target, Vector3 position)
     {
         switch (effect.behavior)
@@ -62,10 +66,10 @@ public class ElementalReactionHandler : MonoBehaviour
                 ApplyStatusEffect(effect, target);
                 break;
             case ElementalReaction.ReactionBehavior.ChangeEnvironment:
-                // Тут можна додати логіку зміни оточення
+                // Р›РѕРіС–РєР° Р·РјС–РЅРё СЃРµСЂРµРґРѕРІРёС‰Р°
                 break;
             case ElementalReaction.ReactionBehavior.ChainReaction:
-                // Тут можна додати логіку ланцюгової реакції
+                // Р›РѕРіС–РєР° Р»Р°РЅС†СЋРіРѕРІРѕС— СЂРµР°РєС†С–С—
                 break;
             default:
                 Debug.LogWarning($"Unhandled reaction behavior: {effect.behavior}");
@@ -73,14 +77,14 @@ public class ElementalReactionHandler : MonoBehaviour
         }
     }
 
-    // Створення ефекту реакції
+    // РЎРїР°РІРЅ РµС„РµРєС‚Сѓ СЂРµР°РєС†С–С—
     private void SpawnReactionEffect(ElementalReaction.ReactionEffect effect, GameObject target, Vector3 position)
     {
         if (effect.effectPrefab == null) return;
 
         var reactionObj = Instantiate(effect.effectPrefab, position, Quaternion.identity);
 
-        // Перевіряємо наявність різних компонентів реакції
+        // Р†РЅС–С†С–Р°Р»С–Р·Р°С†С–СЏ РµС„РµРєС‚Сѓ СЂРµР°РєС†С–С—
         if (reactionObj.TryGetComponent<AbstractReactionEffect>(out var baseEffect))
         {
             if (baseEffect is VortexDamageZone vortexEffect)
@@ -93,11 +97,11 @@ public class ElementalReactionHandler : MonoBehaviour
             }
         }
 
-        // Застосовуємо початкове пошкодження
+        // Р—Р°СЃС‚РѕСЃСѓРІР°РЅРЅСЏ РїРѕС€РєРѕРґР¶РµРЅСЊ Сѓ Р·РѕРЅС–
         ApplyDamageInArea(position, effect);
     }
 
-    // Застосування пошкодження в області
+    // Р—Р°СЃС‚РѕСЃСѓРІР°РЅРЅСЏ РїРѕС€РєРѕРґР¶РµРЅСЊ Сѓ Р·РѕРЅС–
     private void ApplyDamageInArea(Vector3 position, ElementalReaction.ReactionEffect effect)
     {
         var colliders = Physics2D.OverlapCircleAll(position, effect.radius, effect.targetLeyer);
@@ -111,23 +115,23 @@ public class ElementalReactionHandler : MonoBehaviour
         }
     }
 
-    // Застосування статус-ефекту
+    // Р—Р°СЃС‚РѕСЃСѓРІР°РЅРЅСЏ СЃС‚Р°С‚СѓСЃ-РµС„РµРєС‚Сѓ
     private void ApplyStatusEffect(ElementalReaction.ReactionEffect effect, GameObject target)
     {
-        // Застосовуємо пошкодження
+        // Р—Р°СЃС‚РѕСЃСѓРІР°РЅРЅСЏ РїРѕС€РєРѕРґР¶РµРЅСЊ
         if (target.TryGetComponent<ICanHit>(out var damageable))
         {
             damageable.TakeHit(effect.damage, Element.Fire);
         }
 
-        // Застосовуємо статус-ефект, якщо він є
+        // Р—Р°СЃС‚РѕСЃСѓРІР°РЅРЅСЏ СЃС‚Р°С‚СѓСЃ-РµС„РµРєС‚Сѓ, СЏРєС‰Рѕ С”
         if (effect.statusEffect != null && target.TryGetComponent<IStatusEffect>(out var statusEffectable))
         {
-            //statusEffectable.Apply(effect.statusEffect); // Тепер передаємо BaseStatusEffect напряму
+            //statusEffectable.Apply(effect.statusEffect); // РџРѕС‚СЂС–Р±РЅРѕ СЂРµР°Р»С–Р·СѓРІР°С‚Рё BaseStatusEffect
         }
     }
 
-    // Очищення активної реакції
+    // РњРµС‚РѕРґ РґР»СЏ РѕС‡РёС‰РµРЅРЅСЏ Р°РєС‚РёРІРЅРѕС— СЂРµР°РєС†С–С—
     private IEnumerator ClearActiveReaction(GameObject target, (Element, Element) reactionKey, float delay)
     {
         yield return new WaitForSeconds(delay);
@@ -141,7 +145,7 @@ public class ElementalReactionHandler : MonoBehaviour
         }
     }
 
-    // Очищення при знищенні об'єкта
+    // РћС‡РёС‰РµРЅРЅСЏ РІСЃС–С… СЂРµР°РєС†С–Р№ РїСЂРё Р·РЅРёС‰РµРЅРЅС– РѕР±'С”РєС‚Р°
     private void OnDestroy()
     {
         activeReactionsPerObject.Clear();

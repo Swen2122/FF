@@ -3,10 +3,10 @@ using DG.Tweening;
 [CreateAssetMenu(fileName = "NewConvergenceSkillData", menuName = "Skills/ConvergenceSkill Data")]
 public class SkillData : ScriptableObject
 {
-    public GameObject projectilePrefab;  // Префаб снаряду
-    public GameObject impactPrefab;      // Префаб об'єкта при зіткненні
-    public float projectileSpeed = 5f;   // Швидкість снарядів
-    public float parabolaHeight = 2f;    // Висота параболи
-    public float maxRange = 10f;         // Максимальна дальність навички
-    public Ease movementEase = Ease.Linear; // Тип руху
+    public GameObject projectilePrefab;  // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    public GameObject impactPrefab;      // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ'пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    public float projectileSpeed = 5f;   // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    public float curveAmount  = 2f;    // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    public float maxRange = 10f;         // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    public Ease movementEase = Ease.Linear; // пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 }

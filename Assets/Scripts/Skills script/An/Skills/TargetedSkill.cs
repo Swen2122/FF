@@ -14,7 +14,6 @@ public abstract class TargetedSkill : BaseSkills
 
     protected abstract void UseSkillAtPosition(Vector2 position);
 
-    // Перевизначаємо базовий метод, щоб він не використовувався
     protected override void UseSkill()
     {
         throw new System.NotImplementedException();

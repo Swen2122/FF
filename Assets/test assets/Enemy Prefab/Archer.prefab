@@ -59,7 +59,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -212,7 +212,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -466,8 +466,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSource: {fileID: 4520690790557488867}
   healthStat: {fileID: 0}
-  maxHP: 75
-  currentHP: 50
+  maxHP: 500
+  currentHP: 500
   HP_bar: {fileID: 0}
 --- !u!61 &2312461661383645923
 BoxCollider2D:

@@ -15,11 +15,8 @@ MonoBehaviour:
   projectilePrefab: {fileID: 2145239436772320173, guid: a5d0e73324c2a014ba9fb6183f047b42, type: 3}
   damage: 10
   speed: 20
-  moveEase: 1
   range: 5
-  parabolaHeight: 1
   canTriggerReaction: 1
-  projectileType: 0
   spawnEffect: {fileID: 0}
   hitEffect: {fileID: 0}
   trailEffect: {fileID: 0}

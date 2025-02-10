@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ExplosiveProjectile : BaseProjectile
+public class ExplosiveProjectile : DefaultProjectile
 {
     [SerializeField] private float explosionRadius = 3f;
     [SerializeField] private LayerMask damageLayer;
@@ -15,7 +15,7 @@ public class ExplosiveProjectile : BaseProjectile
 
     private void Explode()
     {
-        // Урон
+        // пїЅпїЅпїЅпїЅ
         Collider2D[] damageHits = Physics2D.OverlapCircleAll(transform.position, explosionRadius, damageLayer);
         foreach (var hit in damageHits)
         {
@@ -25,7 +25,7 @@ public class ExplosiveProjectile : BaseProjectile
             }
         }
 
-        // Ефекти вибуху
+        // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
         if (explosionEffectPrefab)
         {
             Instantiate(explosionEffectPrefab, transform.position, Quaternion.identity);

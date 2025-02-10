@@ -18,10 +18,10 @@ TagManager:
   - obj
   - interact
   - Player
-  - 
-  - 
-  - 
-  - 
+  - Triger
+  - Energy
+  - PlayerProjectile
+  - Projectile
   - 
   - 
   - 

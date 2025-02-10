@@ -1,5 +1,5 @@
 using UnityEngine;
-public class KnockbackProjectile : BaseProjectile
+public class KnockbackProjectile : DefaultProjectile
 {
     [SerializeField] private float pushForce = 10f;
     [SerializeField] private LayerMask pushableLayer;

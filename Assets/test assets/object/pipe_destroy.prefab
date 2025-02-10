@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7502009463797464993}
-  - component: {fileID: 403833155319273262}
+  - component: {fileID: 6281113556882167721}
   - component: {fileID: 3099994475795955857}
   - component: {fileID: 3649449143621293979}
   m_Layer: 8
@@ -34,7 +34,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &403833155319273262
+--- !u!114 &6281113556882167721
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,26 +43,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 5862458380888597905}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e272300b62e7fb949aba33015d7defb6, type: 3}
+  m_Script: {fileID: 11500000, guid: 71e17629cacedee4399ffeade0f93179, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxHits: 3
   currentHits: 0
-  hitSound: {fileID: 8300000, guid: a598edb176dbb1e429aef5ce948d6145, type: 3}
+  hitSound: {fileID: 8300000, guid: f317e337e287e01459d084b593dc7aab, type: 3}
   destroySound: {fileID: 8300000, guid: f9bcdc380071ed94eb5c4ef8bb7c1ae0, type: 3}
   audioSource: {fileID: 0}
   spriteRenderer: {fileID: 3099994475795955857}
   hitColor: {r: 1, g: 0, b: 0, a: 1}
   colorFadeTime: 0.2
-  pressure: 1
-  amount: 1
-  maxstep: 6
   onDestroyed:
     m_PersistentCalls:
       m_Calls: []
   onHit:
     m_PersistentCalls:
       m_Calls: []
+  waterAmount: 5
 --- !u!212 &3099994475795955857
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -86,7 +84,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

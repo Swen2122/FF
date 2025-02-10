@@ -1,0 +1,542 @@
+fileFormatVersion: 2
+guid: def38409e7fd4ab4f8c1834cb595e1ce
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4024066920619688377
+    second: lpccatratdog_0
+  - first:
+      213: 1319773189369605376
+    second: lpccatratdog_1
+  - first:
+      213: -9010644726990293210
+    second: lpccatratdog_2
+  - first:
+      213: 6356671330692765440
+    second: lpccatratdog_3
+  - first:
+      213: 2532028833241412679
+    second: lpccatratdog_4
+  - first:
+      213: 7057330408560004437
+    second: lpccatratdog_5
+  - first:
+      213: -8337676509364259122
+    second: lpccatratdog_6
+  - first:
+      213: 4482155499614996610
+    second: lpccatratdog_7
+  - first:
+      213: 3470049580420262831
+    second: lpccatratdog_8
+  - first:
+      213: 7768496621151139403
+    second: lpccatratdog_9
+  - first:
+      213: 4641002673665692546
+    second: lpccatratdog_10
+  - first:
+      213: -9035212028574162169
+    second: lpccatratdog_11
+  - first:
+      213: -523312066199361774
+    second: lpccatratdog_12
+  - first:
+      213: -5347908517848602357
+    second: lpccatratdog_13
+  - first:
+      213: 3595809352686755726
+    second: lpccatratdog_14
+  - first:
+      213: -1021664910729047487
+    second: lpccatratdog_15
+  - first:
+      213: -1622921349504841410
+    second: lpccatratdog_16
+  - first:
+      213: -4718138896600752960
+    second: lpccatratdog_17
+  - first:
+      213: -1968035098952984926
+    second: lpccatratdog_18
+  - first:
+      213: -1724468019275581731
+    second: lpccatratdog_19
+  - first:
+      213: 4566889027012157656
+    second: lpccatratdog_20
+  - first:
+      213: -2624009125819008178
+    second: lpccatratdog_21
+  - first:
+      213: 3501585234636823907
+    second: lpccatratdog_22
+  - first:
+      213: -617376914754633526
+    second: lpccatratdog_23
+  - first:
+      213: -5221305281393897795
+    second: lpccatratdog_24
+  - first:
+      213: 409536732890157377
+    second: lpccatratdog_25
+  - first:
+      213: -1284805935081518827
+    second: lpccatratdog_26
+  - first:
+      213: 7470913186621151598
+    second: lpccatratdog_27
+  - first:
+      213: -7504211963111693133
+    second: lpccatratdog_28
+  - first:
+      213: 6389866240290690115
+    second: lpccatratdog_29
+  - first:
+      213: 3803742475531398993
+    second: lpccatratdog_30
+  - first:
+      213: 6655937977113234698
+    second: lpccatratdog_31
+  - first:
+      213: 4438875545964260040
+    second: lpccatratdog_32
+  - first:
+      213: -2049332394696077151
+    second: lpccatratdog_33
+  - first:
+      213: -6931381588631523899
+    second: lpccatratdog_34
+  - first:
+      213: 6098496150641086043
+    second: lpccatratdog_35
+  - first:
+      213: -7285928609223244289
+    second: lpccatratdog_36
+  - first:
+      213: 4571961026239152449
+    second: lpccatratdog_37
+  - first:
+      213: 3798729887535494824
+    second: lpccatratdog_38
+  - first:
+      213: -5781726076122864332
+    second: lpccatratdog_39
+  - first:
+      213: -6328080222904452560
+    second: lpccatratdog_40
+  - first:
+      213: -6060664536349088118
+    second: lpccatratdog_41
+  - first:
+      213: 1328179747401117767
+    second: lpccatratdog_42
+  - first:
+      213: -5562970635159524153
+    second: lpccatratdog_43
+  - first:
+      213: 736573807273597384
+    second: lpccatratdog_44
+  - first:
+      213: -6383155564470408635
+    second: lpccatratdog_45
+  - first:
+      213: -7589353761030359933
+    second: lpccatratdog_46
+  - first:
+      213: 5006543312511548747
+    second: lpccatratdog_47
+  - first:
+      213: -5283400477171090819
+    second: lpccatratdog_48
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: lpccatratdog_0
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 224
+        width: 14
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b1cfeb3b8b58d730800000000000000
+      internalID: 4024066920619688377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpccatratdog_1
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 223
+        width: 16
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00da57829b6c05210800000000000000
+      internalID: 1319773189369605376
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpccatratdog_2
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 223
+        width: 17
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6273f7a7c52c3f280800000000000000
+      internalID: -9010644726990293210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpccatratdog_9
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 191
+        width: 32
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b463986848e3fcb60800000000000000
+      internalID: 7768496621151139403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpccatratdog_10
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 191
+        width: 32
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2835b75b757286040800000000000000
+      internalID: 4641002673665692546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpccatratdog_11
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 191
+        width: 32
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7032086d78a7c9280800000000000000
+      internalID: -9035212028574162169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpccatratdog_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 159
+        width: 32
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a6186d218220b4e0800000000000000
+      internalID: -1968035098952984926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpccatratdog_19
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 159
+        width: 32
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd6be8c19757118e0800000000000000
+      internalID: -1724468019275581731
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpccatratdog_20
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 127
+        width: 15
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d060b7af59d06f30800000000000000
+      internalID: 4566889027012157656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpccatratdog_21
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 159
+        width: 32
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e4bbc284a95a59bd0800000000000000
+      internalID: -2624009125819008178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpccatratdog_28
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 127
+        width: 15
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b4ad738afeabd790800000000000000
+      internalID: -7504211963111693133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lpccatratdog_29
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 128
+        width: 14
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 34499c69d7d5da850800000000000000
+      internalID: 6389866240290690115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: fc74ab440dafce34a89aede52c99be44
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      lpccatratdog_3: -241402284
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

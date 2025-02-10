@@ -14,14 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isBurst: 0
   hasSpread: 0
-  useConvergence: 1
-  useConvergencePoints: 1
-  useSymmetricalPaths: 1
   projectilesCount: 1
   angleBetweenProjectiles: 15
   spreadAngle: 15
   burstCount: 3
   burstDelay: 0.1
   curveHeight: 2
-  convergenceOffset: 2
-  isHorizontalDominant: 1

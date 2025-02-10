@@ -7,6 +7,10 @@ public class Health : ICanHit
     public float maxHP = 100;
     public float currentHP;
     public Image HP_bar;
+    public SpriteRenderer spriteRenderer;
+    public Color hitColor = Color.red;
+    public float colorFadeTime = 0.2f;
+    private Color originalColor;
 
     private void Start()
     {
@@ -14,13 +18,14 @@ public class Health : ICanHit
         {
             maxHP = healthStat.maxHealth;
         }
+        if(spriteRenderer)originalColor = spriteRenderer.color;
         currentHP = maxHP;
         UpdateHPBar();
     }
 
     public override void TakeHit(float damage, Element elementType)
     {
-        //обчисленн€ шкоди з урахуванн€м резист≥в
+        ShowHitFeedback();
         float finalDamage = CalculateDamage(damage, elementType);
         currentHP -= finalDamage;
 
@@ -45,13 +50,12 @@ public class Health : ICanHit
             return baseDamage;
 
         var resist = healthStat.resistStat.Find(r => r.elementType == elementType);
-        float resistance = resist != null ? resist.resistance : 1f; // якщо нема резисту, то звичайний урон
+        float resistance = resist != null ? resist.resistance : 1f; 
 
-        // ‘ормула: Ўкода * (1 - –езист)
         float finalDamage = baseDamage * (resistance);
 
         Debug.Log($"Base Damage: {baseDamage}, Resistance: {resistance}, Final Damage: {finalDamage}");
-        return finalDamage; // Ўкода не може бути меншою за 0
+        return finalDamage; 
     }
     public override bool IsDestroyed()
     {
@@ -71,5 +75,19 @@ public class Health : ICanHit
         {
             HP_bar.fillAmount = currentHP / maxHP;
         }
+    }
+        private void ShowHitFeedback()
+    {
+        if (spriteRenderer != null)
+        {
+            StartCoroutine(FlashColor());
+        }
+    }
+
+    private System.Collections.IEnumerator FlashColor()
+    {
+        spriteRenderer.color = hitColor;
+        yield return new WaitForSeconds(colorFadeTime);
+        spriteRenderer.color = originalColor;
     }
 }

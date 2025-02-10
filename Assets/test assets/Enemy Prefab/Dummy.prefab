@@ -109,6 +109,9 @@ MonoBehaviour:
   maxHP: 1000
   currentHP: 1000
   HP_bar: {fileID: 0}
+  spriteRenderer: {fileID: 6381460149869313582}
+  hitColor: {r: 1, g: 0, b: 0, a: 1}
+  colorFadeTime: 0.2
 --- !u!61 &1175932112388974636
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -216,7 +219,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!82 &6291084547220003272
 AudioSource:

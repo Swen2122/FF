@@ -261,7 +261,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_Material: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   m_Color: {r: 0.0745098, g: 0.89465004, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -755,6 +755,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2563747471729574190}
     m_Modifications:
+    - target: {fileID: 1361140701473707378, guid: caa3d14e7087c3f4c9d56f5af6922b47, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+    - target: {fileID: 1965439032972335332, guid: caa3d14e7087c3f4c9d56f5af6922b47, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
     - target: {fileID: 2617198072244451025, guid: caa3d14e7087c3f4c9d56f5af6922b47, type: 3}
       propertyPath: m_Name
       value: ArowH
@@ -859,6 +867,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8272079042173426838, guid: caa3d14e7087c3f4c9d56f5af6922b47, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
     m_RemovedComponents:
     - {fileID: 1126633461151237689, guid: caa3d14e7087c3f4c9d56f5af6922b47, type: 3}
     - {fileID: 4052066383553149258, guid: caa3d14e7087c3f4c9d56f5af6922b47, type: 3}

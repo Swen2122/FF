@@ -6,6 +6,7 @@ public class Controler : MonoBehaviour
     [SerializeField] private Animator anim;
     [SerializeField] private SpriteRenderer SRenderer;
 
+    public static Controler Instance { get; private set; }
     // Movement
     float horizontal;
     float vertical;
@@ -22,8 +23,16 @@ public class Controler : MonoBehaviour
     private Vector3 lastDirection = Vector3.zero;
     public LayerMask obstacleLayer;
 
-    void Start()
+    private void Awake()
     {
+        if (Instance == null) 
+        {
+            Instance = this; // Зберігаємо посилання на поточний об'єкт
+        }
+    else
+        {
+            Destroy(gameObject); // Видаляємо зайві копії, якщо вони є
+        }
         body = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         SRenderer = GetComponent<SpriteRenderer>();
@@ -134,5 +143,13 @@ public class Controler : MonoBehaviour
     {
         SRenderer.flipX = !SRenderer.flipX;
         lastMoveDirection = horizontal;
+    }
+    public Vector3 GetPlayerPosition()
+    {
+        return transform.position;
+    }
+        public Transform GetPlayerTranform()
+    {
+        return transform;
     }
 }

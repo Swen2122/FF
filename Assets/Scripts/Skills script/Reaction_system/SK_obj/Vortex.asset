@@ -21,8 +21,8 @@ MonoBehaviour:
       m_Bits: 128
     effectPrefab: {fileID: 3134775336186155938, guid: 954c357451ca6c542b7acafd4c3dbfcd, type: 3}
     damage: 5
-    radius: 5
-    energy: 50
+    radius: 3
+    energy: 100
     energyPerTick: 10
     tickInterval: 0.5
     particles: {fileID: 0}

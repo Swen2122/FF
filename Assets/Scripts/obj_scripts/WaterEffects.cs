@@ -3,7 +3,7 @@ using UnityEngine;
 
 public static class WaterEffects
 {
-    public static void CreateWaterExplosion(this WaterSystem water, Vector2 position, float radius = 2f, float amount = 0.5f, float pressure = 3f, int points = 8)
+/*    public static void CreateWaterExplosion(this GradualWaterSystem water, Vector2 position, float radius = 2f, float amount = 0.5f, float pressure = 3f, int points = 8)
     {
         for (int i = 0; i < points; i++)
         {
@@ -13,7 +13,7 @@ public static class WaterEffects
         }
     }
 
-    public static IEnumerator CreateWaterStream(this WaterSystem water, Vector2 position, float duration, float ratePerSecond = 10f, float amount = 0.1f, float pressure = 1f)
+    public static IEnumerator CreateWaterStream(this GradualWaterSystem water, Vector2 position, float duration, float ratePerSecond = 10f, float amount = 0.1f, float pressure = 1f)
     {
         float timer = 0f;
         while (timer < duration)
@@ -24,7 +24,7 @@ public static class WaterEffects
         }
     }
 
-    public static void CreateWaterSplash(this WaterSystem water, Vector2 position, Vector2 direction, float spread = 30f, int drops = 5)
+    public static void CreateWaterSplash(this GradualWaterSystem water, Vector2 position, Vector2 direction, float spread = 30f, int drops = 5)
     {
         for (int i = 0; i < drops; i++)
         {
@@ -34,5 +34,5 @@ public static class WaterEffects
                           amount: Random.Range(0.1f, 0.3f),
                           pressure: Random.Range(1f, 2f));
         }
-    }
+    }*/
 }
