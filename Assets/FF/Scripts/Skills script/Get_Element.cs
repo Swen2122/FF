@@ -11,6 +11,7 @@ public class Get_Element : MonoBehaviour
     private Transform selectedElementTransform;
     private int selectedSector = -1; 
     public VisualEffect vfx;
+    public Health healt;
 
     void Start()
     {
@@ -127,5 +128,6 @@ public class Get_Element : MonoBehaviour
                 Debug.Log("������ �� �������");
                 break;
         }
+        healt.AddInternalEnergy(100f, selectedElement.element);
     }
 }

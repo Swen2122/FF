@@ -7,14 +7,15 @@ public class CharacterSkillManager : MonoBehaviour
         public KeyCode key;
         public TriggerType trigger = TriggerType.none;
         public BaseSkills skill;
-        public bool requiresPosition;
+        public float cost = 0f;
+        public bool skipCostEnergy = false;
         public BaseSkills chargeSkill;
-        public bool chargeRequiresPosition;
+        public float chargeCost = 0f;
         public float chargeTime;
         [HideInInspector] public float chargeStartTime;
         [HideInInspector] public bool isCharging;
     }
-
+    [SerializeField] protected Health health;
     [SerializeField] protected SkillBinding[] skillBindings;
     [SerializeField] protected SkillChargeIndicator chargeIndicator;
     private void Update()
@@ -31,6 +32,7 @@ public class CharacterSkillManager : MonoBehaviour
                 }
                 else
                 {
+                    PlayerTracker.Instance.SetUseSkill();
                     ExecuteSkill(binding);
                 }
             }
@@ -43,6 +45,7 @@ public class CharacterSkillManager : MonoBehaviour
                 }
                 else if (Input.GetKeyUp(binding.key))
                 {
+                    PlayerTracker.Instance.SetUseSkill();
                     ExecuteChargedSkill(binding);
                 }
             }
@@ -74,14 +77,20 @@ public class CharacterSkillManager : MonoBehaviour
     }
     protected virtual void ExecuteSkill(SkillBinding binding)
     {
-        if (binding.requiresPosition)
+        if (health != null && health.GetEnergy(Element.Wind) >= binding.cost)
         {
-            (binding.skill as TargetedSkill)?.TryUseSkillAtPosition();
+            if (binding.skill as TargetedSkill)
+            {
+                (binding.skill as TargetedSkill)?.TryUseSkillAtPosition();
+            }
+            else
+            {
+                binding.skill.TryUseSkill();
+            }
+            if(binding.skipCostEnergy) return;
+            health.AddInternalEnergy(-binding.cost, Element.Wind);
         }
-        else
-        {
-            binding.skill.TryUseSkill();
-        }
+        
     }
     protected virtual void UpdateCharging(SkillBinding binding)
     {
@@ -95,7 +104,9 @@ public class CharacterSkillManager : MonoBehaviour
         float chargePercent = Mathf.Clamp01(currentChargeTime / binding.chargeTime);
         if (chargePercent >= 1f)
         {
-            if (binding.chargeRequiresPosition)
+            if (health != null && health.GetEnergy(Element.Wind) >= binding.cost)
+        {
+            if (binding.chargeSkill as TargetedSkill)
             {
                 (binding.chargeSkill as TargetedSkill)?.TryUseSkillAtPosition();
             }
@@ -103,6 +114,8 @@ public class CharacterSkillManager : MonoBehaviour
             {
                 binding.chargeSkill.TryUseSkill();
             }
+            health.AddInternalEnergy(-binding.cost, Element.Wind);
+        }
         } else ExecuteSkill(binding);
         chargeIndicator.ShowIndicator(false);
         binding.isCharging = false;

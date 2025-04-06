@@ -3,6 +3,7 @@ using System.Collections.Generic;
 public abstract class ICanHit : MonoBehaviour
 {
     protected Dictionary<Element, float> externalEnergies = new Dictionary<Element, float>();
+    protected Dictionary<Element, float> internalEnergies = new Dictionary<Element, float>();
     /// <summary>
     /// Метод для отримання пошкоджень. Він буде реалізований у похідних класах.
     /// </summary>
@@ -30,6 +31,30 @@ public abstract class ICanHit : MonoBehaviour
             externalEnergies.Add(element, energy);
         }
     }
+    public virtual void AddInternalEnergy(float energy, Element element)
+    {
+        if (internalEnergies.ContainsKey(element))
+        {
+            internalEnergies[element] += energy;
+        }
+        else
+        {
+            internalEnergies.Add(element, energy);
+        }
+        foreach (var pair in internalEnergies)
+        {
+            Debug.Log($"Element: {pair.Key}, Energy: {pair.Value}");
+        }
+    }
+    public virtual float GetEnergy(Element element)
+    {
+        if (internalEnergies.ContainsKey(element))
+        {
+            return internalEnergies[element];
+        }
+        return 0f;
+    }
+
     public virtual void CheckReactions()
     {
         Debug.Log("Checking reactions");

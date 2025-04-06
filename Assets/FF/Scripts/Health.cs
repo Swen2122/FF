@@ -22,7 +22,14 @@ public class Health : ICanHit
         currentHP = maxHP;
         UpdateHPBar();
     }
-
+    public override void AddInternalEnergy(float energy, Element elementType)
+    {
+      base.AddInternalEnergy(energy, elementType);
+    }
+    public override float GetEnergy(Element element)
+    {
+        return base.GetEnergy(element);
+    }
     public override void TakeHit(float damage, Element elementType)
     {
         AddEnergy(damage, elementType);

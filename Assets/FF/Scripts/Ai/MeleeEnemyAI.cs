@@ -25,15 +25,19 @@ public class MeleeEnemyAI : BaseEnemyAI
         chaseSequence.Attach(new CheckDistanceToPlayer(this, maxChaseDistance, true));
         chaseSequence.Attach(new Inverter(new CheckDistanceToPlayer(this, attackRange, true)));
         chaseSequence.Attach(new ChaseAction(this, updatePathInterval));
-        chaseSequence.Attach(new ActionTriger(this, TriggerType.damage));
-
+        Selector TrigerSelector = new Selector();
+        SequenceNode dashSequence = new SequenceNode();
+        dashSequence.Attach(new CheckDistanceToPlayer(this, 5f, true));
+        dashSequence.Attach(new CheckPlayer(this, PlayerAction.Dash));
+        dashSequence.Attach(new ActionTriger(this, TriggerType.damage));
+        rootNode.Attach(dashSequence);
         rootNode.Attach(attackSequence);
+        rootNode.Attach(TrigerSelector);
         rootNode.Attach(chaseSequence);
     }
 
     public void ExecuteMeleeAttack()
     {
-        
         hitTargets = FindUtility.FindEnemy(meleeAttack, targetLayer);
         HitStop.TriggerStop(0.05f, 0.0f);
         Damage.ApplyDamage(new List<GameObject>(hitTargets).ToArray(), damage, enemyElement);

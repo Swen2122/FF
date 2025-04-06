@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3aa5bcb55c4935845b8fdbe1d9388657, type: 3}
   m_Name: WaterPaternM2
   m_EditorClassIdentifier: 
-  isBurst: 1
+  isBurst: 0
   hasSpread: 1
   projectilesCount: 1
   angleBetweenProjectiles: 15

@@ -370,6 +370,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyMove: {fileID: 8038946155265084122}
+  enemySkillManager: {fileID: 0}
   statusEffectManager: {fileID: 0}
   maxChaseDistance: 10
   attackRange: 5

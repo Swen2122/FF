@@ -16,7 +16,7 @@ MonoBehaviour:
   - damage: 5
     knockback: 100
     animation: {fileID: 0}
-    hitSound: {fileID: 8300000, guid: e75df5cd9c1f944ce99e585d983fa119, type: 3}
+    hitSound: {fileID: 0}
   - damage: 4
     knockback: 0
     animation: {fileID: 0}

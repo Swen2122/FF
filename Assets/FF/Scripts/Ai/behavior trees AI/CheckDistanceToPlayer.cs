@@ -1,5 +1,5 @@
 using UnityEngine;
-// Перевірка дистанції до гравця
+
 public class CheckDistanceToPlayer : EnemyBehaviorNode
 {
     private float distance;

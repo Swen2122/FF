@@ -9,14 +9,14 @@ public abstract class BaseSkills : MonoBehaviour
     [SerializeField] protected Rigidbody2D rb;
     protected float lastUseTime;
     protected Animator animator;
-    protected AudioSource audioSource;
+    [SerializeField] protected AudioSource audioSource;
     [SerializeField] protected float maxPich = 1.15f;
     [SerializeField] protected float minPich = 0.8f;
     protected Camera mainCamera;
     protected virtual void Awake()
     {
-        animator = GetComponent<Animator>();
-        audioSource = GetComponent<AudioSource>();
+        animator = GetComponentInParent<Animator>();
+        audioSource = GetComponentInParent<AudioSource>();
         mainCamera = Camera.main;
     }
 
@@ -33,7 +33,6 @@ public abstract class BaseSkills : MonoBehaviour
         PlaySkillEffects();
     }
     protected abstract void UseSkill();
-
     protected virtual void PlaySkillEffects()
     {
         if (skillSound != null && audioSource != null)

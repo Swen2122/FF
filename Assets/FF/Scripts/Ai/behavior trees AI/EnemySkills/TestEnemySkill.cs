@@ -4,10 +4,10 @@ public class TestEnemySkill : BaseSkills
 {
     protected override void UseSkill()
     {
+        Debug.Log("UseSkill");
         Vector2 shoterPosition = gameObject.transform.position;
-        Vector2 targetPosition = shoterPosition + Vector2.right * 10;
+        Vector2 targetPosition = (Vector2)Controler.Instance.transform.position - shoterPosition;
         Rigidbody2D rb = GetComponentInParent<Rigidbody2D>();
-        rb.AddForce(targetPosition, ForceMode2D.Impulse);
-
+        rb.AddForce(targetPosition*10, ForceMode2D.Impulse);
     }
 }

@@ -124,7 +124,7 @@ public class Controler : MonoBehaviour
         {
             dashDirection = SRenderer.flipX ? Vector2.left : Vector2.right;
         }
-
+        PlayerTracker.Instance.SetDash();
         DashUtility.PerformDash(
             body,
             dashDirection,
@@ -132,6 +132,7 @@ public class Controler : MonoBehaviour
             dash_duration,
             obstacleLayer
         );
+
     }
 
     void StartAnim(string anim_name)

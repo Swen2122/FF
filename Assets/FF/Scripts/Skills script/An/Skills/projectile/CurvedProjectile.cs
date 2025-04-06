@@ -28,7 +28,7 @@ public class CurvedProjectile : BaseProjectile
 
         initialized = true;
     }
-    private void Update()
+    private void FixedUpdate()
     {
         Move();
     }
@@ -39,7 +39,7 @@ public class CurvedProjectile : BaseProjectile
 
         float progress = (Time.time - startTime) / journeyDuration;
         
-        if (progress >= 1f)
+        if (progress >= 1.5f)
         {
             OnProjectileReachedTarget();
             return;
@@ -84,6 +84,6 @@ public class CurvedProjectile : BaseProjectile
 
     protected override void OnProjectileReachedTarget()
     {
-        Destroy(gameObject, 0.1f);
+        Destroy(gameObject, 0.2f);
     }
 }

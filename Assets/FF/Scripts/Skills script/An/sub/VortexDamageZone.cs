@@ -7,13 +7,11 @@ public class VortexDamageZone : AbstractReactionEffect
     private AudioSource audioSource;
     private ParticleSystem pullVFX;
     public VisualEffect vfx;
-
-    private float pullTimer; // ������ ��� �������� ������� �����������
+    private float pullTimer;
 
     public void Initialize(ElementalReaction.ReactionEffect settings, LayerMask targetLayer)
     {
         base.Initialize(settings);
-
         if (settings == null || vortexSettings == null)
         {
             Debug.LogError("Invalid settings or vortexSettings in VortexDamageZone.");
@@ -21,21 +19,16 @@ public class VortexDamageZone : AbstractReactionEffect
         }
         vfx.SetFloat("Radius", settings.radius);
         targetLayerMask = targetLayer;
-
-        // ������������ ���� � ��������� ������
         SetupAudioAndEffects();
     }
 
     protected override void Update()
     {
-        base.Update(); // �������� �������� ��������� (������, �� ����)
-
+        base.Update();
         if (currentEnergy <= 0)
         {
-            return; // ������� ���������, ������ �� ������
+            return;
         }
-
-        // ��������� ������� �����������
         pullTimer -= Time.deltaTime;
         if (pullTimer <= 0f)
         {
