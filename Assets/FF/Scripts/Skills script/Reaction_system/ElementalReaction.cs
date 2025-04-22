@@ -10,15 +10,17 @@ public class ElementalReaction : ScriptableObject
         public LayerMask targetLeyer;
         public GameObject effectPrefab;
         public float damage;
+        public Element element;
         public float radius;
-        public float energy; // ������� ������ �������
-        public float energyPerTick; // ������, ��� ����������� �� ��
-        public float tickInterval; // �������� �� �����
+        public float energy; 
+        public float energyPerTick; 
+        public float tickInterval; 
         public ParticleSystem particles;
         public AudioClip sound;
         public ReactionBehavior behavior;
         public BaseStatusEffect statusEffect;
         public bool allowMultipleReactions = false;
+        public Gradient color;
     }
 
     public enum ReactionBehavior
@@ -26,7 +28,7 @@ public class ElementalReaction : ScriptableObject
         SpawnEffect,
         ApplyStatusEffect,
         ChangeEnvironment,
-        ChainReaction
+        BurstReaction
     }
 
     [SerializeField] private Element firstElement;

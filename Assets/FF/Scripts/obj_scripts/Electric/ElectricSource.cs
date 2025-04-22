@@ -8,14 +8,12 @@ public class ElectricSource : ICanHit
     public SpriteRenderer spriteIndicator;
 
     List<ElectricWire> conectsWire = new List<ElectricWire>();
-    private void Awake() 
-    {
-        power = Mathf.Clamp(power, 0, maxPower);//обмеження заряду
-    }
+
     private void FixedUpdate()
-    {
+    {        
         FindConect();
         DistributePower();
+        power = Mathf.Clamp(power, 0, maxPower);//обмеження заряду
     }
     private void FindConect()
     {
@@ -31,9 +29,13 @@ public class ElectricSource : ICanHit
     }
     private void DistributePower()
     {
+        conectsWire.RemoveAll(wire => wire == null);
         foreach (var wire in conectsWire)
         {
-            wire.UpdatePower(power);
+            if (wire != null && wire.gameObject != null)
+            {
+                wire.UpdatePower(power);
+            }
         }
     }
     private void OnDrawGizmos()

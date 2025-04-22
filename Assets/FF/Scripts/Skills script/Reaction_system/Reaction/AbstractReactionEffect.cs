@@ -9,7 +9,6 @@ public abstract class AbstractReactionEffect : MonoBehaviour
     protected float nextTickTime;
     protected float damage;
     protected float radius;
-    // Ініціалізація базового класу реакції
     public virtual void Initialize(ElementalReaction.ReactionEffect effect)
     {
         if (effect == null)
@@ -18,15 +17,13 @@ public abstract class AbstractReactionEffect : MonoBehaviour
             return;
         }
         settings = effect;
-        maxEnergy = energyData.maxEnergy; // Максимальна енергія береться з ScriptableObject
-        currentEnergy = settings.energy; // Поточна енергія береться з ефекту
-        damage = settings.damage;
+        maxEnergy = energyData.maxEnergy; 
+        currentEnergy = settings.energy;
         radius = settings.radius;
     }
-
-    // Оновлення стану реакції кожен кадр
     protected virtual void Update()
     {
+        if (PauseManager.IsPaused) return;
         if (settings == null)
         {
             Debug.LogError("Update called before Initialize in AbstractReactionEffect.");
@@ -46,7 +43,7 @@ public abstract class AbstractReactionEffect : MonoBehaviour
         }
     }
 
-    // Обробка періодичного зменшення енергії
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅгії
     protected virtual void ProcessEnergyTick()
     {
         if (settings == null)
@@ -58,7 +55,7 @@ public abstract class AbstractReactionEffect : MonoBehaviour
         OnEnergyTick();
     }
 
-    // Взаємодія з іншими елементами
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     public virtual void InteractWithElement(Element element, float power)
     {
         if (settings == null || energyData == null)

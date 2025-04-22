@@ -12,21 +12,21 @@ public class EnemyBehaviorTree : BaseEnemyAI
 
     protected override void SetupBehaviorTree()
     {
-        // Створюємо корневий селектор
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         rootNode = new Selector();
 
-        // Створюємо послідовність для атаки
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
         SequenceNode attackSequence = new SequenceNode();
         attackSequence.Attach(new CheckDistanceToPlayer(this, attackRange, true));
         attackSequence.Attach(new AttackAction(this, attackCooldown));
 
-        // Створюємо послідовність для переслідування
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         SequenceNode chaseSequence = new SequenceNode();
         chaseSequence.Attach(new CheckDistanceToPlayer(this, maxChaseDistance, true));
         chaseSequence.Attach(new Inverter(new CheckDistanceToPlayer(this, attackRange, true)));
         chaseSequence.Attach(new ChaseAction(this, updatePathInterval));
 
-        // Додаємо послідовності до кореневого селектора
+        // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         rootNode.Attach(attackSequence);
         rootNode.Attach(chaseSequence);
     }

@@ -4,42 +4,43 @@ using UnityEngine.UI;
 public class RadialMenuHighlight : MonoBehaviour
 {
     private Image hl_image;
-    [SerializeField] private Image[] sectors; // Масив секторів меню
-    [SerializeField] private GameObject high_light; // Об'єкт з Image
+    [SerializeField] private Image[] sectors; // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
+    [SerializeField] private GameObject high_light; // пїЅпїЅ'пїЅпїЅпїЅ пїЅ Image
     [Header("Colors")]
     [SerializeField] private Color defaultColor = new Color(0.5f, 0.5f, 0.5f, 0.5f);
     [SerializeField] private Color highlightColor = new Color(1f, 1f, 1f, 0.8f);
 
     private int currentSectorIndex = -1;
-    private float segmentFillAmount; // Заповнення для одного сегмента
-    private float degreesPerSector; // Кут для одного сектора
+    private float segmentFillAmount; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    private float degreesPerSector; // пїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
     private void Start()
     {
-        // Перевіряємо, чи high_light задано
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ high_light пїЅпїЅпїЅпїЅпїЅпїЅ
         if (high_light != null)
         {
             hl_image = high_light.GetComponent<Image>();
             if (hl_image == null)
             {
-                Debug.LogError("Компонент Image не знайдено на об'єкті high_light.");
+                Debug.LogError("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ Image пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅ'пїЅпїЅпїЅ high_light.");
             }
         }
 
-        // Обчислюємо заповнення та кут для одного сегмента один раз
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ
         if (sectors.Length > 0)
         {
-            segmentFillAmount = 1.0f / sectors.Length; // Розмір одного сегмента
-            degreesPerSector = 360.0f / sectors.Length; // Кут для одного сектора
+            segmentFillAmount = 1.0f / sectors.Length; // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+            degreesPerSector = 360.0f / sectors.Length; // пїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         }
         else
         {
-            Debug.LogError("Масив sectors порожній.");
+            Debug.LogError("пїЅпїЅпїЅпїЅпїЅ sectors пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.");
         }
     }
 
     private void Update()
     {
+        if(PauseManager.IsPaused) return;
         if (!gameObject.activeInHierarchy) return;
 
         Vector2 mousePosition = Input.mousePosition;
@@ -59,7 +60,7 @@ public class RadialMenuHighlight : MonoBehaviour
 
     private int DetermineSectorIndex(float angle)
     {
-        // Поділ на кількість секторів
+        // пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         return Mathf.FloorToInt(angle / degreesPerSector);
     }
 
@@ -73,9 +74,9 @@ public class RadialMenuHighlight : MonoBehaviour
 
             if (hl_image != null)
             {
-                hl_image.fillAmount = segmentFillAmount; // Постійне значення для одного сегмента
+                hl_image.fillAmount = segmentFillAmount; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
-                // Обертання по осі Z до відповідного сектора
+                // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅ Z пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
                 float rotationAngle = newSectorIndex * degreesPerSector;
                 high_light.transform.rotation = Quaternion.Euler(0f, 0f, rotationAngle);
             }

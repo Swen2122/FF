@@ -26,6 +26,8 @@ public class Get_Element : MonoBehaviour
 
     void Update()
     {
+        if(PauseManager.IsPaused) return;
+        
         if (Input.GetMouseButtonDown(2))
         {
             Vector2 rayPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
@@ -68,7 +70,7 @@ public class Get_Element : MonoBehaviour
         vfx.SetVector3("Velocity", direction);
 
     }
-        void StopEffect()
+    void StopEffect()
     {
         vfx.Stop(); // Зупиняє ефект
     }

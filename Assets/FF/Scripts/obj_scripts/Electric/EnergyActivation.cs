@@ -3,10 +3,10 @@ using UnityEngine.Rendering.Universal;
 public class EnergyActivation : ElectricConsumer
 {
     public GameObject[] objects;
-    public Light2D light2D;  
+    public SpriteRenderer sprite;  
     protected override void PowerAction()
     {
-        light2D.color = Color.green;
+        sprite.color = Color.green;
         foreach(GameObject obj in objects)
         {
             IActivate activate = obj.GetComponent<IActivate>();

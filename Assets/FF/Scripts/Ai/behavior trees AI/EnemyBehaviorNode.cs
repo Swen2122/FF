@@ -1,6 +1,6 @@
 using UnityEngine;
 
-// Базовий клас для дій ворога
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 public abstract class EnemyBehaviorNode : Node
 {
     protected BaseEnemyAI enemy;

@@ -5,15 +5,15 @@ using DG.Tweening;
 
 public class SpringGrab : MonoBehaviour, IBulletBehavior
 {
-    public LayerMask targetLayerMask;   // Маска для визначення цілей
-    public LayerMask boomLayerMask;   // шари при контакті з якими буде вибухати об'єкт
-    public float damageRadius = 2f;      // Радіус завдання шкоди
+    public LayerMask targetLayerMask;   // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+    public LayerMask boomLayerMask;   // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ'пїЅпїЅпїЅ
+    public float damageRadius = 2f;      // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 
     private HashSet<Rigidbody2D> connected = new HashSet<Rigidbody2D>();
     private Sequence moveSequence;
 
     private int bulletDamage;
-    private bool isAttached = false; // Перевірка, чи прикріплений об'єкт
+    private bool isAttached = false; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ'пїЅпїЅпїЅ
     public void SetBulletProperties(int damage)
     {
         bulletDamage = damage;
@@ -29,54 +29,55 @@ public class SpringGrab : MonoBehaviour, IBulletBehavior
         Rigidbody2D otherRigidbody = other.attachedRigidbody;
         if (((1 << other.gameObject.layer) & targetLayerMask) != 0 && otherRigidbody != null && !connected.Contains(otherRigidbody))
         {
-            // Створюємо FixedJoint2D
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ FixedJoint2D
             FixedJoint2D fixedJoint = gameObject.AddComponent<FixedJoint2D>();
-            fixedJoint.breakForce = Mathf.Infinity; // Без розриву
-            fixedJoint.breakTorque = Mathf.Infinity; // Без розриву
-            // З'єднуємо з іншим об'єктом
+            fixedJoint.breakForce = Mathf.Infinity; // пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+            fixedJoint.breakTorque = Mathf.Infinity; // пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+            // пїЅ'пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ'пїЅпїЅпїЅпїЅпїЅ
             fixedJoint.connectedBody = otherRigidbody;
             fixedJoint.autoConfigureConnectedAnchor = false;
 
-            // Додаємо в список підключених тіл
+            // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ
             connected.Add(otherRigidbody);
-            isAttached = true; // Встановлюємо, що об'єкт прикріплений
+            isAttached = true; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ пїЅпїЅ'пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         }
     }
 
     private void Update()
     {
-        // Перевірка на завершення анімації або зіткнення з Tilemap
+        if(PauseManager.IsPaused) return;
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ Tilemap
         if (isAttached && moveSequence != null && !moveSequence.IsActive())
         {
             ApplyDamage();
-            Destroy(gameObject); // Знищити об'єкт після застосування шкоди
+            Destroy(gameObject); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ'пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Якщо об'єкт зіткнувся з Tilemap
+        // пїЅпїЅпїЅпїЅ пїЅпїЅ'пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ Tilemap
         if (((1 << collision.gameObject.layer) & boomLayerMask) != 0)
         {
             moveSequence.Kill();
             ApplyDamage();
-            Destroy(gameObject); // Знищити об'єкт після застосування шкоди
+            Destroy(gameObject); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ'пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
         }
     }
     private void ApplyDamage()
     {
-        // Завдати шкоди всім ворогам у зоні
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ
         Collider2D[] enemiesHit = Physics2D.OverlapCircleAll(transform.position, damageRadius, targetLayerMask);
 
         foreach (var enemy in enemiesHit)
         {
-            // Перевіряємо, чи об'єкт відповідає шару
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ пїЅпїЅ'пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
             if (LaymaskUtility.InIsLMask(enemy.gameObject, targetLayerMask))
             {
-                // Отримуємо компонент, який реалізує ICanHit
+                // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ ICanHit
                 if (enemy.TryGetComponent<ICanHit>(out var hitTarget))
                 {
-                    hitTarget.TakeHit(bulletDamage, Element.None); // Завдаємо шкоди через інтерфейс
+                    hitTarget.TakeHit(bulletDamage, Element.None); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
                 }
             }
         }

@@ -31,6 +31,8 @@ public class EnemyMovement : MonoBehaviour
 
     private void Update()
     {
+        if (PauseManager.IsPaused) return;
+
         if (drawDebugLines)
         {
             DrawPathDebug();

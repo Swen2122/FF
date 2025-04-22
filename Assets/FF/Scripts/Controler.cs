@@ -44,6 +44,7 @@ public class Controler : MonoBehaviour
 
     void Update()
     {
+        if(PauseManager.IsPaused) return;
         HandleInput();
         UpdateAnimation();
     }
@@ -77,6 +78,7 @@ public class Controler : MonoBehaviour
 
     void FixedUpdate()
     {
+        if(PauseManager.IsPaused) return;
         Move();
     }
 

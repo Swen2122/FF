@@ -58,12 +58,21 @@ public abstract class BaseProjectile : MonoBehaviour, IElementalObject
         }
         OnHit(other);
     }
-    protected abstract void Move();
+    protected virtual void Move() 
+    {
+        if(PauseManager.IsPaused) return;
+    }
     protected abstract void OnHit(Collider2D other);
     protected abstract void OnProjectileReachedTarget();
 
     public virtual void OnReact(ElementalReaction reaction = null, Vector3 position = default)
     {
         Destroy(gameObject);
+    }
+
+    protected virtual void FixedUpdate()
+    {
+        if(PauseManager.IsPaused) return;
+        if(usePhisics) Move();
     }
 }

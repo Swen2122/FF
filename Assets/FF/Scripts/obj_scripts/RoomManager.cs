@@ -30,6 +30,7 @@ public class RoomManager : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if(PauseManager.IsPaused) return;
         switch (roomState)
         {
             case RoomState.Open:

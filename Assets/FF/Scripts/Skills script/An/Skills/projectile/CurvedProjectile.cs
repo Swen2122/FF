@@ -28,7 +28,7 @@ public class CurvedProjectile : BaseProjectile
 
         initialized = true;
     }
-    private void FixedUpdate()
+    protected override void FixedUpdate()
     {
         Move();
     }

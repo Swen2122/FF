@@ -20,6 +20,7 @@ public class CharacterSkillManager : MonoBehaviour
     [SerializeField] protected SkillChargeIndicator chargeIndicator;
     private void Update()
     {
+        if(PauseManager.IsPaused) return;
         foreach (var binding in skillBindings)
         {
             if (binding.skill == null) continue;
@@ -77,7 +78,7 @@ public class CharacterSkillManager : MonoBehaviour
     }
     protected virtual void ExecuteSkill(SkillBinding binding)
     {
-        if (health != null && health.GetEnergy(Element.Wind) >= binding.cost)
+        if ((health != null && health.GetEnergy(Element.Wind) >= binding.cost) || binding.cost == 0 )
         {
             if (binding.skill as TargetedSkill)
             {
@@ -88,7 +89,7 @@ public class CharacterSkillManager : MonoBehaviour
                 binding.skill.TryUseSkill();
             }
             if(binding.skipCostEnergy) return;
-            health.AddInternalEnergy(-binding.cost, Element.Wind);
+            if (health != null && binding.cost != 0) health.AddInternalEnergy(-binding.cost, Element.Wind);
         }
         
     }
@@ -104,7 +105,7 @@ public class CharacterSkillManager : MonoBehaviour
         float chargePercent = Mathf.Clamp01(currentChargeTime / binding.chargeTime);
         if (chargePercent >= 1f)
         {
-            if (health != null && health.GetEnergy(Element.Wind) >= binding.cost)
+            if ((health != null && health.GetEnergy(Element.Wind) >= binding.chargeCost) || binding.chargeCost == 0 )
         {
             if (binding.chargeSkill as TargetedSkill)
             {
@@ -114,7 +115,7 @@ public class CharacterSkillManager : MonoBehaviour
             {
                 binding.chargeSkill.TryUseSkill();
             }
-            health.AddInternalEnergy(-binding.cost, Element.Wind);
+            if (health != null && binding.chargeCost != 0)health.AddInternalEnergy(-binding.chargeCost, Element.Wind);
         }
         } else ExecuteSkill(binding);
         chargeIndicator.ShowIndicator(false);

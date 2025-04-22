@@ -13,5 +13,8 @@ MonoBehaviour:
   m_Name: Database
   m_EditorClassIdentifier: 
   reactions:
+  - {fileID: 11400000, guid: dee601ca65e9b7f48b039a9ad6767389, type: 2}
   - {fileID: 11400000, guid: 0d8e60db82f977b4bae8900544d9b6da, type: 2}
   - {fileID: 11400000, guid: 95d3294ee63e4bd46ae2d6d96a82a14d, type: 2}
+  - {fileID: 11400000, guid: 47b14b38525bf434bb1fe4e1657be0ad, type: 2}
+  - {fileID: 11400000, guid: fbc9bf1e38dafeb44a9c3dc648811b2d, type: 2}

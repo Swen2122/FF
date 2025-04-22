@@ -6,11 +6,20 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Menu.unity
+    path: Assets/Scenes/MainMenu.unity
     guid: c80fab8c05d599e4baf6b854ef6085c8
+  - enabled: 1
+    path: Assets/Scenes/LoadingScene.unity
+    guid: 697a64c6c6e9aa2409cd4b17a796e5bc
   - enabled: 1
     path: "Assets/Scenes/Normal tileset(\u043F\u043E\u043A\u0430\u0437\u043E\u0432\u0438\u0439
       \u0440\u0456\u0432\u0435\u043D\u044C).unity"
     guid: 9a6790f05bf77e34d9dada1e519690cb
+  - enabled: 1
+    path: Assets/Scenes/An-1.unity
+    guid: ca84a1e17e822a54bb16cb2d11fe9469
+  - enabled: 1
+    path: Assets/Scenes/test level.unity
+    guid: 1c3c45e7a2fe30f49b65d5b34370ee7e
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

@@ -5030,13 +5030,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbc4a03bbc41e6b429b50c8ecf988590, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: {fileID: 0}
+  health: {fileID: 3271818991326140379}
   skillBindings:
   - key: 0
     trigger: 1
     skill: {fileID: 4175368944986090736}
     cost: 0
-    skipCostEnergy: 0
+    skipCostEnergy: 1
     chargeSkill: {fileID: 0}
     chargeCost: 0
     chargeTime: 0
@@ -5165,7 +5165,7 @@ MonoBehaviour:
   maxHP: 100
   currentHP: 100
   HP_bar: {fileID: 0}
-  spriteRenderer: {fileID: 0}
+  spriteRenderer: {fileID: 4817976739132293539}
   hitColor: {r: 1, g: 0, b: 0, a: 1}
   colorFadeTime: 0.2
 --- !u!61 &1010091155406771895

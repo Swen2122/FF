@@ -24,7 +24,7 @@ public class RadialMenu : MonoBehaviour
     private Vector2 startMousePosition;
     private Element currentSelectedElement;
 
-    // Метод для встановлення поточного елементу
+    // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     public void SetCurrentElement(Element element)
     {
         currentSelectedElement = element;
@@ -32,13 +32,13 @@ public class RadialMenu : MonoBehaviour
 
     void Update()
     {
-        // Відкриття меню по Middle Mouse Button
+        // ВіпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ Middle Mouse Button
         if (Input.GetMouseButtonDown(2))
         {
             OpenRadialMenu();
         }
 
-        // Закриття радіального меню при відпусканні кнопки миші
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
         if (Input.GetMouseButtonUp(2) && currentRadialMenu != null)
         {
             AssignElementToSkill();
@@ -48,44 +48,44 @@ public class RadialMenu : MonoBehaviour
 
     void OpenRadialMenu()
     {
-        // Якщо меню ще не створене, створюємо його
+        // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
         if (currentRadialMenu == null)
         {
             currentRadialMenu = Instantiate(radialMenuPrefab, transform);
         }
 
-        // Активуємо меню
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
         currentRadialMenu.SetActive(true);
 
         radialMenuRectTransform = currentRadialMenu.GetComponent<RectTransform>();
 
-        // Встановлення позиції меню в центрі екрану
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
         radialMenuRectTransform.position = Input.mousePosition;
 
-        // Зберігаємо initial позицію миші
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ initial пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
         startMousePosition = Input.mousePosition;
     }
 
     void AssignElementToSkill()
     {
-        // Обчислення кута від центру меню
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
         Vector2 currentMousePosition = Input.mousePosition;
         Vector2 direction = currentMousePosition - startMousePosition;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-        // Нормалізація кута (0-360 градусів)
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ (0-360 пїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
         if (angle < 0) angle += 360;
 
-        // Вибір слоту уміння залежно від кута
+        // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ
         SkillSlot selectedSkill = DetermineSkillFromAngle(angle);
 
-        // Призначення елементу в обраний слот уміння
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
         AssignElementToSelectedSkill(selectedSkill);
     }
 
     SkillSlot DetermineSkillFromAngle(float angle)
     {
-        // Розділення кола на 5 секцій по 72 градуси
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ 5 пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ 72 пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         if (angle >= 0 && angle < 72) return SkillSlot.Q;
         if (angle >= 72 && angle < 144) return SkillSlot.E;
         if (angle >= 144 && angle < 216) return SkillSlot.M1;
@@ -95,7 +95,7 @@ public class RadialMenu : MonoBehaviour
 
     void AssignElementToSelectedSkill(SkillSlot skill)
     {
-        // Призначення елементу в обраний слот уміння
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
         switch (skill)
         {
             case SkillSlot.Q:
@@ -118,7 +118,7 @@ public class RadialMenu : MonoBehaviour
 
     void CloseRadialMenu()
     {
-        // Деактивація радіального меню
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
         if (currentRadialMenu != null)
         {
             currentRadialMenu.SetActive(false);

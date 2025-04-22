@@ -68,8 +68,8 @@ public class ElementalReactionHandler : MonoBehaviour
             case ElementalReaction.ReactionBehavior.ChangeEnvironment:
                 // Логіка зміни середовища
                 break;
-            case ElementalReaction.ReactionBehavior.ChainReaction:
-                // Логіка ланцюгової реакції
+            case ElementalReaction.ReactionBehavior.BurstReaction:
+                // Логіка вибухової реакції
                 break;
             default:
                 Debug.LogWarning($"Unhandled reaction behavior: {effect.behavior}");

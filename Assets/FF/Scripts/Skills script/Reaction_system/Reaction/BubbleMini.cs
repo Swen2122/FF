@@ -18,6 +18,7 @@ public class BubbleMini : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(PauseManager.IsPaused) return;
         if(Input.GetMouseButtonDown(0))
         {
             CreateBubble(Camera.main.ScreenToWorldPoint(Input.mousePosition));

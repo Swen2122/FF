@@ -6,6 +6,7 @@ public class rotation : MonoBehaviour
 {
     void Update()
     {
+        if(PauseManager.IsPaused) return;
         Vector3 difference = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
         difference.Normalize();
 

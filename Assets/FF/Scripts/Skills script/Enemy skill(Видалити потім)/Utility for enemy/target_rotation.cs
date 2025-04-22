@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class target_rotation : MonoBehaviour
 {
-    public Transform player; // Ціль, якою є гравець
+    public Transform player; // ЦіпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     void Start()
     {
         player = PlayerUtility.PlayerTransform;

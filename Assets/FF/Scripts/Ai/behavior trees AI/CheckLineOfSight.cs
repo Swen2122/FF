@@ -1,5 +1,5 @@
 using UnityEngine;
-// Додаткові вузли для лучника
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 public class CheckLineOfSight : EnemyBehaviorNode
 {
     private LayerMask obstacleLayer;

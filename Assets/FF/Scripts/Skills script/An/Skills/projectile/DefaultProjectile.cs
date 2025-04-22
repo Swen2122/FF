@@ -11,6 +11,7 @@ public class DefaultProjectile : BaseProjectile
 
     protected override void OnHit(Collider2D other)
     {
+        effect?.SpawnEffect(gameObject.transform.position);
         if (other.TryGetComponent<ICanHit>(out var damageable))
         {
             damageable.TakeHit(damage, currentElement);

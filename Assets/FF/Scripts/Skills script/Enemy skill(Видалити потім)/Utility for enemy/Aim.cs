@@ -4,44 +4,45 @@ using UnityEngine;
 [RequireComponent(typeof(LineRenderer))]
 public class EnemyAim : MonoBehaviour
 {
-    [SerializeField] private float lineLength = 5f;        // Довжина лінії
-    [SerializeField] private Vector2 direction = Vector2.right; // Напрямок лінії (в 2D)
-    [SerializeField] private Color lineColor = Color.red;  // Колір лінії
+    [SerializeField] private float lineLength = 5f;        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
+    [SerializeField] private Vector2 direction = Vector2.right; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ (пїЅ 2D)
+    [SerializeField] private Color lineColor = Color.red;  // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 
     private LineRenderer lineRenderer;
 
     void Start()
     {
-        // Ініціалізація LineRenderer
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ LineRenderer
         lineRenderer = GetComponent<LineRenderer>();
-        lineRenderer.positionCount = 2; // Лінія складається з 2 точок: початок та кінець
+        lineRenderer.positionCount = 2; // ЛіпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ 2 пїЅпїЅпїЅпїЅпїЅ: пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 
-        // Налаштування кольору та ширини лінії
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
         lineRenderer.startColor = lineColor;
         lineRenderer.endColor = lineColor;
         lineRenderer.startWidth = 0.1f;
         lineRenderer.endWidth = 0.1f;
 
-        // Встановлення режиму для роботи в 2D
-        lineRenderer.useWorldSpace = true; // Включаємо режим роботи в глобальних координатах
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ 2D
+        lineRenderer.useWorldSpace = true; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         UpdateLinePosition();
     }
 
     void Update()
     {
-        // Оновлення позиції лінії, якщо її напрямок або довжина змінюється
+        if(PauseManager.IsPaused) return;
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         UpdateLinePosition();
     }
 
     void UpdateLinePosition()
     {
-        // Початкова точка - позиція об'єкта
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ'пїЅпїЅпїЅпїЅ
         Vector3 startPoint = transform.position;
 
-        // Кінцева точка - на вказаній відстані та напрямку
+        // КіпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ - пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         Vector3 endPoint = startPoint + (Vector3)(direction.normalized * lineLength);
 
-        // Задаємо координати початку і кінця лінії
+        // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
         lineRenderer.SetPosition(0, startPoint);
         lineRenderer.SetPosition(1, endPoint);
     }

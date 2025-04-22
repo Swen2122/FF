@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 560e0d520a8807349b0b4e3544bd2297, type: 3}
   m_Name: WaterProjectileM2
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 8628239247480427580, guid: c009bf539d1edf44c8eb866d06710092, type: 3}
+  projectilePrefab: {fileID: 8628239247480427580, guid: 359c4c56bb0527f498af63f1c7cdf30d, type: 3}
   damage: 10
   speed: 3
   range: 5

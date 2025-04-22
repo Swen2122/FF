@@ -38,6 +38,7 @@ public abstract class BaseEnemyAI : MonoBehaviour, IEnemyAI
 
     protected virtual void Update()
     {
+        if (PauseManager.IsPaused) return;
         if (player == null) return;
         rootNode?.Evaluate();
     }
@@ -55,14 +56,14 @@ public abstract class BaseEnemyAI : MonoBehaviour, IEnemyAI
     public virtual void EnableAI()
     {
         enabled = true;
-        Debug.Log($"AI {gameObject.name} enabled"); // Add logging
+        Debug.Log($"AI {gameObject.name} enabled"); 
     }
 
     public virtual void DisableAI()
     {
         enabled = false;
         enemyMove?.StopMoving();
-        Debug.Log($"AI {gameObject.name} disabled"); // Add logging
+        Debug.Log($"AI {gameObject.name} disabled"); 
     }
 
     protected virtual void OnDestroy()

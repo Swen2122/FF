@@ -5,6 +5,7 @@ public class Health : ICanHit
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private HealthStat healthStat;
     public float maxHP = 100;
+    public HealthState healthState = HealthState.alive;
     public float currentHP;
     public Image HP_bar;
     public SpriteRenderer spriteRenderer;
@@ -42,7 +43,11 @@ public class Health : ICanHit
         {
             audioSource.PlayOneShot(healthStat.hit_audio);
         }
-
+        if(currentHP < 25 && currentHP > 0)
+        {
+            healthState = HealthState.crit;
+        }
+        else healthState = HealthState.alive;
         currentHP = Mathf.Clamp(currentHP, 0, maxHP);
         UpdateHPBar();
 
@@ -51,7 +56,10 @@ public class Health : ICanHit
             DestroyObject();
         }
     }
-
+    private void Update()
+    {
+        if(healthState == HealthState.corpse)WorldUI.Instance.TryShowJaw(transform, 10f);
+    }
 
     public float CalculateDamage(float baseDamage, Element elementType)
     {
@@ -76,7 +84,13 @@ public class Health : ICanHit
         {
             audioSource.PlayOneShot(healthStat.deathAudio);
         }
-        Destroy(gameObject);
+        healthState = HealthState.corpse;
+        if(gameObject.TryGetComponent<BaseEnemyAI>(out BaseEnemyAI enemyAI))
+        {
+            enemyAI.DisableAI();
+        }
+        gameObject.transform.rotation = Quaternion.Euler(0, 0, 90);
+        Destroy(gameObject, 10f);
     }
     private void UpdateHPBar()
     {
@@ -100,3 +114,5 @@ public class Health : ICanHit
         spriteRenderer.color = originalColor;
     }
 }
+
+public enum HealthState{ corpse, alive, crit}

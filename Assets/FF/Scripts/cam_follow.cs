@@ -15,6 +15,7 @@ public class cam_follow : MonoBehaviour
     }
     private void LateUpdate()
     {
+        if(PauseManager.IsPaused) return;
         transform.position = Vector3.SmoothDamp(transform.position, player.position + offset, ref currentVelocity, smoothTime);
     }
 
