@@ -42,6 +42,8 @@ public abstract class PunchBase : BaseSkills
             if (((1 << hitTarget.gameObject.layer) & targetLayer) != 0)
             {
                 var canHit = hitTarget.GetComponent<ICanHit>();
+                var reactionItem = hitTarget.GetComponent<ReactionItem>();
+                if(reactionItem)reactionItem.StartReaction(element, hitTarget.gameObject, hitBox.bounds.center);
                 if (canHit) enemies.Add(hitTarget.gameObject);
             }
         }

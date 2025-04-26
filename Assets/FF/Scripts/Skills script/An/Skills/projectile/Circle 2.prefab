@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7300832327827403555}
   - component: {fileID: 3833682842191397072}
   - component: {fileID: 6758831141335293869}
+  - component: {fileID: -6019624998540353819}
   m_Layer: 13
   m_Name: Circle 2
   m_TagString: Untagged
@@ -131,10 +132,10 @@ CircleCollider2D:
     m_Bits: 4294967295
   m_ContactCaptureLayers:
     serializedVersion: 2
-    m_Bits: 8192
+    m_Bits: 8448
   m_CallbackLayers:
     serializedVersion: 2
-    m_Bits: 8192
+    m_Bits: 8448
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
@@ -164,7 +165,21 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-6019624998540353819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2145239436772320173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9eeae9e583d3744b917e9ba275387f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  element: 4
+  isDestroyedOnReaction: 1

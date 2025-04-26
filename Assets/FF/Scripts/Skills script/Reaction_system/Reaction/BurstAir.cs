@@ -19,6 +19,7 @@ public class BurstAir : AbstractReactionEffect
     public override void Initialize(ElementalReaction.ReactionEffect effect)
     {
         base.Initialize(effect);
+        BurstParticleEffectManager.Instance.PlayEffect(transform.position, settings.color, 0.3f);
         // Додаткові налаштування для BurstAir, якщо потрібно
     }
     protected override void OnEnergyTick()
@@ -27,7 +28,6 @@ public class BurstAir : AbstractReactionEffect
     }
     protected override void OnReactionEnd()
     {
-        BurstParticleEffectManager.Instance.PlayEffect(transform.position, settings.color, 0.3f);
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, radius, settings.targetLeyer);
         foreach (Collider2D collider in colliders)
         {

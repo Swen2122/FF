@@ -9,14 +9,14 @@ public class AnBurst : BaseSkills
     {
         Element element = elementController.currentElement;
         burst = burstData.GetBurst(element);
-        burst.UseBurst(transform);
+        burst.UseBurst(transform);     
     }
     protected void Update()
     {
         if(burst != null)
         {
             Debug.Log("Burst not null");
-            if(burst.IsBursting())
+            if(burst.IsBursting() && burst.tickInterval > 0)      
             {
                 burst.UpdateBurst(); 
                 Debug.Log("Bursting");

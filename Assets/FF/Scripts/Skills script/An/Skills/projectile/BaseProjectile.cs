@@ -45,15 +45,9 @@ public abstract class BaseProjectile : MonoBehaviour, IElementalObject
     {
         if (CanTriggerReaction)
         {
-            if (other.TryGetComponent<IElementalObject>(out var otherElemental))
+            if(other.TryGetComponent<ReactionItem>(out var item))
             {
-                var handler = Object.FindAnyObjectByType<ElementalReactionHandler>();
-                if (handler != null)
-                {
-                    handler.TriggerReaction(currentElement, otherElemental.CurrentElement, gameObject,
-                     otherElemental.GameObject, transform.position);
-                    otherElemental.OnReact();
-                }
+                item.StartReaction(currentElement, gameObject, transform.position);
             }
         }
         OnHit(other);

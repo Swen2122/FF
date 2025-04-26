@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ProjectilePattern
   isBurst: 0
   hasSpread: 0
-  projectilesCount: 1
-  angleBetweenProjectiles: 90
+  projectilesCount: 3
+  angleBetweenProjectiles: 3
   spreadAngle: 15
   burstCount: 3
   burstDelay: 0.1
-  curveHeight: 2
+  curveHeight: 0

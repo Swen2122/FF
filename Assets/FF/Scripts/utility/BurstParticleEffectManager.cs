@@ -1,9 +1,11 @@
 using UnityEngine;
 using UnityEngine.VFX;
+using System.Collections;
 public class BurstParticleEffectManager : MonoBehaviour
 {
     public ParticleSystem ps;
     public VisualEffect vfx;
+    public ObjectPool<VisualEffect> vfxPool;
     public static BurstParticleEffectManager Instance { get; private set; }
     private void Awake()
     {
@@ -15,24 +17,26 @@ public class BurstParticleEffectManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        vfxPool = new ObjectPool<VisualEffect>(vfx, transform);
+        for (int i = 0; i < 10; i++)
+        {
+            var vfxInstance = Instantiate(vfx, transform);
+            vfxInstance.gameObject.SetActive(false);
+            vfxPool.Release(vfxInstance);
+        }
     }
     public void PlayEffect(Vector2 position, Gradient color, float duration)
     {
-        /*
-        ps.transform.position = position;
-        var main = ps.main;
-        main.startColor = color;
-        main.startLifetime = duration;
-        var ep = new ParticleSystem.EmitParams {
-            position = position,
-            startColor = color,
-            startLifetime = duration,
-        };
-        ps.Emit(ep, 20); // Викликаємо один burst
-        */
-        vfx.SetVector3("position", (Vector3)position + new Vector3(0, 0, 0));
-        vfx.SetGradient("color", color);
-        vfx.Play();
+        StartCoroutine(PlayEffectCoroutine(position, color, duration));
+    }
+    private IEnumerator PlayEffectCoroutine(Vector2 position, Gradient color, float duration)
+    {
+        var effect = vfxPool.Get();
+        effect.SetVector3("position", (Vector3)position);
+        effect.SetGradient("color", color);
+        effect.Play();
+        yield return new WaitForSeconds(duration);
+        vfxPool.Release(effect);
     }
        
 }

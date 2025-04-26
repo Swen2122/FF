@@ -3,6 +3,7 @@ using UnityEngine;
 public abstract class AnBurstSO : ScriptableObject
 {
     public float range;
+    public LayerMask targetLayer;
     public float damage;
     public float duration;
     public float tickInterval;
@@ -17,6 +18,15 @@ public abstract class AnBurstSO : ScriptableObject
         isActive = true;
         durationStartTime = 0f;  // Скидаємо накопичений час
         lastTickTime = 0f;
+        Collider2D[] hitTargetss = Physics2D.OverlapCircleAll(ownerTransform.position, range, targetLayer);
+        foreach (Collider2D target in hitTargetss)
+        {
+            var reactionItem = target.GetComponent<ReactionItem>();
+            if (reactionItem != null)
+            {
+                reactionItem.StartReaction(element, target.gameObject, target.transform.position);
+            }
+        }
     }
 
     public void UpdateBurst() 

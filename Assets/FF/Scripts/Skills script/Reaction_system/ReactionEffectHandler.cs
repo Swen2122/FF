@@ -7,8 +7,20 @@ public class ElementalReactionHandler : MonoBehaviour
     [SerializeField] private ElementalReactionDatabase reactionDatabase;
 
     // Словник для зберігання активних реакцій для кожного об'єкта
-    private Dictionary<GameObject, HashSet<(Element, Element)>> activeReactionsPerObject
-        = new Dictionary<GameObject, HashSet<(Element, Element)>>();
+    private Dictionary<GameObject, HashSet<(Element, Element)>> 
+    activeReactionsPerObject = new Dictionary<GameObject, HashSet<(Element, Element)>>();
+    public static ElementalReactionHandler Instance { get; private set; }
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     // Метод для запуску реакції
     public void TriggerReaction(Element first, Element second, GameObject check,GameObject target, Vector3 position)
@@ -30,7 +42,8 @@ public class ElementalReactionHandler : MonoBehaviour
         ProcessReaction(reaction.Effect, target, position);
 
         // Очищення реакції після завершення
-        StartCoroutine(ClearActiveReaction(target, reactionKey, reaction.Effect.energy));
+        StartCoroutine(ClearActiveReaction(target, reactionKey));
+        StartCoroutine(ClearActiveReaction(check, reactionKey));
     }
     private bool IsObjectInDictionary(GameObject check)
     {
@@ -126,9 +139,9 @@ public class ElementalReactionHandler : MonoBehaviour
     }
 
     // Метод для очищення активної реакції
-    private IEnumerator ClearActiveReaction(GameObject target, (Element, Element) reactionKey, float delay)
+    private IEnumerator ClearActiveReaction(GameObject target, (Element, Element) reactionKey)
     {
-        yield return new WaitForSeconds(delay);
+        yield return new WaitForSeconds(0.2f);
 
         if (activeReactionsPerObject.ContainsKey(target))
         {

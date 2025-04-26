@@ -1,5 +1,6 @@
 using UnityEngine.UI;
 using UnityEngine;
+using DG.Tweening;
 public class Health : ICanHit
 {
     [SerializeField] private AudioSource audioSource;
@@ -12,6 +13,7 @@ public class Health : ICanHit
     public Color hitColor = Color.red;
     public float colorFadeTime = 0.2f;
     private Color originalColor;
+    private bool LateHPbar = false;
 
     private void Start()
     {
@@ -59,6 +61,15 @@ public class Health : ICanHit
     private void Update()
     {
         if(healthState == HealthState.corpse)WorldUI.Instance.TryShowJaw(transform, 10f);
+        if(HP_bar == null)
+        {
+            LateHPbar = true;
+            WorldUI.Instance.TryShowHealthBar(transform, 5f);
+        }
+        if (HP_bar != null && LateHPbar == true)
+        {
+            HP_bar.transform.position = transform.position + new Vector3(0, 0.75f, 0);
+        }
     }
 
     public float CalculateDamage(float baseDamage, Element elementType)
@@ -96,7 +107,7 @@ public class Health : ICanHit
     {
         if (HP_bar != null)
         {
-            HP_bar.fillAmount = currentHP / maxHP;
+            HP_bar.DOFillAmount(currentHP / maxHP, 0.2f).SetEase(Ease.InOutSine);
         }
     }
         private void ShowHitFeedback()
