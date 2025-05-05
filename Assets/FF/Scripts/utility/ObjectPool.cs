@@ -17,13 +17,13 @@ public class ObjectPool<T> where T : Component
     {
         if (pool.Count > 0)
             return Activate(pool.Dequeue());
-
         var newItem = GameObject.Instantiate(prefab, parent);
         return Activate(newItem);
     }
 
     public void Release(T item)
     {
+        item.transform.parent = parent;
         item.gameObject.SetActive(false);
         pool.Enqueue(item);
     }

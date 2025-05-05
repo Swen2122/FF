@@ -5,7 +5,7 @@ public class WaterTentacle : TargetedSkill
     public TectacleSO tentacleSettings;
     public float range;
     GameObject target;
-    protected override void UseSkillAtPosition(Vector2 position)
+    protected override void UseSkillAtPosition(Vector3 position)
     {
         Collider2D hitCollider = Physics2D.OverlapPoint(position);
         if (hitCollider != null)

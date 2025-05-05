@@ -8,7 +8,7 @@ public class An_M2 : ShootSkill
     [SerializeField] private float spreadAngle = 30f;
     [SerializeField] private float delayBetweenPairs = 0.1f;
     private bool isLeft = false;
-    protected override void UseSkillAtPosition(Vector2 targetPosition)
+    protected override void UseSkillAtPosition(Vector3 targetPosition)
     {
         if (!CanUseSkill()) return;
         StartCoroutine(ShootProjectilePairs(targetPosition));

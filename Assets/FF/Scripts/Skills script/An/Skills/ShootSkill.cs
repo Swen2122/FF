@@ -8,8 +8,9 @@ public class ShootSkill : TargetedSkill
     [SerializeField] protected Transform shootPoint;
     [SerializeField] protected Element_use elementController;
     [SerializeField] protected ElementalReactionDatabase reactionDatabase;
+    public bool useShake = true;
 
-    protected override void UseSkillAtPosition(Vector2 targetPosition)
+    protected override void UseSkillAtPosition(Vector3 targetPosition)
     {
         if (!CanUseSkill()) return;
 
@@ -23,7 +24,7 @@ public class ShootSkill : TargetedSkill
         }
     }
 
-    protected void ShootProjectiles(Vector2 targetPosition)
+    protected void ShootProjectiles(Vector3 targetPosition)
     {
         Vector2 direction = ((Vector3)targetPosition - shootPoint.position).normalized;
         float startAngle = CalculateStartAngle();
@@ -50,7 +51,7 @@ public class ShootSkill : TargetedSkill
         Element currentElement = elementController?.currentElement ?? Element.None;
         GameObject prefab = skillData.GetProjectileData(currentElement);
         GameObject projectileObj = Instantiate(prefab, actualSpawnPosition, Quaternion.LookRotation(Vector3.forward, direction));
-
+        if(useShake)CameraShake.Instance.Shake(direction, 0.1f);
         if (projectileObj.TryGetComponent(out BaseProjectile baseProjectile))
         {
             baseProjectile.Initialize(skillData.projectileData, targetPosition, currentElement);

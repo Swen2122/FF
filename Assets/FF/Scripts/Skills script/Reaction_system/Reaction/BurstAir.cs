@@ -20,6 +20,14 @@ public class BurstAir : AbstractReactionEffect
     {
         base.Initialize(effect);
         BurstParticleEffectManager.Instance.PlayEffect(transform.position, settings.color, 0.3f);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, radius, settings.targetLeyer);
+        foreach (Collider2D collider in colliders)
+        {
+            if (collider.TryGetComponent<ICanHit>(out var damageable))
+            {
+                damageable.TakeHit(damage, settings.element);
+            }
+        }
         // Додаткові налаштування для BurstAir, якщо потрібно
     }
     protected override void OnEnergyTick()
@@ -28,14 +36,7 @@ public class BurstAir : AbstractReactionEffect
     }
     protected override void OnReactionEnd()
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, radius, settings.targetLeyer);
-        foreach (Collider2D collider in colliders)
-        {
-            if (collider.TryGetComponent<ICanHit>(out var damageable))
-            {
-                damageable.TakeEnergy(damage, settings.element);
-            }
-        }
+       
     }
     protected override void OnReactionDisrupted()
     {

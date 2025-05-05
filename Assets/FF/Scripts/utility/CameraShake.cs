@@ -3,23 +3,25 @@ using Unity.Cinemachine;
 
 public class CameraShake : MonoBehaviour
 {
-    private CinemachineImpulseSource impulseSource;
-
-    void Start()
+    public CinemachineImpulseSource impulseSource;
+    public static CameraShake Instance { get; private set; }
+    private void Awake()
     {
-        impulseSource = GetComponent<CinemachineImpulseSource>();
-    }
-
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Instance == null)
         {
-            Shake();
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
+        else
+        {
+            Destroy(gameObject);
+        }
+        if (impulseSource == null)
+            impulseSource = GetComponent<CinemachineImpulseSource>();
     }
-
-    public void Shake(float intensity = 1f)
+    public void Shake(Vector3 direction, float intensity = 0.3f)
     {
-        impulseSource.GenerateImpulse(Vector3.right * intensity);
+        var dir = direction.normalized * -1;
+        impulseSource.GenerateImpulse(dir * intensity);
     }
 }

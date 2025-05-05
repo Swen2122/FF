@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3becff1a2f122eb49a5ca223e5fc5d5d, type: 3}
   m_Name: Water
   m_EditorClassIdentifier: 
-  range: 3
+  range: 5
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 24832
   damage: 0
   duration: 3
   tickInterval: 0.5

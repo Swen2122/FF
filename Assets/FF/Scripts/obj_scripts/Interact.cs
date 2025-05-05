@@ -8,7 +8,6 @@ public class Interact : MonoBehaviour
     {
         if (Input.GetKeyDown(interactKey))
         {
-            // Отримуємо всі об'єкти, які перетинають тригер
             Collider2D[] collidersInTrigger = Physics2D.OverlapBoxAll(
                 interactZone.bounds.center,
                 interactZone.bounds.size,
@@ -16,11 +15,10 @@ public class Interact : MonoBehaviour
 
             foreach (var collider in collidersInTrigger)
             {
-                // Шукаємо інтерфейс IInteractible у кожному з об'єктів
                 IInteractible interactible = collider.GetComponent<IInteractible>();
                 if (interactible != null)
                 {
-                    interactible.Use(); // Викликаємо метод Use
+                    interactible.Use();
                     Debug.Log($"Interacted with: {collider.gameObject.name}");
                 }
             }

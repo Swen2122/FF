@@ -21,5 +21,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/test level.unity
     guid: 1c3c45e7a2fe30f49b65d5b34370ee7e
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: ec5c5af6da3da1d4b886f9ff61c5e4db, type: 2}
+    com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 9d68fcc16b72a5a43b8a88835aea5169, type: 2}
   m_UseUCBPForAssetBundles: 0

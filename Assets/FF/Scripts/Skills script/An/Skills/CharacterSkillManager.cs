@@ -64,7 +64,7 @@ public class CharacterSkillManager : MonoBehaviour
                 }
                 else
                 {
-                    ExecuteSkill(binding);
+                    ExecuteSkillPositoin(binding, Controler.Instance.transform.position);
                 }
             }
         }
@@ -83,6 +83,23 @@ public class CharacterSkillManager : MonoBehaviour
             if (binding.skill as TargetedSkill)
             {
                 (binding.skill as TargetedSkill)?.TryUseSkillAtPosition();
+            }
+            else
+            {
+                binding.skill.TryUseSkill();
+            }
+            if(binding.skipCostEnergy) return;
+            if (health != null && binding.cost != 0) health.AddInternalEnergy(-binding.cost, Element.Wind);
+        }
+        
+    }
+    protected virtual void ExecuteSkillPositoin(SkillBinding binding, Vector2 targetPosition)
+    {
+        if ((health != null && health.GetEnergy(Element.Wind) >= binding.cost) || binding.cost == 0 )
+        {
+            if (binding.skill as TargetedSkill)
+            {
+                (binding.skill as TargetedSkill)?.TryUseSkillAtPositionAI(targetPosition);
             }
             else
             {

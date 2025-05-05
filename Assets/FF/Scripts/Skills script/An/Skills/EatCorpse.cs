@@ -11,20 +11,26 @@ public class EatCorpse : BaseSkills
     }
     private void EatTarget()
     {
-        Collider2D collider = Physics2D.OverlapCircle(transform.position, 1.5f, targetLayerMask);
-        Debug.Log(collider);
-        if (collider != null)
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 1.5f, targetLayerMask);
+        Health enemyHealth = FindFood(colliders);
+        if (enemyHealth != null)
         {
-            Health enemy = collider.GetComponent<Health>();
-            Debug.Log(enemy);
-            if (enemy != null && enemy.healthState == HealthState.corpse)
-            {
-                float healAmount = enemy.maxHP/10f; 
-                playerHealth.TakeHit(-healAmount, Element.Water);
-                Debug.Log($"Healed for {healAmount} HP"); 
-                Destroy(enemy.gameObject);
-            } else Debug.Log("Not a corpse or no health component found.");
+            float healAmount = enemyHealth.maxHP/10f; 
+            playerHealth.TakeHit(-healAmount, Element.Water);
+            Debug.Log($"Healed for {healAmount} HP"); 
+            Destroy(enemyHealth.gameObject);
         }
+    }
+    private Health FindFood(Collider2D[] colliders)
+    {
+        foreach (Collider2D collider in colliders)
+        {
+            if (collider.TryGetComponent<Health>(out Health enemyHealth) && enemyHealth.healthState == HealthState.corpse)
+            {
+                return enemyHealth;
+            }
+        }
+        return null;
     }
     private void OnDrawGizmos()
     {

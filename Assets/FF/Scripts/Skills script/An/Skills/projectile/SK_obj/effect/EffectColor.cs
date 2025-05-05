@@ -6,6 +6,6 @@ public class EffectColor : ProjectileEffectBase
     public Color color;
     public override void OnHit(Collider2D other)
     {
-        other.gameObject.GetComponent<SpriteRenderer>().color = color;
+        other.gameObject.GetComponent<Health>().spriteRenderer.color = color;
     }
 }

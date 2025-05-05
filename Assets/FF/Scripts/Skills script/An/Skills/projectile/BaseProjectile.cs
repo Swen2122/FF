@@ -7,7 +7,7 @@ public abstract class BaseProjectile : MonoBehaviour, IElementalObject
     protected Element currentElement;
     protected bool hasReacted = false;
     protected float damage;
-    protected float speed = 10f;
+    protected float speed = 5f;
     [SerializeField]protected Rigidbody2D rb;
     protected Transform target;
     protected Vector2 targetPosition;

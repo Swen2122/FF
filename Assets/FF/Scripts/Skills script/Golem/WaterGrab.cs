@@ -44,7 +44,7 @@ public class WaterGrab : TargetedSkill
             }
         }
     }
-    protected override void UseSkillAtPosition(Vector2 position)
+    protected override void UseSkillAtPosition(Vector3 position)
     {
         PullTarget();
     }

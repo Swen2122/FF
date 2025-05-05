@@ -6,7 +6,7 @@ public class FrezeScript : TargetedSkill
     public Tilemap tilemap; // Тайлмапа, на яким потрібно заморожувати тайли
     public Tilemap frozenTilemap; // Тайлмапа, на якому будуть заморожені тайли
     public Tile frozenTile; // Тайл, який буде використовуватися для заморожених тайлів
-    protected override void UseSkillAtPosition(Vector2 targetPosition)
+    protected override void UseSkillAtPosition(Vector3 targetPosition)
     {
         if (!CanUseSkill()) return;           
         // Отримуємо тайли в області навколо цілі
