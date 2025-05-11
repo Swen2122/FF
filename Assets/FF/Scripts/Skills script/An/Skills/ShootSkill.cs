@@ -6,7 +6,6 @@ public class ShootSkill : TargetedSkill
     [SerializeField] protected ProjectileSkillData skillData;
     [SerializeField] protected LayerMask targetLayer;
     [SerializeField] protected Transform shootPoint;
-    [SerializeField] protected Element_use elementController;
     [SerializeField] protected ElementalReactionDatabase reactionDatabase;
     public bool useShake = true;
 
@@ -48,7 +47,7 @@ public class ShootSkill : TargetedSkill
     protected void SpawnProjectile(Vector2 targetPosition, Vector2 direction)
     {
         Vector3 actualSpawnPosition = shootPoint.position;
-        Element currentElement = elementController?.currentElement ?? Element.None;
+        Element currentElement = element?.currentElement ?? Element.None;
         GameObject prefab = skillData.GetProjectileData(currentElement);
         GameObject projectileObj = Instantiate(prefab, actualSpawnPosition, Quaternion.LookRotation(Vector3.forward, direction));
         if(useShake)CameraShake.Instance.Shake(direction, 0.1f);

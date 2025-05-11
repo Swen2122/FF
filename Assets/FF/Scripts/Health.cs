@@ -1,6 +1,7 @@
 using UnityEngine.UI;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.Events;
 public class Health : ICanHit
 {
     [SerializeField] private AudioSource audioSource;
@@ -14,6 +15,7 @@ public class Health : ICanHit
     public float colorFadeTime = 0.2f;
     private Color originalColor;
     private bool LateHPbar = false;
+    [SerializeField] private UnityEvent onDeath;
 
     private void Start()
     {
@@ -91,6 +93,7 @@ public class Health : ICanHit
     }
     protected override void DestroyObject()
     {
+        onDeath?.Invoke();
         if (healthStat != null && healthStat.deathAudio != null && audioSource != null)
         {
             audioSource.PlayOneShot(healthStat.deathAudio);

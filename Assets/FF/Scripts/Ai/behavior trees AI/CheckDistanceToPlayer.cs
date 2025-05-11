@@ -16,7 +16,6 @@ public class CheckDistanceToPlayer : EnemyBehaviorNode
     {
         float currentDistance = Vector2.Distance(enemy.transform.position, player.position);
         bool condition = isCloser ? currentDistance <= distance : currentDistance > distance;
-
         state = condition ? NodeState.Success : NodeState.Failure;
         return state;
     }

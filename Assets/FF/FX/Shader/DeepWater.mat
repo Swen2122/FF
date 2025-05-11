@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Water
+  m_Name: DeepWater
   m_Shader: {fileID: -6465566751694194690, guid: f5461cc7dca5dce428324936789bfc26, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -91,7 +91,7 @@ Material:
     - _NormalizeCoeff: 1.47
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Scale: -10
+    - _Scale: 10
     - _Scale_Volume: 0.03
     - _SimpleNoise: 0
     - _Spread: 0.001
@@ -99,8 +99,8 @@ Material:
     - _WaterSpeedY: 0
     - _ZWrite: 0
     m_Colors:
-    - _Color: {r: 0.37647057, g: 0.5615581, b: 1, a: 1}
-    - _Color_2: {r: 0.3754716, g: 0.6515518, b: 1, a: 1}
+    - _Color: {r: 0.17068703, g: 0.26825875, b: 0.4943396, a: 1}
+    - _Color_2: {r: 0.16539213, g: 0.39477167, b: 0.68627447, a: 1}
     - _Offset: {r: 16.46, g: 5.92, b: 0, a: 0}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
     - _Tilling: {r: 1, g: 1, b: 0, a: 0}

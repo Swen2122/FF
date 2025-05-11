@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class target_rotation : MonoBehaviour
 {
-    public Transform player; // ֳ��, ���� � �������
+    public Transform player; 
     void Start()
     {
         player = PlayerUtility.PlayerTransform;

@@ -27,7 +27,7 @@ public class An_M2 : ShootSkill
             for (int i = -1; i <= 1; i += 2)
             {
                 Vector2 spawnPoint = (Vector2)shootPoint.position + perpendicular * offset * i;
-                GameObject prefab = skillData.GetProjectileData(elementController?.currentElement ?? Element.None);
+                GameObject prefab = skillData.GetProjectileData(element?.currentElement ?? Element.None);
                 GameObject projectileObj = Instantiate(prefab, spawnPoint, shootPoint.rotation);
                 int directionMultiplier = isLeft ? i : -i;
                 isLeft = !isLeft;
@@ -36,7 +36,7 @@ public class An_M2 : ShootSkill
                     curvedProjectile.Initialize(
                         skillData.projectileData,
                         targetPosition,
-                        elementController.currentElement,
+                        element.currentElement,
                         curveHeight * directionMultiplier,
                         i
                     );

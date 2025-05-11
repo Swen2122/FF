@@ -8,8 +8,6 @@ public class SkillGroup : BaseSkills
         public BaseSkills skill;
         public Element element;
     }
-    [SerializeField] private Element_use elementUse;
-
     [SerializeField]
     private List<SkillElementPair> skillElementPairs = new List<SkillElementPair>();
 
@@ -27,9 +25,9 @@ public class SkillGroup : BaseSkills
     }
     protected override void UseSkill()
     {
-        if (elementUse != null)
+        if (element != null)
         {
-            BaseSkills skill = GetSkillByElement(elementUse.currentElement);
+            BaseSkills skill = GetSkillByElement(element.currentElement);
 
             if (skill != null)
             {

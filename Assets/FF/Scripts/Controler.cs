@@ -7,12 +7,13 @@ public class Controler : MonoBehaviour
     [SerializeField] private SpriteRenderer SRenderer;
 
     public static Controler Instance { get; private set; }
+    public bool CanDash { get; set; } = true;
     // Movement
     float horizontal;
     float vertical;
     private float lastMoveDirection = 1f;
     [SerializeField] private float moveLimiter = 0.7f;
-    [SerializeField] private float runSpeed = 5.0f;
+    public float runSpeed = 5.0f;
     [SerializeField] private float acceleration = 50f; // Прискорення
     [SerializeField] private float deceleration = 30f; // Сповільнення
 
@@ -121,6 +122,7 @@ public class Controler : MonoBehaviour
 
     void Dash()
     {
+        if(!CanDash) return;
         Vector2 dashDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
         if (dashDirection.magnitude < 0.1f)
         {

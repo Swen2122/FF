@@ -23,7 +23,7 @@ public class ObjectPool<T> where T : Component
 
     public void Release(T item)
     {
-        item.transform.parent = parent;
+        item.transform.SetParent(parent, false);
         item.gameObject.SetActive(false);
         pool.Enqueue(item);
     }

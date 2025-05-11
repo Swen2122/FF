@@ -8,14 +8,12 @@ public class WaterBarrel : DestroyebleObject
     private GradualWaterSystem waterSystem;
     protected override void Start()
     {
-        
         base.Start(); 
         waterSystem = Object.FindFirstObjectByType<GradualWaterSystem>();
     }
 
     public override void TakeHit(float damage, Element element)
     {
-
         base.TakeHit(damage, element); 
     }
 

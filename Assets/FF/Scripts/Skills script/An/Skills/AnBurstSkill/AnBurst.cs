@@ -4,11 +4,10 @@ public class AnBurst : BaseSkills
 {
     public BurstDataBase burstData;
     [SerializeField]protected AnBurstSO burst;
-    [SerializeField] protected Element_use elementController;
     protected override void UseSkill()
     {
-        Element element = elementController.currentElement;
-        burst = burstData.GetBurst(element);
+        Element elementBurst = element.currentElement;
+        burst = burstData.GetBurst(elementBurst);
         burst.UseBurst(transform);     
     }
     protected void Update()

@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using System.Collections;
 public class SphereSkill : TargetedSkill
 {
     public ShieldSegmentManager spheres;
@@ -8,20 +8,20 @@ public class SphereSkill : TargetedSkill
 
     protected override void UseSkillAtPosition(Vector3 position)
     {
-        Transform sphere;
-        sphere = spheres.segments[0];
+        if (spheres == null || spheres.segments.Count == 0) return;
+        Transform sphere = spheres.segments[0];
         if (sphere == null) return;
         spheres.segments.Remove(sphere);
         sphere.parent = null;
-        Vector3 direction = (position - sphere.position).normalized;
-        Vector3 targetPoint = sphere.position + direction * fixedDistance;
+        Vector3 dir = (position - sphere.position).normalized;
+        Vector3 targetPoint = sphere.position + dir * fixedDistance;
         ThroveSphere(targetPoint, sphere);
     }
     protected virtual void ThroveSphere(Vector3 position, Transform sphere)
     {
         StartCoroutine(MoveSphereCoroutine(sphere, position, speed));
     }
-    private System.Collections.IEnumerator MoveSphereCoroutine(Transform sphere, Vector3 target, float speed)
+    private IEnumerator MoveSphereCoroutine(Transform sphere, Vector3 target, float speed)
     {
         Vector3 start = sphere.position;
         float distance = Vector3.Distance(start, target);
@@ -38,4 +38,5 @@ public class SphereSkill : TargetedSkill
         sphere.position = target;
         sphere.GetComponent<AltProjectile>().ReturnToPool();
     }
+
 }

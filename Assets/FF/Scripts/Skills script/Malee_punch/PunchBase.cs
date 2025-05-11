@@ -5,7 +5,7 @@ public abstract class PunchBase : BaseSkills
     [SerializeField] protected float damage;
     [SerializeField] protected float knockback;
     [SerializeField] protected Collider2D hitBox;
-    [SerializeField] protected Element element;
+    [SerializeField] protected Element elementCombo;
     [SerializeField] protected LayerMask targetLayer;
     [Header("Hit Effects")]
     [SerializeField] protected Animator anim;
@@ -43,7 +43,7 @@ public abstract class PunchBase : BaseSkills
             {
                 var canHit = hitTarget.GetComponent<ICanHit>();
                 var reactionItem = hitTarget.GetComponent<ReactionItem>();
-                if(reactionItem)reactionItem.StartReaction(element, hitTarget.gameObject, hitBox.bounds.center);
+                if(reactionItem)reactionItem.StartReaction(elementCombo, hitTarget.gameObject, hitBox.bounds.center);
                 if (canHit) enemies.Add(hitTarget.gameObject);
             }
         }
@@ -61,7 +61,7 @@ public abstract class PunchBase : BaseSkills
 
     protected virtual void ApplyDamageToEnemies()
     {
-        Damage.ApplyDamage(new List<GameObject>(_hitEnemies).ToArray(), damage, element);
+        Damage.ApplyDamage(new List<GameObject>(_hitEnemies).ToArray(), damage, elementCombo);
     }
 
     protected virtual void ApplyKnockbackToEnemies()

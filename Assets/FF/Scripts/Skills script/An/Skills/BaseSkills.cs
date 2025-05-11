@@ -7,6 +7,7 @@ public abstract class BaseSkills : MonoBehaviour
     [SerializeField] protected AudioClip skillSound;
     [SerializeField] protected string animationTrigger;
     [SerializeField] protected Rigidbody2D rb;
+    public Element_use element;
     protected float lastUseTime;
     protected Animator animator;
     [SerializeField] protected AudioSource audioSource;

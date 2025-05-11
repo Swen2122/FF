@@ -3,9 +3,7 @@ using System.Collections.Generic;
 public class ComboPunchs : PunchBase
 {
     [SerializeField] private ComboDatabase combo;
-    [SerializeField] private Element_use elementUse;
     [SerializeField] private float comboResetTime = 1.5f;
-
     private ComboDatabase.Combo currentCombo;
     private int currentComboIndex;
     private int maxComboIndex;
@@ -13,7 +11,7 @@ public class ComboPunchs : PunchBase
     private Element currentElement;
     protected override void PerformPunch()
     {
-        currentCombo = combo.punchComboList.Find(x => x.damageType == elementUse.currentElement);
+        currentCombo = combo.punchComboList.Find(x => x.damageType == element.currentElement);
         if (currentCombo != null)
         {
             maxComboIndex = currentCombo.punchCombo.ComboSegments.Count;
@@ -25,7 +23,7 @@ public class ComboPunchs : PunchBase
         damage = currentSegment.damage;
         skillSound = currentSegment.hitSound;
         knockback = currentSegment.knockback;
-        element = currentCombo.damageType;
+        elementCombo = currentCombo.damageType;
         if (currentSegment.animation != null)
         {
             AddClipToAnimator(currentSegment.animation);
