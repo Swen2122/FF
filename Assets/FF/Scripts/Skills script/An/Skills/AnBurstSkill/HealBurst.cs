@@ -11,18 +11,17 @@ public class HealBurst : AnBurstSO
         base.UseBurst(playesPosition);
         Debug.Log($"Water Burst: {element}");
     }
-    protected override void ApplyEffect()
+    public override void ApplyEffect(Collider2D[] enemys, Health playerHealth)
     {
         Debug.Log("Applying effect");
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(ownerTransform.position, range, enemyLayer);
-        foreach (Collider2D enemy in hitEnemies)
+        foreach (var enemy in enemys)
         {
             if(enemy.TryGetComponent<ICanHit>(out var health))
             {
                 health.TakeEnergy(energyDamage, element);
             }
         }
-        if(ownerTransform.TryGetComponent<ICanHit>(out var playerHealth))
+        if(playerHealth)
         {
             playerHealth.TakeHit(healAmount*-1, element);
         }

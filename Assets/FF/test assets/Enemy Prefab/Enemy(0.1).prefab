@@ -5036,7 +5036,7 @@ MonoBehaviour:
     trigger: 1
     skill: {fileID: 4175368944986090736}
     cost: 0
-    skipCostEnergy: 1
+    skipCostEnergy: 0
     chargeSkill: {fileID: 0}
     chargeCost: 0
     chargeTime: 0
@@ -5087,7 +5087,7 @@ SpriteRenderer:
   m_SortingLayerID: -1302425511
   m_SortingLayer: 2
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: 4b9da1ab66499b240ac84f9ed0afdf66, type: 3}
+  m_Sprite: {fileID: -5345933890997467349, guid: b8c30aef42dc59843b1be713ce5f7139, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5143,8 +5143,8 @@ MonoBehaviour:
   obstacles:
     serializedVersion: 2
     m_Bits: 8
-  searchShortcut: 0
-  snapToGrid: 1
+  searchShortcut: 1
+  snapToGrid: 0
   drawDebugLines: 0
   updateInterval: 0.02
   pathUpdateThreshold: 0.5
@@ -5163,11 +5163,16 @@ MonoBehaviour:
   audioSource: {fileID: 536418595811121839}
   healthStat: {fileID: 11400000, guid: a37deb5e06d2d1d4faa039d22eed87a3, type: 2}
   maxHP: 100
+  healthState: 1
   currentHP: 100
   HP_bar: {fileID: 0}
   spriteRenderer: {fileID: 4817976739132293539}
   hitColor: {r: 1, g: 0, b: 0, a: 1}
   colorFadeTime: 0.2
+  onDeath:
+    m_PersistentCalls:
+      m_Calls: []
+  energyBarList: []
 --- !u!61 &1010091155406771895
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5206,7 +5211,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 0.53125, y: 0.34375}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -5444,6 +5449,7 @@ MonoBehaviour:
   skillSound: {fileID: 8300000, guid: 4b7e9f24745418c40adbf329c43c6890, type: 3}
   animationTrigger: 
   rb: {fileID: 0}
+  element: {fileID: 0}
   audioSource: {fileID: 0}
   maxPich: 1.15
   minPich: 0.8

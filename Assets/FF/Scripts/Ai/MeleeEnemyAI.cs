@@ -40,13 +40,15 @@ public class MeleeEnemyAI : BaseEnemyAI
     {
         hitTargets = FindUtility.FindEnemy(meleeAttack, targetLayer);
         HitStop.TriggerStop(0.05f, 0.0f);
-        Damage.ApplyDamage(new List<GameObject>(hitTargets).ToArray(), damage, enemyElement);
-
         foreach (GameObject target in hitTargets)
         {
             if (target.TryGetComponent<Rigidbody2D>(out var targetRb))
             {
                 PushUtility.Push(targetRb, transform.position, 10f);
+            }
+            if (target != null && target.TryGetComponent<ICanHit>(out var hitTarget))
+            {
+                hitTarget.TakeHit(damage, enemyElement);
             }
         }
         canMove = true;

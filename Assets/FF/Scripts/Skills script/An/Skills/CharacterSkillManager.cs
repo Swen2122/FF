@@ -1,4 +1,5 @@
 using UnityEngine;
+
 public class CharacterSkillManager : MonoBehaviour
 {
     [System.Serializable]
@@ -64,7 +65,7 @@ public class CharacterSkillManager : MonoBehaviour
                 }
                 else
                 {
-                    ExecuteSkillPositoin(binding, Controler.Instance.transform.position);
+                    ExecuteSkillPositoin(binding, Controller.Instance.transform.position);
                 }
             }
         }
@@ -89,7 +90,7 @@ public class CharacterSkillManager : MonoBehaviour
                 binding.skill.TryUseSkill();
             }
             if(binding.skipCostEnergy) return;
-            if (health != null && binding.cost != 0) health.AddInternalEnergy(-binding.cost, binding.skill.element.currentElement);
+            if ( binding.cost != 0) health.AddInternalEnergy(-binding.cost, binding.skill.element.currentElement);
         }
         
     }
@@ -106,7 +107,7 @@ public class CharacterSkillManager : MonoBehaviour
                 binding.skill.TryUseSkill();
             }
             if(binding.skipCostEnergy) return;
-            if (health != null && binding.cost != 0) health.AddInternalEnergy(-binding.cost, binding.skill.element.currentElement);
+            if (binding.cost != 0) health.AddInternalEnergy(-binding.cost, binding.skill.element.currentElement);
         }
         
     }
@@ -146,6 +147,4 @@ public enum TriggerType
     heal,
     dash,
     projectile
-
-
 }

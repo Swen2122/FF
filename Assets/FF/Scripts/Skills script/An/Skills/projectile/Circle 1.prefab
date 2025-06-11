@@ -139,7 +139,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDamping: 0
+  m_LinearDamping: 1
   m_AngularDamping: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -168,5 +168,5 @@ MonoBehaviour:
   usePhisics: 1
   effect: {fileID: 0}
   rb: {fileID: 0}
-  impactForce: 6
+  impactForce: 1
   statusEffectDatabase: {fileID: 0}

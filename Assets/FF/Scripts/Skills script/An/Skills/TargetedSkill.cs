@@ -14,7 +14,6 @@ public abstract class TargetedSkill : BaseSkills
     public void TryUseSkillAtPositionAI(Vector3 target)
     {
         if (!CanUseSkill()) return;
-        //Vector2 targetPosition = target;
         UseSkillAtPosition(target);
         lastUseTime = Time.time;
         PlaySkillEffects();

@@ -14,7 +14,6 @@ public class Element_use : MonoBehaviour
 
     void Start()
     {
-        // Встановлюємо початковий елемент, якщо він є
         if (elementData.activeElements.Length > 0)
         {
             OnElementSelected(elementData.activeElements[0]);
@@ -23,21 +22,19 @@ public class Element_use : MonoBehaviour
 
     public void OnElementSelected(Element element)
     {
-        // Перевірка чи вибраний елемент є серед активних
         if (System.Array.IndexOf(elementData.activeElements, element) == -1)
         {
-            Debug.LogWarning($"Елемент {element} не є активним!");
+            Debug.LogWarning($"Element {element} is not available!");
             return;
         }
 
         currentElement = element;
-        Debug.Log($"Вибрано елемент: {element}");
+        Debug.Log($"Selected element: {element}");
         UpdateElementIcon();
     }
 
     private void UpdateElementIcon()
     {
-        // Оновлюємо іконку на основі поточного елементу
         Sprite newSprite = currentElement switch
         {
             Element.Water => elementData.waterSprite,
@@ -46,21 +43,19 @@ public class Element_use : MonoBehaviour
             Element.Wind => elementData.windSprite,
             Element.Ice => elementData.iceSprite,
             Element.Electro => elementData.electricSprite,
-            _ => null // Для випадку Element.None або невідомого елементу
+            _ => null
         };
 
         if (newSprite != null)
         {
             icon.sprite = newSprite;
-            Debug.Log($"Іконку оновлено для елементу: {currentElement}");
+            Debug.Log($"Element icon updated to: {currentElement}");
         }
         else
         {
-            Debug.LogWarning($"Не знайдено спрайт для елементу: {currentElement}");
+            Debug.LogWarning($"No sprite available for element: {currentElement}");
         }
     }
-
-    // Можна додати метод для примусового оновлення іконки
     public void RefreshIcon()
     {
         UpdateElementIcon();

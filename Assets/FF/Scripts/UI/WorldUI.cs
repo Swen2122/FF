@@ -39,7 +39,7 @@ public class WorldUI : MonoBehaviour
     }
     public void TryShowJaw(Transform enemy, float maxDistance)
     {
-        if ((Vector3.Distance(enemy.position, Controler.Instance.transform.position) > maxDistance) || enemysJaw.Contains(enemy))
+        if ((Vector3.Distance(enemy.position, Controller.Instance.transform.position) > maxDistance) || enemysJaw.Contains(enemy))
         return;
         var jaw = jawPool.Get();
         enemysJaw.Add(enemy);
@@ -48,7 +48,7 @@ public class WorldUI : MonoBehaviour
     }
     public void TryShowHealthBar(Transform enemy, float maxDistance)
     {
-        if ((Vector3.Distance(enemy.position, Controler.Instance.transform.position) > maxDistance) || enemysBar.Contains(enemy))
+        if ((Vector3.Distance(enemy.position, Controller.Instance.transform.position) > maxDistance) || enemysBar.Contains(enemy))
             return;
         var healthBar = HealtBarPool.Get();
         enemysBar.Add(enemy);

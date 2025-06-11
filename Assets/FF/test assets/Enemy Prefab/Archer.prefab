@@ -47,19 +47,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cooldown: 1
-  skillSound: {fileID: 0}
+  skillSound: {fileID: 8300000, guid: a598edb176dbb1e429aef5ce948d6145, type: 3}
   animationTrigger: 
   rb: {fileID: 0}
   element: {fileID: 0}
   audioSource: {fileID: 0}
   maxPich: 1.15
   minPich: 0.8
-  skillData: {fileID: 11400000, guid: 519ba773af3d45b4483591a5531c66bf, type: 2}
+  skillData: {fileID: 11400000, guid: 80528b27e269eb34bb8815cf6b0eb899, type: 2}
   targetLayer:
     serializedVersion: 2
     m_Bits: 1024
+  handsAnimationManager: {fileID: 0}
   shootPoint: {fileID: 8892512136497958023}
-  reactionDatabase: {fileID: 0}
+  reactionDatabase: {fileID: 11400000, guid: fe7accbb79c08e8408c7b753cc7be9a1, type: 2}
   useShake: 0
 --- !u!114 &2226015864836295653
 MonoBehaviour:
@@ -220,13 +221,13 @@ MonoBehaviour:
   enemySkillManager: {fileID: 8208971066831528407}
   statusEffectManager: {fileID: 0}
   maxChaseDistance: 10
-  attackRange: 10
+  attackRange: 6
   updatePathInterval: 0.6
-  rb: {fileID: 0}
+  rb: {fileID: 7786597849788218973}
   minDistance: 2
   obstacleLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 136
 --- !u!212 &196964437579443381
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -317,7 +318,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 4520690790557488867}
-  healthStat: {fileID: 0}
+  healthStat: {fileID: 11400000, guid: a37deb5e06d2d1d4faa039d22eed87a3, type: 2}
   maxHP: 75
   healthState: 1
   currentHP: 75
@@ -328,6 +329,7 @@ MonoBehaviour:
   onDeath:
     m_PersistentCalls:
       m_Calls: []
+  energyBarList: []
 --- !u!61 &2312461661383645923
 BoxCollider2D:
   m_ObjectHideFlags: 0

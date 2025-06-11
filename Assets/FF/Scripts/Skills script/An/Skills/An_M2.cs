@@ -37,6 +37,7 @@ public class An_M2 : ShootSkill
                         skillData.projectileData,
                         targetPosition,
                         element.currentElement,
+                        targetLayer, 
                         curveHeight * directionMultiplier,
                         i
                     );

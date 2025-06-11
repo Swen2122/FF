@@ -10,9 +10,9 @@ public class CurvedProjectile : BaseProjectile
     private bool initialized;
     private float journeyDuration;
 
-    public void Initialize(ProjectileData data, Vector2 target, Element element, float height, float side)
+    public void Initialize(ProjectileData data, Vector2 target, Element element, LayerMask targetLayer, float height, float side)
     {
-        base.Initialize(data, target, element);
+        base.Initialize(data, target, element, targetLayer);
         arcHeight = height;
         sideMultiplier = side;
         startPosition = transform.position;

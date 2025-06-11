@@ -23,10 +23,10 @@ MonoBehaviour:
   - projectileData: {fileID: 11400000, guid: 518001271b528e74780cd8e742539f5c, type: 2}
     pattern: {fileID: 11400000, guid: be8c4c177da1f694f9dee086fcfef25a, type: 2}
     elementType: 1
-  - projectileData: {fileID: 11400000, guid: 1ee8e56eb9f87b84b9d90081cd831e2c, type: 2}
+  - projectileData: {fileID: 11400000, guid: 54f940529efa5224b9038bf6190c7e70, type: 2}
     pattern: {fileID: 11400000, guid: f0eaa73576a813f45b5626cdc83e1123, type: 2}
     elementType: 5
-  - projectileData: {fileID: 11400000, guid: b55dea2e81cc2a342965e0357f40e00d, type: 2}
+  - projectileData: {fileID: 11400000, guid: c2fb1d701f89e744b9e4c61b997fc7b8, type: 2}
     pattern: {fileID: 11400000, guid: f0eaa73576a813f45b5626cdc83e1123, type: 2}
     elementType: 6
   projectileData: {fileID: 11400000, guid: 1ee8e56eb9f87b84b9d90081cd831e2c, type: 2}

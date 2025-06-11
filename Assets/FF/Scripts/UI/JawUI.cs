@@ -49,14 +49,14 @@ public class JawUI : MonoBehaviour
 
     public void OpenJaw()
     {
-        jawTop.transform.DOLocalMoveY(jawTopStartPos.y + moveAmount, animDuration).SetEase(easeType);
-        jawBottom.transform.DOLocalMoveY(jawBottomStartPos.y - moveAmount, animDuration).SetEase(easeType);
+        jawTop.transform.DOLocalMoveY(jawTopStartPos.y + moveAmount, animDuration).SetEase(easeType).SetLink(gameObject);
+        jawBottom.transform.DOLocalMoveY(jawBottomStartPos.y - moveAmount, animDuration).SetEase(easeType).SetLink(gameObject);
     }
 
     public void CloseJaw()
     {
-        jawTop.transform.DOLocalMoveY(jawTopStartPos.y, animDuration).SetEase(easeType);
-        jawBottom.transform.DOLocalMoveY(jawBottomStartPos.y, animDuration).SetEase(easeType);
+        jawTop.transform.DOLocalMoveY(jawTopStartPos.y, animDuration).SetEase(easeType).SetLink(gameObject);
+        jawBottom.transform.DOLocalMoveY(jawBottomStartPos.y, animDuration).SetEase(easeType).SetLink(gameObject);
     }
     public IEnumerator JawSequence()
     {

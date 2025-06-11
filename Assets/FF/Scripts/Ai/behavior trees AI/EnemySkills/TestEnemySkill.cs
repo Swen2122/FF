@@ -6,7 +6,7 @@ public class TestEnemySkill : BaseSkills
     {
         Debug.Log("UseSkill");
         Vector2 shoterPosition = gameObject.transform.position;
-        Vector2 targetPosition = (Vector2)Controler.Instance.transform.position - shoterPosition;
+        Vector2 targetPosition = (Vector2)Controller.Instance.transform.position - shoterPosition;
         Rigidbody2D rb = GetComponentInParent<Rigidbody2D>();
         rb.AddForce(targetPosition*10, ForceMode2D.Impulse);
     }

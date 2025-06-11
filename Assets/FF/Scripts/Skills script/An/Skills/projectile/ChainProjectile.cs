@@ -6,7 +6,6 @@ public class ChainProjectile : DefaultProjectile
 {
     [Header("Chain Settings")]
     [SerializeField] private float chainRange = 5f;
-    [SerializeField] private LayerMask targetLayer;
     [SerializeField] private Element damageType;
     [SerializeField] private int maxJumps = 3;
     [SerializeField] private bool randomTargetSelection = false;
@@ -253,9 +252,9 @@ public class ChainProjectile : DefaultProjectile
         currentJumpSequence?.Kill();
     }
 
-    public override void Initialize(ProjectileData projectileData, Vector2 target, Element element)
+    public override void Initialize(ProjectileData projectileData, Vector2 target, Element element, LayerMask targetLayer)
     {
-        base.Initialize(projectileData, target, element);
+        base.Initialize(projectileData, target, element, targetLayer);
         currentElement = element;
         lastValidPosition = transform.position;
     }

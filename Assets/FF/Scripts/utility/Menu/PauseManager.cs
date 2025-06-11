@@ -57,6 +57,7 @@ public class PauseManager : MonoBehaviour
     public void QuitMenu()
     {
         Resume();
+        DG.Tweening.DOTween.KillAll();
         LevelLoader.LoadLevel("MainMenu");
         Debug.Log("Quitting game...");
     }

@@ -1,4 +1,3 @@
-// Декоратор - Inverter (інвертує результат)
 public class Inverter : Node
 {
     public Inverter(Node child)

@@ -1,12 +1,12 @@
 using UnityEngine;
 
-public class Controler : MonoBehaviour
+public class Controller : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D body;
     [SerializeField] private Animator anim;
     [SerializeField] private SpriteRenderer SRenderer;
 
-    public static Controler Instance { get; private set; }
+    public static Controller Instance { get; private set; }
     public bool CanDash { get; set; } = true;
     // Movement
     float horizontal;
@@ -42,6 +42,24 @@ public class Controler : MonoBehaviour
         body.linearDamping = 1f; // Додаємо опір руху
         body.constraints = RigidbodyConstraints2D.FreezeRotation; // Запобігаємо обертанню
     }
+    private void Start()
+    {
+        // Ініціалізація
+        if (body == null)
+        {
+            Debug.LogError("Rigidbody2D not found on the player object.");
+        }
+        if (anim == null)
+        {
+            Debug.LogError("Animator not found on the player object.");
+        }
+        if (SRenderer == null)
+        {
+            Debug.LogError("SpriteRenderer not found on the player object.");
+        }
+        PlayerEvents.OnPlayerSpawned?.Invoke(transform);
+    }
+
 
     void Update()
     {

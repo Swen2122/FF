@@ -16,4 +16,8 @@ MonoBehaviour:
   deathAudio: {fileID: 8300000, guid: 77d2f8e01564af14ca8ae83b64554143, type: 3}
   hit_audio: {fileID: 8300000, guid: 0433735bdfc44194e830ef71c8faa872, type: 3}
   energyStat: []
-  resistStat: []
+  resistStat:
+  - elementType: 1
+    resistance: 10
+  - elementType: 4
+    resistance: -10

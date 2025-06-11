@@ -53,15 +53,13 @@ public class ShieldSegmentManager : MonoBehaviour
     }
     private System.Collections.IEnumerator Return(ReactionItem item)
     {
-        Debug.Log("Release: " + item.name);
         segmentPool.Release(item);
         yield return new WaitForSeconds(0.3f);
         var newitem = segmentPool.Get();
-        Debug.Log("Get from pool: " + newitem.name);
         var altProjectile = newitem.GetComponent<AltProjectile>();
         if (altProjectile != null) altProjectile.Initialize(this);
         newitem.transform.parent = target;
         segments.Add(newitem.transform);
-        Debug.Log("Segments count: " + segments.Count);
+       
     }
 }

@@ -95,7 +95,7 @@ Material:
     - _Scale_Volume: 0.03
     - _SimpleNoise: 0
     - _Spread: 0.001
-    - _WaterSpeedX: 0.3
+    - _WaterSpeedX: 0.16
     - _WaterSpeedY: 0
     - _ZWrite: 0
     m_Colors:

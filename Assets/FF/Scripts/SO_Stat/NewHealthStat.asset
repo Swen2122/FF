@@ -40,7 +40,7 @@ MonoBehaviour:
   - elementType: 2
     resistance: 1
   - elementType: 3
-    resistance: 1
+    resistance: 0.5
   - elementType: 4
     resistance: 1
   - elementType: 5

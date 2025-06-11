@@ -3,7 +3,7 @@ using UnityEngine;
 public class CharterStats : MonoBehaviour
 {
     public StatsData statsData;
-    public Controler controler;
+    public Controller controler;
     public Health health;
     public float damageModifier = 1f;
     public float speedModifier = 1f;

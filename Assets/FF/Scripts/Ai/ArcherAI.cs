@@ -15,7 +15,7 @@ public class ArcherAI : BaseEnemyAI
             attackSequence.Attach(new CheckDistanceToPlayer(this, attackRange, true));
             attackSequence.Attach(new Inverter(new CheckDistanceToPlayer(this, minDistance, true)));
             attackSequence.Attach(new CheckLineOfSight(this, obstacleLayer));
-            attackSequence.Attach(new UseSkillPosition(this, Controler.Instance.transform.position, TriggerType.damage));
+            attackSequence.Attach(new UseSkillPosition(this, Controller.Instance.transform.position, TriggerType.damage));
         
         SequenceNode retreatSequence = new SequenceNode();
             retreatSequence.Attach(new CheckDistanceToPlayer(this, minDistance, true));

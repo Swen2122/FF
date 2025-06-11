@@ -12,6 +12,8 @@ public abstract class BaseProjectile : MonoBehaviour, IElementalObject
     protected Transform target;
     protected Vector2 targetPosition;
 
+    protected LayerMask targetLayer; // Додаємо поле
+
     public Element CurrentElement => currentElement;
     public GameObject GameObject => gameObject;
     public bool CanTriggerReaction => data.canTriggerReaction && !hasReacted;
@@ -20,15 +22,16 @@ public abstract class BaseProjectile : MonoBehaviour, IElementalObject
     {
         rb = GetComponent<Rigidbody2D>();
     }
-    public virtual void Initialize(ProjectileData projectileData, Vector2 target, Element element)
+    public virtual void Initialize(ProjectileData projectileData, Vector2 target, Element element, LayerMask targetLayer)
     {
         targetPosition = target;
         data = projectileData;
         speed = data.speed;
         currentElement = element;
         damage = data.damage;
+        this.targetLayer = targetLayer; // Зберігаємо LayerMask
         if(usePhisics)Move();
-  
+
         HandleInitialEffects();
         Destroy(gameObject, data.range);
     }
@@ -43,6 +46,10 @@ public abstract class BaseProjectile : MonoBehaviour, IElementalObject
     }
     protected virtual void OnTriggerEnter2D(Collider2D other)
     {
+        // Перевіряємо, чи шар об'єкта входить у targetLayer
+        if (((1 << other.gameObject.layer) & targetLayer) == 0)
+            return; // Якщо не входить — ігноруємо
+
         if (CanTriggerReaction)
         {
             if(other.TryGetComponent<ReactionItem>(out var item))

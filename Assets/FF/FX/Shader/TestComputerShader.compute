@@ -1,0 +1,40 @@
+#pragma kernel CSMain
+
+RWTexture2D<float4> Result;
+int2 Resolution;
+float Time;
+
+uint hash(uint x) {
+    x ^= x << 13;
+    x ^= x >> 17;
+    x ^= x << 5;
+    return x;
+}
+
+float randf(float x) {
+    return (hash(asuint(x)) & 0x00FFFFFF) / 16777215.0;
+}
+
+float lightning(float2 uv, float t) {
+    float2 pos = (uv - 0.5) * 2.0;
+    float dist = length(pos);
+    float angle = atan2(pos.y, pos.x);
+    float deviations = randf(angle * 100.0 + t);
+    float beam = smoothstep(0.0, 0.02, abs(dist - deviations * 0.8));
+    float branches = 0;
+    for (int i = 1; i <= 3; i++) {
+        float a = angle + (randf(angle * i + t) - 0.5) * (1.0 / i);
+        float2 p = pos + float2(cos(a), sin(a)) * (i * 0.2);
+        branches += smoothstep(0.0, 0.03, 1.0 - length(p));
+    }
+    return saturate(beam + branches * 0.5);
+}
+
+[numthreads(8,8,1)]
+void CSMain(uint3 id : SV_DispatchThreadID)
+{
+    if (id.x >= Resolution.x || id.y >= Resolution.y) return;
+    float2 uv = id.xy / (float2)Resolution;
+    float f = lightning(uv, Time * 1.5);
+    Result[id.xy] = float4(f, f, f, f);
+}

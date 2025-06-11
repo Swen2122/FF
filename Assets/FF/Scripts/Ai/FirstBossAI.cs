@@ -7,7 +7,7 @@ public class FirstBossAI : BaseEnemyAI
         rootNode = new Selector();
         SequenceNode attackSequence = new SequenceNode();
         attackSequence.Attach(new CheckDistanceToPlayer(this, attackRange, true));
-        attackSequence.Attach(new UseSkillPosition(this, Controler.Instance.transform.position, TriggerType.damage));
+        attackSequence.Attach(new UseSkillPosition(this, Controller.Instance.transform.position, TriggerType.damage));
         rootNode.Attach(attackSequence);
         
     }
